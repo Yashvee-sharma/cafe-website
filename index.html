@@ -1,1711 +1,1554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>The Quiet Chapter | Coffee & Books</title>
+<title>The Quiet Chapter | Coffee & Books</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
 
-  <style>
+/* =====================================================
+   THE QUIET CHAPTER
+===================================================== */
 
-    /* =====================================================
-       THE QUIET CHAPTER
-       COMPLETE STYLES
-    ===================================================== */
+:root {
+    --espresso: #35251f;
+    --dark-roast: #1e1714;
+    --coffee: #604537;
+    --caramel: #b9845a;
+    --cream: #f5efe6;
+    --oat: #e9ded0;
+    --white: #fffaf4;
+    --muted: #76685f;
+}
 
-    :root {
-      --espresso: #35251f;
-      --dark-roast: #1e1714;
-      --coffee: #604537;
-      --caramel: #b9845a;
-      --cream: #f5efe6;
-      --oat: #e9ded0;
-      --white: #fffaf4;
-      --muted: #76685f;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Manrope", sans-serif;
+    background: var(--cream);
+    color: var(--espresso);
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+blockquote {
+    font-family: "Cormorant Garamond", serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+#loader {
+    position: fixed;
+    inset: 0;
+
+    background: var(--cream);
+
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+#loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.cup {
+    width: 95px;
+    height: 65px;
+
+    border: 4px solid var(--espresso);
+
+    border-radius: 8px 8px 28px 28px;
+
+    margin: 35px auto 20px;
+
+    position: relative;
+}
+
+.cup::after {
+    content: "";
+
+    position: absolute;
+
+    width: 30px;
+    height: 32px;
+
+    border: 4px solid var(--espresso);
+    border-left: none;
+
+    right: -31px;
+    top: 10px;
+
+    border-radius: 0 18px 18px 0;
+}
+
+.coffee-fill {
+    position: absolute;
+
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+
+    height: 0;
+
+    background: var(--coffee);
+
+    border-radius: 3px 3px 20px 20px;
+
+    animation: fillCoffee 2.2s ease forwards;
+}
+
+@keyframes fillCoffee {
+    to {
+        height: 52px;
+    }
+}
+
+.steam {
+    position: absolute;
+
+    top: -40px;
+
+    width: 3px;
+    height: 30px;
+
+    background: var(--caramel);
+
+    border-radius: 10px;
+
+    opacity: 0;
+
+    animation: steam 1.6s infinite ease-in-out;
+}
+
+.steam.one {
+    left: 25px;
+}
+
+.steam.two {
+    left: 47px;
+    animation-delay: .35s;
+}
+
+.steam.three {
+    left: 67px;
+    animation-delay: .7s;
+}
+
+@keyframes steam {
+
+    0% {
+        transform: translateY(8px) scaleY(.7);
+        opacity: 0;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    50% {
+        opacity: .6;
     }
 
-    html {
-      scroll-behavior: smooth;
+    100% {
+        transform: translateY(-20px) scaleY(1.2);
+        opacity: 0;
     }
 
-    body {
-      font-family: "Manrope", sans-serif;
-      background: var(--cream);
-      color: var(--espresso);
-      overflow-x: hidden;
+}
+
+.loader-content p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-style: italic;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 22px 7%;
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: var(--white);
+
+    transition: .3s;
+}
+
+nav.scrolled {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    background: rgba(30, 23, 20, .96);
+
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+
+    gap: 27px;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.2px;
+}
+
+.nav-links a {
+    opacity: .86;
+    transition: .25s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    color: #f1d5b9;
+}
+
+.reserve {
+    border: 1px solid rgba(255,255,255,.7);
+
+    padding: 11px 17px;
+
+    border-radius: 30px;
+}
+
+
+/* Dropdown */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+
+    top: 30px;
+    left: -25px;
+
+    width: 235px;
+
+    padding: 18px;
+
+    background: var(--espresso);
+
+    border-radius: 12px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(10px);
+
+    transition: .25s;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+
+    padding: 10px;
+
+    text-transform: none;
+
+    letter-spacing: 0;
+
+    border-radius: 7px;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255,255,255,.08);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 130px 8% 80px;
+
+    color: var(--white);
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(25,16,12,.84),
+            rgba(25,16,12,.46),
+            rgba(25,16,12,.16)
+        ),
+        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85")
+        center / cover no-repeat;
+}
+
+.hero-content {
+    max-width: 760px;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+.eyebrow {
+    margin-bottom: 22px;
+
+    color: #e7c6a6;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    margin-bottom: 30px;
+
+    font-size: clamp(55px, 7vw, 100px);
+
+    font-weight: 500;
+
+    line-height: .92;
+}
+
+.hero p {
+    max-width: 520px;
+
+    color: rgba(255,255,255,.82);
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 35px;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 14px 24px;
+
+    border: 1px solid var(--white);
+
+    border-radius: 30px;
+
+    transition: .3s;
+}
+
+.btn-primary {
+    background: var(--cream);
+    color: var(--espresso);
+}
+
+.btn-primary:hover {
+    background: var(--oat);
+
+    transform: translateY(-3px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,.12);
+}
+
+
+/* =====================================================
+   COFFEE BEANS
+===================================================== */
+
+.bean {
+    position: absolute;
+
+    width: 55px;
+    height: 80px;
+
+    z-index: 3;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #9b6a4b,
+            #583526 45%,
+            #241510 80%
+        );
+
+    box-shadow: 8px 15px 25px rgba(0,0,0,.35);
+
+    animation: floatingBean 7s ease-in-out infinite;
+}
+
+.bean::after {
+    content: "";
+
+    position: absolute;
+
+    top: 10%;
+    left: 48%;
+
+    width: 4px;
+    height: 80%;
+
+    background: rgba(20,10,7,.7);
+
+    border-radius: 50%;
+
+    transform: rotate(7deg);
+}
+
+.bean1 {
+    top: 25%;
+    right: 12%;
+
+    transform: rotate(30deg) scale(.9);
+}
+
+.bean2 {
+    top: 65%;
+    right: 25%;
+
+    transform: rotate(-20deg) scale(.55);
+
+    animation-delay: 1s;
+}
+
+.bean3 {
+    top: 15%;
+    right: 36%;
+
+    transform: rotate(70deg) scale(.45);
+
+    animation-delay: 2s;
+}
+
+.bean4 {
+    bottom: 8%;
+    right: 6%;
+
+    transform: rotate(-35deg) scale(1.1);
+
+    animation-delay: 3s;
+}
+
+@keyframes floatingBean {
+
+    0%,
+    100% {
+        translate: 0 0;
+        rotate: 0deg;
+    }
+
+    50% {
+        translate: 0 -25px;
+        rotate: 12deg;
+    }
+
+}
+
+
+/* =====================================================
+   SHARED SECTION STYLING
+===================================================== */
+
+section {
+    padding: 110px 8%;
+}
+
+.section-label {
+    margin-bottom: 15px;
+
+    color: var(--caramel);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: clamp(42px, 5vw, 70px);
+
+    font-weight: 500;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   OUR STORY
+===================================================== */
+
+.story {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8%;
+
+    align-items: center;
+}
+
+.story-image {
+    height: 620px;
+
+    overflow: hidden;
+
+    border-radius: 5px;
+}
+
+.story-image img {
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform .7s;
+}
+
+.story-image:hover img {
+    transform: scale(1.04);
+}
+
+.story-text p {
+    max-width: 550px;
+
+    margin-top: 28px;
+
+    color: var(--muted);
+
+    line-height: 1.9;
+}
+
+.story-signoff {
+    color: var(--espresso) !important;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 26px;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+#menu {
+    background: var(--dark-roast);
+
+    color: var(--cream);
+}
+
+.menu-header {
+    max-width: 700px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.menu-header p {
+    margin-top: 20px;
+
+    color: #bcaea5;
+}
+
+.tabs {
+    margin: 55px auto 45px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 12px 21px;
+
+    color: #bcaea5;
+
+    background: transparent;
+
+    border: 1px solid #5a4940;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.tab:hover,
+.tab.active {
+    color: var(--espresso);
+
+    background: var(--cream);
+
+    border-color: var(--cream);
+}
+
+.category-description {
+    min-height: 58px;
+
+    max-width: 670px;
+
+    margin: 0 auto 40px;
+
+    color: #a99990;
+
+    text-align: center;
+
+    line-height: 1.8;
+}
+
+.menu-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+.menu-card {
+    position: relative;
+
+    padding: 27px;
+
+    border: 1px solid #493b34;
+
+    border-radius: 12px;
+
+    transition: .3s;
+}
+
+.menu-card:hover {
+    background: #291f1b;
+
+    border-color: #7d5d4c;
+
+    transform: translateY(-5px);
+}
+
+.menu-card h3 {
+    padding-right: 70px;
+
+    font-size: 27px;
+
+    font-weight: 500;
+}
+
+.menu-card p {
+    margin-top: 8px;
+
+    padding-right: 55px;
+
+    color: #9e8e85;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.price {
+    position: absolute;
+
+    top: 29px;
+    right: 24px;
+
+    color: #d3a77f;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   PHILOSOPHY
+===================================================== */
+
+.philosophy {
+    min-height: 500px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+}
+
+.philosophy blockquote {
+    max-width: 900px;
+
+    font-size: clamp(40px, 5vw, 72px);
+
+    font-weight: 400;
+
+    line-height: 1.12;
+}
+
+.philosophy p {
+    margin-top: 30px;
+
+    color: var(--caramel);
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   REGULARS
+===================================================== */
+
+.regulars {
+    background: var(--oat);
+}
+
+.regulars-heading {
+    margin-bottom: 55px;
+
+    text-align: center;
+}
+
+.character-grid {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+
+    max-width: 1300px;
+
+    margin: auto;
+}
+
+.character {
+    padding: 35px 24px;
+
+    background: var(--cream);
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    transition: .3s;
+}
+
+.character:hover {
+    transform: translateY(-7px);
+
+    box-shadow: 0 18px 45px rgba(53,37,31,.09);
+}
+
+.avatar {
+    width: 85px;
+    height: 85px;
+
+    margin: 0 auto 20px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: var(--espresso);
+
+    color: var(--cream);
+
+    border-radius: 50%;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 32px;
+}
+
+.character h3 {
+    font-size: 28px;
+}
+
+.character span {
+    display: block;
+
+    margin: 5px 0 15px;
+
+    color: var(--caramel);
+
+    font-size: 10px;
+
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+}
+
+.character p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   LIBRARY
+===================================================== */
+
+.library {
+    min-height: 650px;
+
+    display: flex;
+
+    align-items: center;
+
+    color: var(--white);
+
+    background:
+        linear-gradient(
+            rgba(25,16,12,.67),
+            rgba(25,16,12,.67)
+        ),
+        url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=85")
+        center / cover fixed;
+}
+
+.library-content {
+    max-width: 700px;
+}
+
+.library p {
+    max-width: 540px;
+
+    margin-top: 25px;
+
+    color: rgba(255,255,255,.8);
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   FIND YOUR QUIET CORNER
+===================================================== */
+
+.quiet-corner {
+    position: relative;
+
+    overflow: hidden;
+
+    background: var(--espresso);
+
+    color: var(--cream);
+}
+
+.corner-header {
+    max-width: 750px;
+
+    margin: 0 auto 55px;
+
+    text-align: center;
+}
+
+.corner-header .section-title {
+    color: var(--cream);
+}
+
+.corner-header p {
+    max-width: 600px;
+
+    margin: 22px auto 0;
+
+    color: rgba(245,239,230,.67);
+
+    line-height: 1.8;
+}
+
+
+/* Decorative circle */
+
+.quiet-corner::before {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    right: -250px;
+    top: -250px;
+
+    background: rgba(255,250,244,.035);
+
+    border-radius: 50%;
+}
+
+
+/* Mood selection */
+
+.mood-grid {
+    position: relative;
+
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+
+    max-width: 1150px;
+
+    margin: auto;
+}
+
+.mood-card {
+    min-height: 245px;
+
+    padding: 30px 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    color: var(--cream);
+
+    background: transparent;
+
+    border: 1px solid rgba(245,239,230,.2);
+
+    border-radius: 15px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .35s ease;
+}
+
+.mood-card:hover {
+    color: var(--espresso);
+
+    background: var(--cream);
+
+    border-color: var(--cream);
+
+    transform: translateY(-8px);
+}
+
+.mood-symbol {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: rgba(255,255,255,.08);
+
+    border-radius: 50%;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 25px;
+
+    transition: .3s;
+}
+
+.mood-card:hover .mood-symbol {
+    color: var(--cream);
+
+    background: var(--espresso);
+}
+
+.mood-card strong {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 29px;
+
+    font-weight: 500;
+}
+
+.mood-card small {
+    color: rgba(245,239,230,.55);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.mood-card:hover small {
+    color: rgba(53,37,31,.65);
+}
+
+
+/* =====================================================
+   RECOMMENDATION
+===================================================== */
+
+.corner-result {
+    display: none;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    animation: revealResult .6s ease;
+}
+
+.corner-result.visible {
+    display: block;
+}
+
+@keyframes revealResult {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.result-label {
+    margin-bottom: 15px;
+
+    color: var(--caramel);
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-align: center;
+
+    text-transform: uppercase;
+}
+
+.result-title {
+    margin-bottom: 45px;
+
+    color: var(--cream);
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(45px, 6vw, 75px);
+
+    font-weight: 500;
+
+    text-align: center;
+}
+
+.result-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    border: 1px solid rgba(245,239,230,.17);
+
+    border-radius: 15px;
+
+    overflow: hidden;
+}
+
+.result-item {
+    min-height: 220px;
+
+    padding: 30px;
+
+    border-right: 1px solid rgba(245,239,230,.15);
+}
+
+.result-item:last-child {
+    border-right: none;
+}
+
+.result-icon {
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-size: 25px;
+}
+
+.result-item span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: var(--caramel);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+.result-item h3 {
+    color: var(--cream);
+
+    font-size: 25px;
+
+    font-weight: 500;
+}
+
+.result-item p {
+    margin-top: 8px;
+
+    color: rgba(245,239,230,.55);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.corner-quote {
+    max-width: 700px;
+
+    margin: 45px auto 0;
+
+    color: var(--cream);
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: 30px;
+
+    font-style: italic;
+
+    line-height: 1.3;
+
+    text-align: center;
+}
+
+.choose-again {
+    display: block;
+
+    margin: 35px auto 0;
+
+    padding: 12px 20px;
+
+    color: var(--cream);
+
+    background: transparent;
+
+    border: 1px solid rgba(245,239,230,.4);
+
+    border-radius: 30px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.choose-again:hover {
+    color: var(--espresso);
+
+    background: var(--cream);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    padding: 70px 8% 35px;
+
+    color: var(--cream);
+
+    background: var(--dark-roast);
+}
+
+.footer-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 40px;
+
+    padding-bottom: 50px;
+
+    border-bottom: 1px solid #433630;
+}
+
+footer h2 {
+    font-size: 38px;
+}
+
+footer p {
+    margin-top: 8px;
+
+    color: #9e8e85;
+}
+
+.footer-links {
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: var(--caramel);
+}
+
+.footer-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 30px;
+
+    color: #776a63;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mood-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .result-item {
+        border-bottom: 1px solid rgba(245,239,230,.15);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    nav {
+        padding: 18px 6%;
+    }
+
+    .logo {
+        max-width: 80%;
+
+        font-size: 20px;
+
+        overflow-wrap: anywhere;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    section {
+        padding: 75px 6%;
     }
 
     h1,
     h2,
     h3,
+    p,
     blockquote {
-      font-family: "Cormorant Garamond", serif;
-    }
+        max-width: 100%;
 
-    button,
-    a {
-      font: inherit;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    button {
-      border: none;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
+        overflow-wrap: anywhere;
     }
 
 
-    /* =====================================================
-       LOADING SCREEN
-    ===================================================== */
-
-    #loader {
-      position: fixed;
-      inset: 0;
-
-      background: var(--cream);
-
-      z-index: 9999;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      transition:
-        opacity .7s ease,
-        visibility .7s ease;
-    }
-
-    #loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-content {
-      text-align: center;
-    }
-
-    .cup {
-      width: 95px;
-      height: 65px;
-
-      border: 4px solid var(--espresso);
-
-      border-radius:
-        8px 8px 28px 28px;
-
-      margin: 35px auto 20px;
-
-      position: relative;
-    }
-
-    .cup::after {
-      content: "";
-
-      position: absolute;
-
-      width: 30px;
-      height: 32px;
-
-      border: 4px solid var(--espresso);
-      border-left: none;
-
-      right: -31px;
-      top: 10px;
-
-      border-radius:
-        0 18px 18px 0;
-    }
-
-    .coffee-fill {
-      position: absolute;
-
-      left: 4px;
-      right: 4px;
-      bottom: 4px;
-
-      height: 0;
-
-      background: var(--coffee);
-
-      border-radius:
-        3px 3px 20px 20px;
-
-      animation:
-        fillCoffee 2.4s ease forwards;
-    }
-
-    @keyframes fillCoffee {
-      to {
-        height: 52px;
-      }
-    }
-
-    .steam {
-      position: absolute;
-
-      top: -40px;
-
-      width: 3px;
-      height: 30px;
-
-      border-radius: 10px;
-
-      background: var(--caramel);
-
-      opacity: 0;
-
-      animation:
-        steam 1.6s infinite ease-in-out;
-    }
-
-    .steam.one {
-      left: 25px;
-    }
-
-    .steam.two {
-      left: 47px;
-      animation-delay: .35s;
-    }
-
-    .steam.three {
-      left: 67px;
-      animation-delay: .7s;
-    }
-
-    @keyframes steam {
-
-      0% {
-        transform:
-          translateY(8px)
-          scaleY(.7);
-
-        opacity: 0;
-      }
-
-      50% {
-        opacity: .6;
-      }
-
-      100% {
-        transform:
-          translateY(-20px)
-          scaleY(1.2);
-
-        opacity: 0;
-      }
-
-    }
-
-    .loader-content p {
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 22px;
-      font-style: italic;
-    }
-
-
-    /* =====================================================
-       NAVIGATION
-    ===================================================== */
-
-    nav {
-      position: fixed;
-
-      width: 100%;
-
-      top: 0;
-      left: 0;
-
-      z-index: 1000;
-
-      padding: 22px 7%;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      color: var(--white);
-
-      transition: .3s ease;
-    }
-
-    nav.scrolled {
-      background:
-        rgba(30, 23, 20, .96);
-
-      padding-top: 16px;
-      padding-bottom: 16px;
-
-      backdrop-filter: blur(12px);
-    }
-
-    .logo {
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 24px;
-      font-weight: 700;
-
-      letter-spacing: 1px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-
-      gap: 28px;
-
-      list-style: none;
-
-      font-size: 12px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1.2px;
-    }
-
-    .nav-links a {
-      opacity: .86;
-
-      transition: .25s;
-    }
-
-    .nav-links a:hover {
-      opacity: 1;
-      color: #f1d5b9;
-    }
-
-
-    /* Dropdown */
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-
-      top: 30px;
-      left: -25px;
-
-      width: 240px;
-
-      background: var(--espresso);
-
-      padding: 20px;
-
-      border-radius: 12px;
-
-      opacity: 0;
-      visibility: hidden;
-
-      transform:
-        translateY(10px);
-
-      transition: .25s ease;
-    }
-
-    .dropdown:hover
-    .dropdown-menu {
-      opacity: 1;
-
-      visibility: visible;
-
-      transform:
-        translateY(0);
-    }
-
-    .dropdown-menu a {
-      display: block;
-
-      padding: 10px;
-
-      text-transform: none;
-
-      letter-spacing: 0;
-
-      border-radius: 7px;
-    }
-
-    .dropdown-menu a:hover {
-      background:
-        rgba(255,255,255,.08);
-    }
-
-    .reserve {
-      border:
-        1px solid
-        rgba(255,255,255,.7);
-
-      padding:
-        11px 17px;
-
-      border-radius: 30px;
-    }
-
-
-    /* =====================================================
-       HERO
-    ===================================================== */
+    /* Hero */
 
     .hero {
-      min-height: 100vh;
+        min-height: 100svh;
 
-      position: relative;
-
-      display: flex;
-      align-items: center;
-
-      padding:
-        130px 8% 80px;
-
-      background:
-
-        linear-gradient(
-          90deg,
-          rgba(25,16,12,.84),
-          rgba(25,16,12,.46),
-          rgba(25,16,12,.16)
-        ),
-
-        url(
-          "https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85"
-        )
-        center/cover no-repeat;
-
-      color: var(--white);
-
-      overflow: hidden;
-    }
-
-    .hero-content {
-      max-width: 760px;
-
-      position: relative;
-
-      z-index: 5;
-    }
-
-    .eyebrow {
-      font-size: 12px;
-
-      letter-spacing: 3px;
-
-      text-transform: uppercase;
-
-      margin-bottom: 22px;
-
-      color: #e7c6a6;
+        padding: 120px 6% 60px;
     }
 
     .hero h1 {
-      font-size:
-        clamp(55px,7vw,100px);
+        font-size: clamp(48px, 14vw, 70px);
 
-      font-weight: 500;
-
-      line-height: .92;
-
-      margin-bottom: 30px;
+        line-height: .98;
     }
 
     .hero p {
-      max-width: 520px;
-
-      font-size: 17px;
-
-      line-height: 1.8;
-
-      color:
-        rgba(255,255,255,.82);
+        font-size: 15px;
     }
 
     .hero-buttons {
-      display: flex;
+        flex-direction: column;
 
-      gap: 14px;
-
-      margin-top: 35px;
-    }
-
-    .btn {
-      display: inline-block;
-
-      padding:
-        14px 24px;
-
-      border-radius: 30px;
-
-      border:
-        1px solid
-        var(--white);
-
-      transition: .3s;
-    }
-
-    .btn-primary {
-      background:
-        var(--cream);
-
-      color:
-        var(--espresso);
-    }
-
-    .btn-primary:hover {
-      background:
-        var(--oat);
-
-      transform:
-        translateY(-3px);
-    }
-
-    .btn-secondary:hover {
-      background:
-        rgba(255,255,255,.12);
+        align-items: flex-start;
     }
 
 
-    /* =====================================================
-       FLOATING 3D-STYLE COFFEE BEANS
-    ===================================================== */
-
-    .bean {
-      position: absolute;
-
-      width: 55px;
-      height: 80px;
-
-      background:
-
-        radial-gradient(
-          circle at 35% 30%,
-          #9b6a4b,
-          #583526 45%,
-          #241510 80%
-        );
-
-      border-radius: 50%;
-
-      z-index: 3;
-
-      box-shadow:
-        8px 15px 25px
-        rgba(0,0,0,.35);
-
-      animation:
-        floatBean 7s
-        ease-in-out infinite;
-    }
-
-    .bean::after {
-      content: "";
-
-      position: absolute;
-
-      top: 10%;
-      left: 48%;
-
-      width: 4px;
-      height: 80%;
-
-      background:
-        rgba(20,10,7,.7);
-
-      border-radius: 50%;
-
-      transform:
-        rotate(7deg);
-    }
-
-    .bean1 {
-      top: 25%;
-      right: 12%;
-
-      transform:
-        rotate(30deg)
-        scale(.9);
-    }
-
-    .bean2 {
-      top: 65%;
-      right: 25%;
-
-      transform:
-        rotate(-20deg)
-        scale(.55);
-
-      animation-delay: 1s;
-    }
-
-    .bean3 {
-      top: 15%;
-      right: 36%;
-
-      transform:
-        rotate(70deg)
-        scale(.45);
-
-      animation-delay: 2s;
-    }
-
-    .bean4 {
-      bottom: 8%;
-      right: 6%;
-
-      transform:
-        rotate(-35deg)
-        scale(1.1);
-
-      animation-delay: 3s;
-    }
-
-    @keyframes floatBean {
-
-      0%,
-      100% {
-        translate: 0 0;
-        rotate: 0deg;
-      }
-
-      50% {
-        translate: 0 -25px;
-        rotate: 12deg;
-      }
-
-    }
-
-
-    /* =====================================================
-       SHARED SECTIONS
-    ===================================================== */
-
-    section {
-      padding:
-        110px 8%;
-    }
-
-    .section-label {
-      text-transform: uppercase;
-
-      letter-spacing: 3px;
-
-      font-size: 11px;
-
-      color:
-        var(--caramel);
-
-      margin-bottom: 15px;
-    }
-
-    .section-title {
-      font-size:
-        clamp(42px,5vw,70px);
-
-      font-weight: 500;
-
-      line-height: 1;
-    }
-
-
-    /* =====================================================
-       OUR STORY
-    ===================================================== */
+    /* Story */
 
     .story {
-      display: grid;
+        grid-template-columns: 1fr;
 
-      grid-template-columns:
-        1fr 1fr;
-
-      gap: 8%;
-
-      align-items: center;
+        gap: 45px;
     }
 
     .story-image {
-      height: 620px;
-
-      border-radius: 5px;
-
-      overflow: hidden;
+        height: 420px;
     }
 
-    .story-image img {
-      width: 100%;
-      height: 100%;
+    .section-title {
+        font-size: clamp(38px, 11vw, 55px);
 
-      object-fit: cover;
-
-      transition:
-        transform .7s;
-    }
-
-    .story-image:hover img {
-      transform:
-        scale(1.04);
-    }
-
-    .story-text p {
-      margin-top: 28px;
-
-      line-height: 1.9;
-
-      color:
-        var(--muted);
-
-      max-width: 550px;
-    }
-
-    .story-signoff {
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 26px;
-
-      font-style: italic;
-
-      color:
-        var(--espresso)
-        !important;
+        line-height: 1.05;
     }
 
 
-    /* =====================================================
-       MENU
-    ===================================================== */
-
-    #menu {
-      background:
-        var(--dark-roast);
-
-      color:
-        var(--cream);
-    }
-
-    .menu-header {
-      text-align: center;
-
-      max-width: 700px;
-
-      margin: auto;
-    }
-
-    .menu-header p {
-      margin-top: 20px;
-
-      color: #bcaea5;
-    }
+    /* Menu */
 
     .tabs {
-      margin:
-        55px auto 45px;
+        margin: 40px auto 30px;
 
-      display: flex;
-
-      justify-content: center;
-
-      gap: 10px;
-
-      flex-wrap: wrap;
+        gap: 8px;
     }
 
     .tab {
-      background: transparent;
+        padding: 10px 15px;
 
-      color: #bcaea5;
-
-      border:
-        1px solid #5a4940;
-
-      border-radius: 30px;
-
-      padding:
-        12px 21px;
-
-      cursor: pointer;
-
-      transition: .3s;
-    }
-
-    .tab:hover,
-    .tab.active {
-      background:
-        var(--cream);
-
-      color:
-        var(--espresso);
-
-      border-color:
-        var(--cream);
+        font-size: 12px;
     }
 
     .category-description {
-      max-width: 670px;
-
-      text-align: center;
-
-      margin:
-        0 auto 40px;
-
-      color: #a99990;
-
-      line-height: 1.8;
-
-      min-height: 58px;
+        min-height: auto;
     }
 
     .menu-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2,1fr);
-
-      gap: 18px;
-
-      max-width: 1000px;
-
-      margin: auto;
-    }
-
-    .menu-card {
-      border:
-        1px solid #493b34;
-
-      padding: 27px;
-
-      border-radius: 12px;
-
-      position: relative;
-
-      transition: .3s;
-    }
-
-    .menu-card:hover {
-      background: #291f1b;
-
-      transform:
-        translateY(-5px);
-
-      border-color:
-        #7d5d4c;
+        grid-template-columns: 1fr;
     }
 
     .menu-card h3 {
-      font-size: 27px;
+        padding-right: 65px;
 
-      font-weight: 500;
-
-      padding-right: 65px;
+        font-size: 24px;
     }
 
     .menu-card p {
-      color: #9e8e85;
-
-      font-size: 13px;
-
-      margin-top: 8px;
-
-      line-height: 1.6;
-
-      padding-right: 55px;
-    }
-
-    .price {
-      position: absolute;
-
-      right: 24px;
-      top: 29px;
-
-      color: #d3a77f;
-
-      font-weight: 600;
+        padding-right: 0;
     }
 
 
-    /* =====================================================
-       PHILOSOPHICAL QUOTE
-    ===================================================== */
+    /* Philosophy */
 
     .philosophy {
-      min-height: 500px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
+        min-height: 400px;
     }
 
     .philosophy blockquote {
-      max-width: 900px;
-
-      font-size:
-        clamp(40px,5vw,72px);
-
-      line-height: 1.12;
-
-      font-weight: 400;
-    }
-
-    .philosophy p {
-      margin-top: 30px;
-
-      color:
-        var(--caramel);
-
-      letter-spacing: 2px;
-
-      text-transform: uppercase;
-
-      font-size: 11px;
+        font-size: clamp(34px, 10vw, 52px);
     }
 
 
-    /* =====================================================
-       MEET THE REGULARS
-    ===================================================== */
-
-    .regulars {
-      background:
-        var(--oat);
-    }
-
-    .regulars-heading {
-      text-align: center;
-
-      margin-bottom: 55px;
-    }
+    /* Characters */
 
     .character-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(5,1fr);
-
-      gap: 18px;
-
-      max-width: 1300px;
-
-      margin: auto;
-    }
-
-    .character {
-      background:
-        var(--cream);
-
-      padding:
-        35px 24px;
-
-      text-align: center;
-
-      border-radius: 15px;
-
-      transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-    }
-
-    .character:hover {
-      transform:
-        translateY(-7px);
-
-      box-shadow:
-        0 18px 45px
-        rgba(53,37,31,.09);
-    }
-
-    .character .avatar {
-      width: 85px;
-      height: 85px;
-
-      border-radius: 50%;
-
-      margin:
-        auto auto 20px;
-
-      display: grid;
-
-      place-items: center;
-
-      background:
-        var(--espresso);
-
-      color:
-        var(--cream);
-
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 32px;
-    }
-
-    .character h3 {
-      font-size: 28px;
-    }
-
-    .character span {
-      display: block;
-
-      font-size: 10px;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1.7px;
-
-      color:
-        var(--caramel);
-
-      margin:
-        5px 0 15px;
-    }
-
-    .character p {
-      color:
-        var(--muted);
-
-      line-height: 1.7;
-
-      font-size: 13px;
+        grid-template-columns: 1fr;
     }
 
 
-    /* =====================================================
-       LIBRARY
-    ===================================================== */
+    /* Library */
 
     .library {
-      min-height: 650px;
+        min-height: 550px;
 
-      display: flex;
-
-      align-items: center;
-
-      color: white;
-
-      background:
-
-        linear-gradient(
-          rgba(25,16,12,.67),
-          rgba(25,16,12,.67)
-        ),
-
-        url(
-          "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=85"
-        )
-
-        center/cover fixed;
-    }
-
-    .library-content {
-      max-width: 700px;
-    }
-
-    .library p {
-      max-width: 540px;
-
-      margin-top: 25px;
-
-      line-height: 1.8;
-
-      color:
-        rgba(255,255,255,.8);
+        background-attachment: scroll;
     }
 
 
-    /* =====================================================
-       AMBIENT CONSERVATORY
-    ===================================================== */
+    /* Quiet Corner */
 
-    .ambient-conservatory {
-      background:
-        var(--espresso);
-
-      color:
-        var(--cream);
-
-      padding:
-        110px 8%;
+    .mood-grid {
+        grid-template-columns: 1fr;
     }
 
-    .ambient-heading {
-      max-width: 720px;
-
-      margin:
-        0 auto 55px;
-
-      text-align: center;
+    .mood-card {
+        min-height: 190px;
     }
 
-    .ambient-heading
-    .section-title {
-      color:
-        var(--cream);
+    .result-grid {
+        grid-template-columns: 1fr;
     }
 
-    .ambient-heading > p {
-      max-width: 580px;
+    .result-item {
+        min-height: auto;
 
-      margin:
-        22px auto 0;
+        border-right: none;
 
-      color:
-        rgba(245,239,230,.68);
+        border-bottom: 1px solid rgba(245,239,230,.15);
+    }
 
-      line-height: 1.8;
-
-      font-size: 15px;
+    .result-item:last-child {
+        border-bottom: none;
     }
 
 
-    /* Ambient Cards */
-
-    .ambient-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap: 18px;
-
-      max-width: 1150px;
-
-      margin: auto;
-    }
-
-    .ambient-card {
-      appearance: none;
-
-      min-height: 230px;
-
-      padding: 30px;
-
-      border:
-        1px solid
-        rgba(245,239,230,.18);
-
-      border-radius: 16px;
-
-      background:
-        transparent;
-
-      color:
-        var(--cream);
-
-      cursor: pointer;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items:
-        flex-start;
-
-      text-align: left;
-
-      position: relative;
-
-      overflow: hidden;
-
-      transition:
-        transform .3s ease,
-        background .3s ease,
-        border-color .3s ease;
-    }
-
-    .ambient-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 150px;
-      height: 150px;
-
-      right: -80px;
-      top: -80px;
-
-      background:
-        var(--white);
-
-      border-radius: 50%;
-
-      opacity: 0;
-
-      filter: blur(50px);
-
-      transition:
-        opacity .4s ease;
-    }
-
-    .ambient-card:hover {
-      transform:
-        translateY(-6px);
-
-      border-color:
-        rgba(245,239,230,.5);
-
-      background:
-        rgba(255,255,255,.04);
-    }
-
-    .ambient-card:hover::before {
-      opacity: .07;
-    }
-
-    .ambient-icon {
-      width: 48px;
-      height: 48px;
-
-      display: grid;
-
-      place-items: center;
-
-      border-radius: 50%;
-
-      background:
-        rgba(245,239,230,.1);
-
-      font-size: 21px;
-
-      margin-bottom: 32px;
-
-      transition: .3s ease;
-    }
-
-    .ambient-content {
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 9px;
-
-      padding-right: 35px;
-    }
-
-    .ambient-content strong {
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 27px;
-
-      font-weight: 500;
-    }
-
-    .ambient-content small {
-      color:
-        rgba(245,239,230,.6);
-
-      font-family:
-        "Manrope",
-        sans-serif;
-
-      font-size: 12px;
-
-      line-height: 1.6;
-    }
-
-    .sound-status {
-      position: absolute;
-
-      bottom: 25px;
-      right: 25px;
-
-      text-transform: uppercase;
-
-      font-size: 9px;
-
-      letter-spacing: 2px;
-
-      color:
-        rgba(245,239,230,.55);
-    }
-
-
-    /* Active Ambient Card */
-
-    .ambient-card.active {
-      background:
-        var(--cream);
-
-      color:
-        var(--espresso);
-
-      border-color:
-        var(--cream);
-
-      transform:
-        translateY(-6px);
-    }
-
-    .ambient-card.active
-    .ambient-icon {
-      background:
-        var(--espresso);
-
-      color:
-        var(--cream);
-    }
-
-    .ambient-card.active
-    .ambient-content small {
-      color:
-        rgba(53,37,31,.65);
-    }
-
-    .ambient-card.active
-    .sound-status {
-      color:
-        var(--espresso);
-    }
-
-
-    /* Now Playing */
-
-    .ambient-now-playing {
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      gap: 10px;
-
-      margin-top: 35px;
-
-      font-family:
-        "Cormorant Garamond",
-        serif;
-
-      font-size: 18px;
-
-      font-style: italic;
-
-      color:
-        rgba(245,239,230,.65);
-    }
-
-    .sound-dot {
-      width: 6px;
-      height: 6px;
-
-      background:
-        var(--cream);
-
-      border-radius: 50%;
-
-      opacity: .35;
-    }
-
-    .ambient-now-playing.playing
-    .sound-dot {
-      opacity: 1;
-
-      animation:
-        soundPulse 1.6s infinite;
-    }
-
-    @keyframes soundPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: .5;
-      }
-
-      50% {
-        transform: scale(1.7);
-        opacity: 1;
-      }
-
-    }
-
-
-    /* =====================================================
-       FOOTER
-    ===================================================== */
-
-    footer {
-      background:
-        var(--dark-roast);
-
-      color:
-        var(--cream);
-
-      padding:
-        70px 8% 35px;
-    }
-
-    .footer-top {
-      display: flex;
-
-      justify-content:
-        space-between;
-
-      gap: 40px;
-
-      padding-bottom: 50px;
-
-      border-bottom:
-        1px solid #433630;
-    }
-
-    footer h2 {
-      font-size: 38px;
-    }
-
-    footer p {
-      color: #9e8e85;
-
-      margin-top: 8px;
+    /* Footer */
+
+    .footer-top,
+    .footer-bottom {
+        flex-direction: column;
     }
 
     .footer-links {
-      display: flex;
-
-      gap: 25px;
-
-      align-items: center;
-
-      font-size: 13px;
-    }
-
-    .footer-links a:hover {
-      color:
-        var(--caramel);
-    }
-
-    .footer-bottom {
-      display: flex;
-
-      justify-content:
-        space-between;
-
-      gap: 20px;
-
-      padding-top: 30px;
-
-      color: #776a63;
-
-      font-size: 12px;
-    }
-
-
-    /* =====================================================
-       TABLET
-    ===================================================== */
-
-    @media
-    (max-width: 1100px) {
-
-      .character-grid {
-        grid-template-columns:
-          repeat(2,1fr);
-      }
-
-      .nav-links {
-        gap: 16px;
-      }
-
-    }
-
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media
-    (max-width: 800px) {
-
-      nav {
-        padding:
-          18px 6%;
-      }
-
-      .logo {
-        font-size: 20px;
-
-        max-width: 80%;
-
-        overflow-wrap: anywhere;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-
-      /* Prevent text overflow */
-
-      h1,
-      h2,
-      h3,
-      p,
-      blockquote {
-        max-width: 100%;
-
-        overflow-wrap: anywhere;
-      }
-
-      section {
-        padding:
-          75px 6%;
-      }
-
-
-      /* Hero */
-
-      .hero {
-        min-height: 100svh;
-
-        padding:
-          120px 6% 60px;
-      }
-
-      .hero-content {
-        width: 100%;
-
-        max-width: 100%;
-      }
-
-      .hero h1 {
-        font-size:
-          clamp(
-            48px,
-            14vw,
-            70px
-          );
-
-        line-height: .98;
-      }
-
-      .hero p {
-        font-size: 15px;
-
-        line-height: 1.7;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-
-        align-items:
-          flex-start;
-      }
-
-      .btn {
-        text-align: center;
-      }
-
-
-      /* Story */
-
-      .story {
-        grid-template-columns:
-          1fr;
-
-        gap: 45px;
-      }
-
-      .story-image {
-        width: 100%;
-
-        height: 420px;
-      }
-
-      .story-text {
-        min-width: 0;
-      }
-
-      .section-title {
-        font-size:
-          clamp(
-            38px,
-            11vw,
-            55px
-          );
-
-        line-height: 1.05;
-      }
-
-
-      /* Menu */
-
-      .tabs {
-        gap: 8px;
-
-        margin:
-          40px auto 30px;
-      }
-
-      .tab {
-        padding:
-          10px 15px;
-
-        font-size: 12px;
-      }
-
-      .category-description {
-        width: 100%;
-
-        min-height: auto;
-
-        padding:
-          0 10px;
-      }
-
-      .menu-grid {
-        grid-template-columns:
-          1fr;
-
-        width: 100%;
-      }
-
-      .menu-card {
-        min-width: 0;
-
-        padding: 23px;
-      }
-
-      .menu-card h3 {
-        font-size: 24px;
-
-        padding-right: 65px;
-
-        overflow-wrap: anywhere;
-      }
-
-      .menu-card p {
-        padding-right: 0;
-
-        margin-top: 12px;
-      }
-
-      .price {
-        right: 20px;
-
-        top: 25px;
-      }
-
-
-      /* Philosophy */
-
-      .philosophy {
-        min-height: 400px;
-      }
-
-      .philosophy
-      blockquote {
-        font-size:
-          clamp(
-            34px,
-            10vw,
-            52px
-          );
-
-        line-height: 1.1;
-      }
-
-
-      /* Regulars */
-
-      .character-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-      .character {
-        min-width: 0;
-
-        padding:
-          35px 25px;
-      }
-
-
-      /* Library */
-
-      .library {
-        min-height: 550px;
-
-        background-attachment:
-          scroll;
-      }
-
-      .library-content {
-        width: 100%;
-
-        max-width: 100%;
-      }
-
-
-      /* Ambient */
-
-      .ambient-conservatory {
-        padding:
-          75px 6%;
-      }
-
-      .ambient-grid {
-        grid-template-columns:
-          1fr;
-      }
-
-      .ambient-card {
-        min-height: 200px;
-      }
-
-      .ambient-heading {
-        margin-bottom: 40px;
-      }
-
-
-      /* Footer */
-
-      .footer-top,
-      .footer-bottom {
-        flex-direction: column;
-      }
-
-      .footer-links {
         flex-wrap: wrap;
-
-        gap: 18px;
-      }
-
-
-      /* Beans */
-
-      .bean {
-        opacity: .45;
-      }
-
     }
 
-  </style>
+    .bean {
+        opacity: .4;
+    }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+}
+
+</style>
 </head>
 
 
@@ -1713,30 +1556,26 @@
 
 
 <!-- =====================================================
-     COFFEE CUP LOADER
+     LOADER
 ===================================================== -->
 
 <div id="loader">
 
-  <div class="loader-content">
+    <div class="loader-content">
 
-    <div class="cup">
+        <div class="cup">
 
-      <div class="steam one"></div>
+            <div class="steam one"></div>
+            <div class="steam two"></div>
+            <div class="steam three"></div>
 
-      <div class="steam two"></div>
+            <div class="coffee-fill"></div>
 
-      <div class="steam three"></div>
+        </div>
 
-      <div class="coffee-fill"></div>
+        <p>Brewing your next chapter…</p>
 
     </div>
-
-    <p>
-      Brewing your next chapter…
-    </p>
-
-  </div>
 
 </div>
 
@@ -1747,111 +1586,74 @@
 
 <nav id="navbar">
 
-  <a
-    href="#home"
-    class="logo">
-
-    THE QUIET CHAPTER
-
-  </a>
+    <a href="#home" class="logo">
+        THE QUIET CHAPTER
+    </a>
 
 
-  <ul class="nav-links">
+    <ul class="nav-links">
 
-    <li>
-      <a href="#home">
-        Home
-      </a>
-    </li>
+        <li>
+            <a href="#home">Home</a>
+        </li>
 
 
-    <li class="dropdown">
+        <li class="dropdown">
 
-      <a href="#menu">
-        Menu ▾
-      </a>
+            <a href="#menu">
+                Menu ▾
+            </a>
 
-      <div class="dropdown-menu">
+            <div class="dropdown-menu">
 
-        <a
-          href="#menu"
-          onclick="showMenu('coffee')">
+                <a href="#menu" onclick="showMenu('coffee')">
+                    ☕ Coffee
+                </a>
 
-          ☕ Coffee
+                <a href="#menu" onclick="showMenu('pastries')">
+                    🥐 Pastries
+                </a>
 
-        </a>
+                <a href="#menu" onclick="showMenu('breakfast')">
+                    🍳 Breakfast
+                </a>
 
-        <a
-          href="#menu"
-          onclick="showMenu('pastries')">
+                <a href="#menu" onclick="showMenu('readers')">
+                    📖 Reader's Picks
+                </a>
 
-          🥐 Pastries
+                <a href="#menu" onclick="showMenu('bites')">
+                    🥪 Bookside Bites
+                </a>
 
-        </a>
+            </div>
 
-        <a
-          href="#menu"
-          onclick="showMenu('breakfast')">
-
-          🍳 Breakfast
-
-        </a>
-
-        <a
-          href="#menu"
-          onclick="showMenu('readers')">
-
-          📖 Reader's Picks
-
-        </a>
-
-        <a
-          href="#menu"
-          onclick="showMenu('bites')">
-
-          🥪 Bookside Bites
-
-        </a>
-
-      </div>
-
-    </li>
+        </li>
 
 
-    <li>
-      <a href="#story">
-        Our Story
-      </a>
-    </li>
+        <li>
+            <a href="#story">Our Story</a>
+        </li>
 
+        <li>
+            <a href="#regulars">Regulars</a>
+        </li>
 
-    <li>
-      <a href="#library">
-        Library
-      </a>
-    </li>
+        <li>
+            <a href="#library">Library</a>
+        </li>
 
+        <li>
+            <a href="#quiet-corner">Your Corner</a>
+        </li>
 
-    <li>
-      <a href="#ambient">
-        Ambience
-      </a>
-    </li>
+        <li>
+            <a href="#footer" class="reserve">
+                Reserve
+            </a>
+        </li>
 
-
-    <li>
-
-      <a
-        class="reserve"
-        href="#footer">
-
-        Reserve
-
-      </a>
-
-    </li>
-
-  </ul>
+    </ul>
 
 </nav>
 
@@ -1860,82 +1662,46 @@
      HERO
 ===================================================== -->
 
-<header
-  class="hero"
-  id="home">
+<header class="hero" id="home">
+
+    <div class="bean bean1"></div>
+    <div class="bean bean2"></div>
+    <div class="bean bean3"></div>
+    <div class="bean bean4"></div>
 
 
-  <!-- Coffee beans -->
+    <div class="hero-content">
 
-  <div
-    class="bean bean1">
-  </div>
+        <div class="eyebrow">
+            Coffee · Books · Unhurried Mornings
+        </div>
 
-  <div
-    class="bean bean2">
-  </div>
+        <h1>
+            Some chapters<br>
+            are meant to<br>
+            be lived.
+        </h1>
 
-  <div
-    class="bean bean3">
-  </div>
-
-  <div
-    class="bean bean4">
-  </div>
-
-
-  <div class="hero-content">
-
-    <div class="eyebrow">
-
-      Coffee · Books ·
-      Unhurried Mornings
-
-    </div>
+        <p>
+            A quiet corner for wandering minds,
+            unfinished novels and coffee worth
+            slowing down for.
+        </p>
 
 
-    <h1>
+        <div class="hero-buttons">
 
-      Some chapters<br>
+            <a href="#menu" class="btn btn-primary">
+                Explore the Menu →
+            </a>
 
-      are meant to<br>
+            <a href="#quiet-corner" class="btn btn-secondary">
+                Find Your Corner
+            </a>
 
-      be lived.
-
-    </h1>
-
-
-    <p>
-
-      A quiet corner for wandering minds,
-      unfinished novels and coffee worth
-      slowing down for.
-
-    </p>
-
-
-    <div class="hero-buttons">
-
-      <a
-        href="#menu"
-        class="btn btn-primary">
-
-        Explore the Menu →
-
-      </a>
-
-
-      <a
-        href="#library"
-        class="btn btn-secondary">
-
-        Find Your Corner
-
-      </a>
+        </div>
 
     </div>
-
-  </div>
 
 </header>
 
@@ -1944,163 +1710,115 @@
      OUR STORY
 ===================================================== -->
 
-<section
-  class="story"
-  id="story">
+<section class="story" id="story">
 
+    <div class="story-image">
 
-  <div class="story-image">
-
-    <img
-      src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=85"
-      alt="Coffee in warm morning sunlight">
-
-  </div>
-
-
-  <div class="story-text">
-
-
-    <div class="section-label">
-
-      Our Story
+        <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=85"
+            alt="Coffee in warm morning sunlight">
 
     </div>
 
 
-    <h2 class="section-title">
+    <div class="story-text">
 
-      A café for people
-      who don't mind
-      losing track of time.
+        <div class="section-label">
+            Our Story
+        </div>
 
-    </h2>
+        <h2 class="section-title">
+            A café for people who don't mind losing track of time.
+        </h2>
 
+        <p>
+            We built The Quiet Chapter around a simple idea:
+            life doesn't always need to be rushed.
+        </p>
 
-    <p>
+        <p>
+            Sometimes all you need is good coffee,
+            an unfinished book, a warm window and
+            nowhere else you need to be.
+        </p>
 
-      We built The Quiet Chapter
-      around a simple idea:
-      life doesn't always need
-      to be rushed.
+        <p class="story-signoff">
+            Sit. Sip. Stay awhile.
+        </p>
 
-    </p>
-
-
-    <p>
-
-      Sometimes all you need is
-      good coffee, an unfinished
-      book, a warm window and
-      nowhere else you need to be.
-
-    </p>
-
-
-    <p class="story-signoff">
-
-      Sit. Sip. Stay awhile.
-
-    </p>
-
-  </div>
+    </div>
 
 </section>
 
 
 <!-- =====================================================
-     INTERACTIVE MENU
+     MENU
 ===================================================== -->
 
 <section id="menu">
 
+    <div class="menu-header">
 
-  <div class="menu-header">
+        <div class="section-label">
+            The Café Menu
+        </div>
 
-    <div class="section-label">
+        <h2 class="section-title">
+            Choose your next chapter.
+        </h2>
 
-      The Café Menu
+        <p>
+            Familiar favourites and slightly unexpected characters.
+        </p>
 
     </div>
 
 
-    <h2 class="section-title">
+    <div class="tabs">
 
-      Choose your next chapter.
+        <button
+            class="tab active"
+            onclick="showMenu('coffee', this)">
+            Coffee
+        </button>
 
-    </h2>
+        <button
+            class="tab"
+            onclick="showMenu('pastries', this)">
+            Pastries
+        </button>
 
+        <button
+            class="tab"
+            onclick="showMenu('breakfast', this)">
+            Breakfast
+        </button>
 
-    <p>
+        <button
+            class="tab"
+            onclick="showMenu('readers', this)">
+            Reader's Picks
+        </button>
 
-      Familiar favourites and
-      slightly unexpected characters.
+        <button
+            class="tab"
+            onclick="showMenu('bites', this)">
+            Bookside Bites
+        </button>
 
-    </p>
-
-  </div>
-
-
-  <div class="tabs">
-
-    <button
-      class="tab active"
-      onclick="showMenu('coffee', this)">
-
-      Coffee
-
-    </button>
-
-
-    <button
-      class="tab"
-      onclick="showMenu('pastries', this)">
-
-      Pastries
-
-    </button>
+    </div>
 
 
-    <button
-      class="tab"
-      onclick="showMenu('breakfast', this)">
-
-      Breakfast
-
-    </button>
+    <div
+        class="category-description"
+        id="categoryDescription">
+    </div>
 
 
-    <button
-      class="tab"
-      onclick="showMenu('readers', this)">
-
-      Reader's Picks
-
-    </button>
-
-
-    <button
-      class="tab"
-      onclick="showMenu('bites', this)">
-
-      Bookside Bites
-
-    </button>
-
-  </div>
-
-
-  <div
-    class="category-description"
-    id="categoryDescription">
-  </div>
-
-
-  <div
-    class="menu-grid"
-    id="menuGrid">
-  </div>
-
+    <div
+        class="menu-grid"
+        id="menuGrid">
+    </div>
 
 </section>
 
@@ -2111,25 +1829,18 @@
 
 <section class="philosophy">
 
-  <div>
+    <div>
 
-    <blockquote>
+        <blockquote>
+            “Perhaps a good life isn't measured by how much
+            we fit into our days, but by how often we notice them.”
+        </blockquote>
 
-      “Perhaps a good life isn't
-      measured by how much we fit
-      into our days, but by how
-      often we notice them.”
+        <p>
+            Stay for another cup.
+        </p>
 
-    </blockquote>
-
-
-    <p>
-
-      Stay for another cup.
-
-    </p>
-
-  </div>
+    </div>
 
 </section>
 
@@ -2138,170 +1849,107 @@
      MEET THE REGULARS
 ===================================================== -->
 
-<section
-  class="regulars"
-  id="regulars">
+<section class="regulars" id="regulars">
 
+    <div class="regulars-heading">
 
-  <div class="regulars-heading">
+        <div class="section-label">
+            Meet The Regulars
+        </div>
 
-
-    <div class="section-label">
-
-      Meet The Regulars
+        <h2 class="section-title">
+            Every table has a story.
+        </h2>
 
     </div>
 
 
-    <h2 class="section-title">
-
-      Every table has a story.
-
-    </h2>
-
-  </div>
+    <div class="character-grid">
 
 
-  <div class="character-grid">
+        <article class="character">
+
+            <div class="avatar">M</div>
+
+            <h3>Mira</h3>
+
+            <span>The Window Reader</span>
+
+            <p>
+                Orders the same cappuccino and somehow
+                leaves with a different book every Thursday.
+            </p>
+
+        </article>
 
 
-    <!-- Mira -->
+        <article class="character">
 
-    <article class="character">
+            <div class="avatar">T</div>
 
-      <div class="avatar">
-        M
-      </div>
+            <h3>Theo</h3>
 
-      <h3>
-        Mira
-      </h3>
+            <span>The Accidental Writer</span>
 
-      <span>
-        The Window Reader
-      </span>
+            <p>
+                Came in to answer one email.
+                He's currently on chapter seven.
+            </p>
 
-      <p>
-
-        Orders the same cappuccino
-        and somehow leaves with a
-        different book every Thursday.
-
-      </p>
-
-    </article>
+        </article>
 
 
-    <!-- Theo -->
+        <article class="character">
 
-    <article class="character">
+            <div class="avatar">J</div>
 
-      <div class="avatar">
-        T
-      </div>
+            <h3>Juniper</h3>
 
-      <h3>
-        Theo
-      </h3>
+            <span>The Morning Regular</span>
 
-      <span>
-        The Accidental Writer
-      </span>
+            <p>
+                Firmly believes every difficult decision
+                deserves coffee first.
+            </p>
 
-      <p>
-
-        Came in to answer one email.
-        He's currently on chapter seven.
-
-      </p>
-
-    </article>
+        </article>
 
 
-    <!-- Juniper -->
+        <article class="character">
 
-    <article class="character">
+            <div class="avatar">A</div>
 
-      <div class="avatar">
-        J
-      </div>
+            <h3>Arden Vale</h3>
 
-      <h3>
-        Juniper
-      </h3>
+            <span>The Laptop Loyalist</span>
 
-      <span>
-        The Morning Regular
-      </span>
+            <p>
+                Built a fictional tech empire, but still
+                claims his best ideas happen at the corner table.
+                His espresso usually goes cold between meetings.
+            </p>
 
-      <p>
-
-        Firmly believes every difficult
-        decision deserves coffee first.
-
-      </p>
-
-    </article>
+        </article>
 
 
-    <!-- Arden -->
+        <article class="character">
 
-    <article class="character">
+            <div class="avatar">R</div>
 
-      <div class="avatar">
-        A
-      </div>
+            <h3>Ravi Mehra</h3>
 
-      <h3>
-        Arden Vale
-      </h3>
+            <span>The Afternoon Correspondent</span>
 
-      <span>
-        The Laptop Loyalist
-      </span>
+            <p>
+                Knows every neighbourhood story before it
+                becomes a story. Arrives for one coffee
+                and somehow stays until sunset.
+            </p>
 
-      <p>
-
-        Built a fictional tech empire,
-        but still claims his best ideas
-        happen at the corner table.
-        His espresso usually goes cold
-        three meetings ago.
-
-      </p>
-
-    </article>
+        </article>
 
 
-    <!-- Ravi -->
-
-    <article class="character">
-
-      <div class="avatar">
-        R
-      </div>
-
-      <h3>
-        Ravi Mehra
-      </h3>
-
-      <span>
-        The Afternoon Correspondent
-      </span>
-
-      <p>
-
-        Knows every neighbourhood
-        story before it becomes a story.
-        Arrives for one coffee and
-        somehow stays until sunset.
-
-      </p>
-
-    </article>
-
-
-  </div>
+    </div>
 
 </section>
 
@@ -2310,259 +1958,248 @@
      LIBRARY
 ===================================================== -->
 
-<section
-  class="library"
-  id="library">
+<section class="library" id="library">
 
+    <div class="library-content">
 
-  <div class="library-content">
+        <div class="section-label">
+            The Library
+        </div>
 
+        <h2 class="section-title">
+            Borrow a story.<br>
+            Leave one behind.
+        </h2>
 
-    <div class="section-label">
+        <p>
+            Pick something from our shelves, leave a book
+            you've loved, or simply spend the afternoon
+            discovering a story you weren't looking for.
+        </p>
 
-      The Library
+        <br>
+
+        <a href="#quiet-corner" class="btn btn-secondary">
+            Find Your Reading Corner →
+        </a>
 
     </div>
-
-
-    <h2 class="section-title">
-
-      Borrow a story.<br>
-
-      Leave one behind.
-
-    </h2>
-
-
-    <p>
-
-      Pick something from our shelves,
-      leave a book you've loved, or simply
-      spend the afternoon discovering a
-      story you weren't looking for.
-
-    </p>
-
-
-    <br>
-
-
-    <a
-      href="#menu"
-      class="btn btn-secondary">
-
-      Coffee for Your Chapter →
-
-    </a>
-
-  </div>
 
 </section>
 
 
 <!-- =====================================================
-     THE AMBIENT CONSERVATORY
+     FIND YOUR QUIET CORNER
 ===================================================== -->
 
-<section
-  class="ambient-conservatory"
-  id="ambient">
+<section class="quiet-corner" id="quiet-corner">
 
 
-  <div class="ambient-heading">
+    <div class="corner-header">
 
+        <div class="section-label">
+            Your Quiet Corner
+        </div>
 
-    <div class="section-label">
+        <h2 class="section-title">
+            What kind of day are you having?
+        </h2>
 
-      The Ambient Conservatory
+        <p>
+            Not every day asks for the same chapter.
+            Tell us how you're feeling and we'll find
+            your coffee, your story and your corner.
+        </p>
 
     </div>
 
 
-    <h2 class="section-title">
+    <!-- MOODS -->
 
-      Choose the sound
-      of your chapter.
+    <div class="mood-grid" id="moodGrid">
 
-    </h2>
 
+        <button
+            class="mood-card"
+            onclick="findCorner('peace')">
 
-    <p>
+            <span class="mood-symbol">☁</span>
 
-      Settle in with a little atmosphere.
-      Pick a sound, turn a page, and let
-      the rest of the world soften.
+            <div>
 
-    </p>
+                <strong>
+                    I need some peace
+                </strong>
 
-  </div>
+                <small>
+                    Something gentle for a mind
+                    that's had enough noise today.
+                </small>
 
+            </div>
 
-  <div class="ambient-grid">
+        </button>
 
 
-    <!-- Rain -->
+        <button
+            class="mood-card"
+            onclick="findCorner('focus')">
 
-    <button
-      class="ambient-card"
-      data-sound="rain"
-      aria-pressed="false">
+            <span class="mood-symbol">✎</span>
 
-      <span class="ambient-icon">
-        ☂
-      </span>
+            <div>
 
+                <strong>
+                    I need to focus
+                </strong>
 
-      <span class="ambient-content">
+                <small>
+                    Coffee, concentration and
+                    somewhere to get things done.
+                </small>
 
-        <strong>
-          Greenhouse Rain
-        </strong>
+            </div>
 
-        <small>
+        </button>
 
-          Gentle rain falling against
-          glass and leaves.
 
-        </small>
+        <button
+            class="mood-card"
+            onclick="findCorner('dream')">
 
-      </span>
+            <span class="mood-symbol">✦</span>
 
+            <div>
 
-      <span class="sound-status">
-        Play
-      </span>
+                <strong>
+                    I'm daydreaming
+                </strong>
 
-    </button>
+                <small>
+                    No plans. No deadlines.
+                    Just somewhere for thoughts to wander.
+                </small>
 
+            </div>
 
-    <!-- Library -->
+        </button>
 
-    <button
-      class="ambient-card"
-      data-sound="library"
-      aria-pressed="false">
 
-      <span class="ambient-icon">
-        ◫
-      </span>
+        <button
+            class="mood-card"
+            onclick="findCorner('comfort')">
 
+            <span class="mood-symbol">♨</span>
 
-      <span class="ambient-content">
+            <div>
 
-        <strong>
-          Library Murmur
-        </strong>
+                <strong>
+                    I need comfort
+                </strong>
 
-        <small>
+                <small>
+                    Something warm, familiar and
+                    considerably better than today.
+                </small>
 
-          Turning pages, distant
-          whispers and quiet study.
+            </div>
 
-        </small>
+        </button>
 
-      </span>
 
+    </div>
 
-      <span class="sound-status">
-        Play
-      </span>
 
-    </button>
+    <!-- RESULT -->
 
+    <div class="corner-result" id="cornerResult">
 
-    <!-- Fireplace -->
 
-    <button
-      class="ambient-card"
-      data-sound="fireplace"
-      aria-pressed="false">
+        <div class="result-label">
+            Your chapter for today
+        </div>
 
-      <span class="ambient-icon">
-        ♨
-      </span>
 
+        <h2
+            class="result-title"
+            id="resultTitle">
+        </h2>
 
-      <span class="ambient-content">
 
-        <strong>
-          Warm Fireplace
-        </strong>
+        <div class="result-grid">
 
-        <small>
 
-          A soft crackling fire
-          for slower evenings.
+            <div class="result-item">
 
-        </small>
+                <span class="result-icon">☕</span>
 
-      </span>
+                <span>Your Coffee</span>
 
+                <h3 id="resultDrink"></h3>
 
-      <span class="sound-status">
-        Play
-      </span>
+                <p id="resultDrinkDescription"></p>
 
-    </button>
+            </div>
 
 
-  </div>
+            <div class="result-item">
 
+                <span class="result-icon">🥐</span>
 
-  <!-- Now Playing -->
+                <span>Your Pairing</span>
 
-  <div
-    class="ambient-now-playing"
-    id="nowPlaying">
+                <h3 id="resultFood"></h3>
 
-    <span class="sound-dot"></span>
+                <p id="resultFoodDescription"></p>
 
-    <span id="nowPlayingText">
+            </div>
 
-      The conservatory is quiet.
 
-    </span>
+            <div class="result-item">
 
-  </div>
+                <span class="result-icon">📖</span>
 
+                <span>Your Book</span>
 
-  <!--
-       AUDIO FILES
+                <h3 id="resultBook"></h3>
 
-       Create an "audio" folder
-       next to index.html.
+                <p id="resultAuthor"></p>
 
-       Add:
+            </div>
 
-       greenhouse-rain.mp3
-       library-murmur.mp3
-       warm-fireplace.mp3
-  -->
 
+            <div class="result-item">
 
-  <audio
-    id="rainAudio"
-    src="audio/greenhouse-rain.mp3"
-    preload="none"
-    loop>
-  </audio>
+                <span class="result-icon">⌂</span>
 
+                <span>Your Corner</span>
 
-  <audio
-    id="libraryAudio"
-    src="audio/library-murmur.mp3"
-    preload="none"
-    loop>
-  </audio>
+                <h3 id="resultSeat"></h3>
 
+                <p id="resultSeatDescription"></p>
 
-  <audio
-    id="fireplaceAudio"
-    src="audio/warm-fireplace.mp3"
-    preload="none"
-    loop>
-  </audio>
+            </div>
 
+
+        </div>
+
+
+        <blockquote
+            class="corner-quote"
+            id="resultQuote">
+        </blockquote>
+
+
+        <button
+            class="choose-again"
+            onclick="chooseAgain()">
+
+            ← Choose another mood
+
+        </button>
+
+
+    </div>
 
 </section>
 
@@ -2573,78 +2210,61 @@
 
 <footer id="footer">
 
+    <div class="footer-top">
 
-  <div class="footer-top">
+        <div>
 
+            <h2>
+                The Quiet Chapter
+            </h2>
 
-    <div>
+            <p>
+                Coffee · Books · Unhurried Mornings
+            </p>
 
-      <h2>
-        The Quiet Chapter
-      </h2>
-
-      <p>
-
-        Coffee · Books ·
-        Unhurried Mornings
-
-      </p>
-
-    </div>
+        </div>
 
 
-    <div class="footer-links">
+        <div class="footer-links">
 
-      <a href="#menu">
-        Menu
-      </a>
+            <a href="#menu">
+                Menu
+            </a>
 
-      <a href="#library">
-        Library
-      </a>
+            <a href="#library">
+                Library
+            </a>
 
-      <a href="#story">
-        Our Story
-      </a>
+            <a href="#story">
+                Our Story
+            </a>
 
-      <a href="#ambient">
-        Ambience
-      </a>
+            <a href="#quiet-corner">
+                Your Corner
+            </a>
 
-      <a href="#">
-        Instagram
-      </a>
+            <a href="#">
+                Instagram
+            </a>
+
+        </div>
 
     </div>
 
 
-  </div>
+    <div class="footer-bottom">
 
+        <span>
+            Open daily · 8 AM — 10 PM
+        </span>
 
-  <div class="footer-bottom">
+        <span>
+            You don't have to finish the chapter today.
+        </span>
 
-
-    <span>
-
-      Open daily ·
-      8 AM — 10 PM
-
-    </span>
-
-
-    <span>
-
-      You don't have to
-      finish the chapter today.
-
-    </span>
-
-
-  </div>
-
+    </div>
 
 </footer>
-
 
 
 <script>
@@ -2653,59 +2273,40 @@
    LOADER
 ===================================================== */
 
-window.addEventListener(
-  "load",
-  () => {
+window.addEventListener("load", () => {
 
-    setTimeout(
-      () => {
+    setTimeout(() => {
 
         document
-          .getElementById("loader")
-          .classList
-          .add("hidden");
+            .getElementById("loader")
+            .classList
+            .add("hidden");
 
-      },
-      2500
-    );
+    }, 2200);
 
-  }
-);
+});
 
 
 /* =====================================================
    NAVBAR
 ===================================================== */
 
-window.addEventListener(
-  "scroll",
-  () => {
+window.addEventListener("scroll", () => {
 
-    const nav =
-      document.getElementById(
-        "navbar"
-      );
+    const navbar =
+        document.getElementById("navbar");
 
-    if (
-      window.scrollY > 80
-    ) {
+    if (window.scrollY > 80) {
 
-      nav.classList.add(
-        "scrolled"
-      );
+        navbar.classList.add("scrolled");
+
+    } else {
+
+        navbar.classList.remove("scrolled");
 
     }
 
-    else {
-
-      nav.classList.remove(
-        "scrolled"
-      );
-
-    }
-
-  }
-);
+});
 
 
 /* =====================================================
@@ -2714,335 +2315,244 @@ window.addEventListener(
 
 const menus = {
 
+    coffee: {
 
-  /* ---------------------
-     COFFEE
-  --------------------- */
+        description:
+            "Thoughtfully brewed classics and house creations, made for slow sips and longer conversations.",
 
-  coffee: {
+        items: [
 
-    description:
+            [
+                "The Quiet Latte",
+                "Espresso, silky steamed milk & vanilla bean.",
+                "₹240"
+            ],
 
-      "Thoughtfully brewed classics and house creations, made for slow sips and longer conversations.",
+            [
+                "First Draft",
+                "Bold double espresso finished with fresh orange zest.",
+                "₹190"
+            ],
+
+            [
+                "Plot Twist",
+                "Dark chocolate mocha, espresso & a touch of sea salt.",
+                "₹270"
+            ],
+
+            [
+                "Chapter One",
+                "Cappuccino with cinnamon and caramelized brown sugar.",
+                "₹250"
+            ],
+
+            [
+                "Midnight Margins",
+                "Cold brew with vanilla cream and cocoa dust.",
+                "₹260"
+            ],
+
+            [
+                "The Classic",
+                "A smooth Americano for people who like things uncomplicated.",
+                "₹180"
+            ]
+
+        ]
 
+    },
 
-    items: [
 
-      [
-        "The Quiet Latte",
+    pastries: {
 
-        "Espresso, silky steamed milk & vanilla bean.",
+        description:
+            "Freshly baked, buttery comforts — best enjoyed with warm coffee and an unfinished chapter.",
 
-        "₹240"
-      ],
+        items: [
 
-      [
-        "First Draft",
+            [
+                "Morning Bookmark",
+                "Classic butter croissant, flaky and golden.",
+                "₹170"
+            ],
 
-        "Bold double espresso finished with fresh orange zest.",
+            [
+                "Cinnamon Chapter",
+                "Warm cinnamon roll finished with vanilla glaze.",
+                "₹210"
+            ],
+
+            [
+                "Chocolate Footnote",
+                "Dark chocolate-filled croissant with cocoa dust.",
+                "₹220"
+            ],
+
+            [
+                "Berry Paperback",
+                "Buttery Danish layered with seasonal berries.",
+                "₹230"
+            ],
+
+            [
+                "Almond Pages",
+                "Almond croissant filled with toasted almond cream.",
+                "₹240"
+            ],
+
+            [
+                "Lemon Letters",
+                "Soft lemon loaf with a light citrus glaze.",
+                "₹190"
+            ]
+
+        ]
 
-        "₹190"
-      ],
+    },
 
-      [
-        "Plot Twist",
 
-        "Dark chocolate mocha, espresso & a touch of sea salt.",
+    breakfast: {
 
-        "₹270"
-      ],
+        description:
+            "Simple, wholesome morning plates made to ease you gently into the day.",
 
-      [
-        "Chapter One",
+        items: [
 
-        "Cappuccino with cinnamon and caramelized brown sugar.",
+            [
+                "The Early Chapter",
+                "Sourdough, avocado, cherry tomatoes & poached eggs.",
+                "₹340"
+            ],
 
-        "₹250"
-      ],
-
-      [
-        "Midnight Margins",
-
-        "Cold brew with vanilla cream and cocoa dust.",
-
-        "₹260"
-      ],
-
-      [
-        "The Classic",
-
-        "A smooth Americano for people who like things uncomplicated.",
-
-        "₹180"
-      ]
-
-    ]
-
-  },
-
-
-  /* ---------------------
-     PASTRIES
-  --------------------- */
-
-  pastries: {
-
-    description:
-
-      "Freshly baked, buttery comforts — best enjoyed with warm coffee and an unfinished chapter.",
-
-
-    items: [
-
-      [
-        "Morning Bookmark",
-
-        "Classic butter croissant, flaky and golden.",
-
-        "₹170"
-      ],
-
-      [
-        "Cinnamon Chapter",
-
-        "Warm cinnamon roll finished with vanilla glaze.",
-
-        "₹210"
-      ],
-
-      [
-        "Chocolate Footnote",
-
-        "Dark chocolate-filled croissant with cocoa dust.",
-
-        "₹220"
-      ],
-
-      [
-        "Berry Paperback",
-
-        "Buttery Danish layered with seasonal berries.",
-
-        "₹230"
-      ],
-
-      [
-        "Almond Pages",
-
-        "Almond croissant filled with toasted almond cream.",
-
-        "₹240"
-      ],
-
-      [
-        "Lemon Letters",
-
-        "Soft lemon loaf with a light citrus glaze.",
-
-        "₹190"
-      ]
-
-    ]
-
-  },
-
-
-  /* ---------------------
-     BREAKFAST
-  --------------------- */
-
-  breakfast: {
-
-    description:
-
-      "Simple, wholesome morning plates made to ease you gently into the day.",
-
-
-    items: [
-
-      [
-        "The Early Chapter",
-
-        "Sourdough, avocado, cherry tomatoes & poached eggs.",
-
-        "₹340"
-      ],
-
-      [
-        "Slow Sunday",
-
-        "Fluffy pancakes, berries, maple syrup & whipped butter.",
-
-        "₹320"
-      ],
-
-      [
-        "Sunlit Toast",
-
-        "French toast with caramelized banana, cinnamon & honey.",
-
-        "₹310"
-      ],
-
-      [
-        "Morning Margins",
-
-        "Greek yogurt, granola, berries & honey.",
-
-        "₹280"
-      ],
-
-      [
-        "The Writer's Breakfast",
-
-        "Scrambled eggs, sourdough, mushrooms & roasted tomatoes.",
-
-        "₹360"
-      ],
-
-      [
-        "Little Things",
-
-        "Sourdough, peanut butter, banana & honey.",
-
-        "₹240"
-      ]
-
-    ]
-
-  },
-
-
-  /* ---------------------
-     READER'S PICKS
-  --------------------- */
-
-  readers: {
-
-    description:
-
-      "Signature pairings created for different reading moods, wandering minds and quiet afternoons.",
-
-
-    items: [
-
-      [
-        "The Daydreamer",
-
-        "Quiet Latte + Berry Paperback.",
-
-        "₹420"
-      ],
-
-      [
-        "The Plot Twist",
-
-        "Plot Twist Mocha + Chocolate Footnote.",
-
-        "₹450"
-      ],
-
-      [
-        "The Writer's Block",
-
-        "First Draft Espresso + Cinnamon Chapter.",
-
-        "₹350"
-      ],
-
-      [
-        "One More Chapter",
-
-        "Midnight Margins + Almond Pages.",
-
-        "₹440"
-      ],
-
-      [
-        "Rainy Afternoon",
-
-        "Chapter One Cappuccino + Lemon Letters.",
-
-        "₹390"
-      ],
-
-      [
-        "The Main Character",
-
-        "Quiet Latte + Morning Bookmark + mystery book pick.",
-
-        "₹490"
-      ]
-
-    ]
-
-  },
-
-
-  /* ---------------------
-     BOOKSIDE BITES
-  --------------------- */
-
-  bites: {
-
-    description:
-
-      "Light savoury plates for when one more chapter unexpectedly becomes an entire afternoon.",
-
-
-    items: [
-
-      [
-        "Between the Lines",
-
-        "Grilled pesto, mozzarella & tomato sourdough.",
-
-        "₹310"
-      ],
-
-      [
-        "The Cliffhanger",
-
-        "Spicy paneer, caramelized onion & mint mayo sandwich.",
-
-        "₹330"
-      ],
-
-      [
-        "Paperback Pesto",
-
-        "Creamy pesto pasta with roasted cherry tomatoes.",
-
-        "₹360"
-      ],
-
-      [
-        "Plot Thickens",
-
-        "Crispy potato wedges with garlic-herb dip.",
-
-        "₹220"
-      ],
-
-      [
-        "The Green Chapter",
-
-        "Lettuce, avocado, cucumber, feta & toasted seeds.",
-
-        "₹320"
-      ],
-
-      [
-        "Final Paragraph",
-
-        "Grilled mushroom and cheese panini with herb butter.",
-
-        "₹340"
-      ]
-
-    ]
-
-  }
+            [
+                "Slow Sunday",
+                "Fluffy pancakes, berries, maple syrup & whipped butter.",
+                "₹320"
+            ],
+
+            [
+                "Sunlit Toast",
+                "French toast with caramelized banana, cinnamon & honey.",
+                "₹310"
+            ],
+
+            [
+                "Morning Margins",
+                "Greek yogurt, granola, berries & honey.",
+                "₹280"
+            ],
+
+            [
+                "The Writer's Breakfast",
+                "Scrambled eggs, sourdough, mushrooms & roasted tomatoes.",
+                "₹360"
+            ],
+
+            [
+                "Little Things",
+                "Sourdough, peanut butter, banana & honey.",
+                "₹240"
+            ]
+
+        ]
+
+    },
+
+
+    readers: {
+
+        description:
+            "Signature pairings created for different reading moods, wandering minds and quiet afternoons.",
+
+        items: [
+
+            [
+                "The Daydreamer",
+                "Quiet Latte + Berry Paperback.",
+                "₹420"
+            ],
+
+            [
+                "The Plot Twist",
+                "Plot Twist Mocha + Chocolate Footnote.",
+                "₹450"
+            ],
+
+            [
+                "The Writer's Block",
+                "First Draft Espresso + Cinnamon Chapter.",
+                "₹350"
+            ],
+
+            [
+                "One More Chapter",
+                "Midnight Margins + Almond Pages.",
+                "₹440"
+            ],
+
+            [
+                "Rainy Afternoon",
+                "Chapter One Cappuccino + Lemon Letters.",
+                "₹390"
+            ],
+
+            [
+                "The Main Character",
+                "Quiet Latte + Morning Bookmark + mystery book pick.",
+                "₹490"
+            ]
+
+        ]
+
+    },
+
+
+    bites: {
+
+        description:
+            "Light savoury plates for when one more chapter unexpectedly becomes an entire afternoon.",
+
+        items: [
+
+            [
+                "Between the Lines",
+                "Grilled pesto, mozzarella & tomato sourdough.",
+                "₹310"
+            ],
+
+            [
+                "The Cliffhanger",
+                "Spicy paneer, caramelized onion & mint mayo sandwich.",
+                "₹330"
+            ],
+
+            [
+                "Paperback Pesto",
+                "Creamy pesto pasta with roasted cherry tomatoes.",
+                "₹360"
+            ],
+
+            [
+                "Plot Thickens",
+                "Crispy potato wedges with garlic-herb dip.",
+                "₹220"
+            ],
+
+            [
+                "The Green Chapter",
+                "Lettuce, avocado, cucumber, feta & toasted seeds.",
+                "₹320"
+            ],
+
+            [
+                "Final Paragraph",
+                "Grilled mushroom and cheese panini with herb butter.",
+                "₹340"
+            ]
+
+        ]
+
+    }
 
 };
 
@@ -3051,133 +2561,93 @@ const menus = {
    MENU RENDERING
 ===================================================== */
 
-function showMenu(
-  category,
-  clickedButton
-) {
+function showMenu(category, clickedButton) {
 
-  const menu =
-    menus[category];
+    const menu = menus[category];
+
+    if (!menu) return;
 
 
-  if (!menu) {
-    return;
-  }
+    const grid =
+        document.getElementById("menuGrid");
+
+    const description =
+        document.getElementById("categoryDescription");
 
 
-  const grid =
-    document.getElementById(
-      "menuGrid"
-    );
+    description.textContent =
+        menu.description;
 
 
-  const description =
-    document.getElementById(
-      "categoryDescription"
-    );
+    const fragment =
+        document.createDocumentFragment();
 
 
-  description.textContent =
-    menu.description;
+    menu.items.forEach(
+        ([name, itemDescription, price]) => {
+
+            const card =
+                document.createElement("article");
+
+            card.className = "menu-card";
 
 
-  const fragment =
-    document.createDocumentFragment();
+            const title =
+                document.createElement("h3");
+
+            title.textContent = name;
 
 
-  menu.items.forEach(
-    ([name, itemDescription, price]) => {
+            const priceElement =
+                document.createElement("span");
+
+            priceElement.className = "price";
+
+            priceElement.textContent = price;
 
 
-      const card =
-        document.createElement(
-          "article"
-        );
+            const descriptionElement =
+                document.createElement("p");
+
+            descriptionElement.textContent =
+                itemDescription;
 
 
-      card.className =
-        "menu-card";
+            card.append(
+                title,
+                priceElement,
+                descriptionElement
+            );
 
 
-      const title =
-        document.createElement(
-          "h3"
-        );
-
-
-      title.textContent =
-        name;
-
-
-      const priceElement =
-        document.createElement(
-          "span"
-        );
-
-
-      priceElement.className =
-        "price";
-
-
-      priceElement.textContent =
-        price;
-
-
-      const descriptionElement =
-        document.createElement(
-          "p"
-        );
-
-
-      descriptionElement.textContent =
-        itemDescription;
-
-
-      card.append(
-        title,
-        priceElement,
-        descriptionElement
-      );
-
-
-      fragment.appendChild(
-        card
-      );
-
-    }
-  );
-
-
-  grid.replaceChildren(
-    fragment
-  );
-
-
-  if (clickedButton) {
-
-    document
-      .querySelectorAll(".tab")
-      .forEach(
-        tab => {
-
-          tab.classList.remove(
-            "active"
-          );
+            fragment.appendChild(card);
 
         }
-      );
-
-
-    clickedButton.classList.add(
-      "active"
     );
 
-  }
+
+    grid.replaceChildren(fragment);
+
+
+    if (clickedButton) {
+
+        document
+            .querySelectorAll(".tab")
+            .forEach(tab => {
+
+                tab.classList.remove("active");
+
+            });
+
+
+        clickedButton.classList.add("active");
+
+    }
 
 }
 
 
-/* Show coffee initially */
+/* Initial menu */
 
 showMenu("coffee");
 
@@ -3186,319 +2656,323 @@ showMenu("coffee");
    COFFEE BEAN PARALLAX
 ===================================================== */
 
-document.addEventListener(
-  "mousemove",
-  event => {
+document.addEventListener("mousemove", event => {
 
     const x =
-      (
-        event.clientX /
-        window.innerWidth
-        -
-        .5
-      ) * 15;
+        (
+            event.clientX /
+            window.innerWidth
+            -
+            .5
+        ) * 15;
 
 
     const y =
-      (
-        event.clientY /
-        window.innerHeight
-        -
-        .5
-      ) * 15;
+        (
+            event.clientY /
+            window.innerHeight
+            -
+            .5
+        ) * 15;
 
 
     document
-      .querySelectorAll(".bean")
-      .forEach(
-        (bean,index) => {
+        .querySelectorAll(".bean")
+        .forEach((bean, index) => {
 
-          const depth =
-            (index + 1) * .35;
-
-
-          bean.style.marginLeft =
-            `${x * depth}px`;
+            const depth =
+                (index + 1) * .35;
 
 
-          bean.style.marginTop =
-            `${y * depth}px`;
+            bean.style.marginLeft =
+                `${x * depth}px`;
 
-        }
-      );
 
-  }
-);
+            bean.style.marginTop =
+                `${y * depth}px`;
+
+        });
+
+});
 
 
 /* =====================================================
-   AMBIENT CONSERVATORY
+   QUIET CORNER DATA
 ===================================================== */
 
-const ambientSounds = {
+const cornerRecommendations = {
 
-  rain: {
+    peace: {
 
-    audio:
-      document.getElementById(
-        "rainAudio"
-      ),
+        title:
+            "A quieter kind of morning.",
 
-    name:
-      "Greenhouse Rain"
+        drink:
+            "The Quiet Latte",
 
-  },
+        drinkDescription:
+            "Soft vanilla, espresso and steamed milk.",
+
+        food:
+            "Almond Pages",
+
+        foodDescription:
+            "A warm almond croissant with toasted almond cream.",
+
+        book:
+            "Where the Morning Waits",
+
+        author:
+            "by Elia Wren · Fictional",
+
+        seat:
+            "The Window Seat",
+
+        seatDescription:
+            "Morning light, a small table and nowhere you need to be.",
+
+        quote:
+            "“Peace isn't always somewhere you find. Sometimes it's something you finally stop interrupting.”"
+
+    },
 
 
-  library: {
+    focus: {
 
-    audio:
-      document.getElementById(
-        "libraryAudio"
-      ),
+        title:
+            "A chapter for getting things done.",
 
-    name:
-      "Library Murmur"
+        drink:
+            "First Draft",
 
-  },
+        drinkDescription:
+            "A bold double espresso with fresh orange zest.",
+
+        food:
+            "Morning Bookmark",
+
+        foodDescription:
+            "A simple golden butter croissant.",
+
+        book:
+            "The Architecture of Thought",
+
+        author:
+            "by Rowan Mercer · Fictional",
+
+        seat:
+            "The Library Desk",
+
+        seatDescription:
+            "A quiet wooden desk tucked between the bookshelves.",
+
+        quote:
+            "“Attention is a small act of choosing what deserves to exist for the next few minutes.”"
+
+    },
 
 
-  fireplace: {
+    dream: {
 
-    audio:
-      document.getElementById(
-        "fireplaceAudio"
-      ),
+        title:
+            "Let your thoughts wander.",
 
-    name:
-      "Warm Fireplace"
+        drink:
+            "Chapter One",
 
-  }
+        drinkDescription:
+            "Cinnamon cappuccino with caramelized brown sugar.",
+
+        food:
+            "Berry Paperback",
+
+        foodDescription:
+            "A buttery Danish layered with seasonal berries.",
+
+        book:
+            "Clouds Over Bellweather",
+
+        author:
+            "by Mara Ellison · Fictional",
+
+        seat:
+            "The Garden Corner",
+
+        seatDescription:
+            "A sunlit chair beside plants and the eastern window.",
+
+        quote:
+            "“Some thoughts need somewhere quiet to land.”"
+
+    },
+
+
+    comfort: {
+
+        title:
+            "Something warm for today.",
+
+        drink:
+            "Plot Twist",
+
+        drinkDescription:
+            "Dark chocolate mocha, espresso and a little sea salt.",
+
+        food:
+            "Cinnamon Chapter",
+
+        foodDescription:
+            "A warm cinnamon roll finished with vanilla glaze.",
+
+        book:
+            "The House With Yellow Curtains",
+
+        author:
+            "by Nora Vale · Fictional",
+
+        seat:
+            "The Fireplace Sofa",
+
+        seatDescription:
+            "The softest seat in the café, intentionally far from the clock.",
+
+        quote:
+            "“Not every difficult day needs an answer. Some only need somewhere warm to end.”"
+
+    }
 
 };
 
 
-const ambientButtons =
-  document.querySelectorAll(
-    ".ambient-card"
-  );
+/* =====================================================
+   FIND YOUR CORNER
+===================================================== */
+
+function findCorner(mood) {
+
+    const recommendation =
+        cornerRecommendations[mood];
 
 
-const nowPlaying =
-  document.getElementById(
-    "nowPlaying"
-  );
-
-
-const nowPlayingText =
-  document.getElementById(
-    "nowPlayingText"
-  );
-
-
-let activeSound = null;
-
-
-/* Comfortable background volume */
-
-Object
-  .values(ambientSounds)
-  .forEach(
-    sound => {
-
-      sound.audio.volume =
-        0.35;
-
-      sound.audio.loop =
-        true;
-
+    if (!recommendation) {
+        return;
     }
-  );
 
 
-/* Reset ambient interface */
-
-function resetAmbientUI() {
-
-  ambientButtons.forEach(
-    button => {
-
-      button.classList.remove(
-        "active"
-      );
-
-
-      button.setAttribute(
-        "aria-pressed",
-        "false"
-      );
-
-
-      button
-        .querySelector(
-          ".sound-status"
-        )
+    document.getElementById("resultTitle")
         .textContent =
-          "Play";
-
-    }
-  );
+        recommendation.title;
 
 
-  nowPlaying.classList.remove(
-    "playing"
-  );
+    document.getElementById("resultDrink")
+        .textContent =
+        recommendation.drink;
 
 
-  nowPlayingText.textContent =
-    "The conservatory is quiet.";
+    document.getElementById("resultDrinkDescription")
+        .textContent =
+        recommendation.drinkDescription;
+
+
+    document.getElementById("resultFood")
+        .textContent =
+        recommendation.food;
+
+
+    document.getElementById("resultFoodDescription")
+        .textContent =
+        recommendation.foodDescription;
+
+
+    document.getElementById("resultBook")
+        .textContent =
+        recommendation.book;
+
+
+    document.getElementById("resultAuthor")
+        .textContent =
+        recommendation.author;
+
+
+    document.getElementById("resultSeat")
+        .textContent =
+        recommendation.seat;
+
+
+    document.getElementById("resultSeatDescription")
+        .textContent =
+        recommendation.seatDescription;
+
+
+    document.getElementById("resultQuote")
+        .textContent =
+        recommendation.quote;
+
+
+    document.getElementById("moodGrid")
+        .style.display =
+        "none";
+
+
+    document.getElementById("cornerResult")
+        .classList
+        .add("visible");
 
 }
 
 
-/* Stop all sounds */
+/* =====================================================
+   CHOOSE ANOTHER MOOD
+===================================================== */
 
-function stopAllSounds() {
+function chooseAgain() {
 
-  Object
-    .values(ambientSounds)
-    .forEach(
-      sound => {
+    const result =
+        document.getElementById("cornerResult");
 
-        sound.audio.pause();
+    const moods =
+        document.getElementById("moodGrid");
 
-        sound.audio.currentTime =
-          0;
 
-      }
-    );
+    result.classList.remove("visible");
+
+
+    moods.style.display = "grid";
 
 }
 
 
-/* Ambient button controls */
+/* =====================================================
+   KEYBOARD / ACCESSIBILITY IMPROVEMENT
+===================================================== */
 
-ambientButtons.forEach(
-  button => {
+document
+    .querySelectorAll("button")
+    .forEach(button => {
 
-    button.addEventListener(
-      "click",
+        button.addEventListener(
+            "keyup",
+            event => {
 
-      async () => {
+                if (event.key === "Escape") {
 
+                    if (
+                        document
+                            .getElementById("cornerResult")
+                            .classList
+                            .contains("visible")
+                    ) {
 
-        const soundKey =
-          button.dataset.sound;
+                        chooseAgain();
 
+                    }
 
-        const selected =
-          ambientSounds[soundKey];
+                }
 
+            }
+        );
 
-        if (!selected) {
-          return;
-        }
-
-
-        /* Clicking active sound pauses it */
-
-        if (
-          activeSound ===
-          soundKey
-        ) {
-
-          selected.audio.pause();
-
-          activeSound = null;
-
-          resetAmbientUI();
-
-          return;
-
-        }
-
-
-        /* Only one sound plays at once */
-
-        stopAllSounds();
-
-        resetAmbientUI();
-
-
-        try {
-
-
-          /*
-            Audio playback begins only
-            after the user clicks.
-
-            This avoids browser
-            autoplay restrictions.
-          */
-
-          await selected.audio.play();
-
-
-          activeSound =
-            soundKey;
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          button.setAttribute(
-            "aria-pressed",
-            "true"
-          );
-
-
-          button
-            .querySelector(
-              ".sound-status"
-            )
-            .textContent =
-              "Pause";
-
-
-          nowPlaying.classList.add(
-            "playing"
-          );
-
-
-          nowPlayingText.textContent =
-            `Now playing — ${selected.name}`;
-
-
-        }
-
-        catch (error) {
-
-
-          activeSound = null;
-
-
-          resetAmbientUI();
-
-
-          nowPlayingText.textContent =
-            "This sound couldn't be played. Check the audio file.";
-
-
-          console.warn(
-            "Ambient audio playback failed:",
-            error
-          );
-
-        }
-
-      }
-
-    );
-
-  }
-);
+    });
 
 </script>
 
