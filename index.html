@@ -1,292 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mocha Yard | Coffee, Kitchen & Good Company</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,800&family=DM+Sans:wght@400;500;700&display=swap">
-<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('my-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morrow — Coffee & Reading Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eef0e6;--sf:#fff;--ink:#241a14;--mute:#6b6459;--gr:#2c4a38;--er:#a8432b;--ln:#d8dccd;--hero:#1d130d;--ht:#f3ead9;--f:'Fraunces',Georgia,serif;--s:'DM Sans',system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#16120e;--sf:#211a14;--ink:#f1e8d8;--mute:#a99f90;--gr:#8fb89d;--er:#e0775c;--ln:#3a2f26;--hero:#0e0a07}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#16120e;--sf:#211a14;--ink:#f1e8d8;--mute:#a99f90;--gr:#8fb89d;--er:#e0775c;--ln:#3a2f26;--hero:#0e0a07}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--s);transition:background .4s,color .4s}
-h1,h2,h3{font-family:var(--f);font-weight:800;line-height:1.05;margin:0}a{color:inherit}button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--er);outline-offset:2px}
-/* loader */
-#ld{position:fixed;inset:0;z-index:100;background:var(--hero);color:var(--ht);display:grid;place-items:center;text-align:center;transition:transform .9s cubic-bezier(.77,0,.18,1)}
-#ld.out{transform:translateY(-100%)}
-#ld svg{width:120px;height:140px}
-.fill{animation:fill 2.2s ease-in-out forwards}
-@keyframes fill{from{transform:translateY(60px)}to{transform:translateY(0)}}
-#ld h2{font-size:2rem;margin:14px 0 4px;animation:pulse 1.4s infinite}
-#pct{font:700 1rem var(--s);opacity:.7}
-@keyframes pulse{50%{opacity:.5}}
-.stm{animation:rise 2s ease-in-out infinite;transform-origin:center bottom}.stm:nth-child(2){animation-delay:.5s}.stm:nth-child(3){animation-delay:1s}
-@keyframes rise{0%{transform:translateY(8px);opacity:0}50%{opacity:.8}100%{transform:translateY(-14px);opacity:0}}
-#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--er);z-index:60}
-/* nav */
-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;padding:12px 5vw;background:var(--hero);color:var(--ht)}
-nav b{font:800 21px var(--f);margin-right:auto}nav a{text-decoration:none;font-size:15px;opacity:.85;position:relative}
-nav a.l:after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--er);transition:width .3s}nav a.l:hover:after{width:100%}
-.ib{background:#ffffff1a;color:var(--ht);border:0;border-radius:99px;width:40px;height:40px;font-size:18px;transition:transform .3s}.ib:hover{transform:rotate(25deg) scale(1.1)}
-.cb{background:var(--er);color:#fff;border:0;border-radius:99px;padding:9px 16px;font-weight:700}.bump{animation:bump .4s}
-@keyframes bump{40%{transform:scale(1.3)}}
-@media(max-width:700px){nav a.l{display:none}}
-/* hero */
-.hero{background:var(--hero);color:var(--ht);padding:11vh 5vw 14vh;position:relative;overflow:hidden;min-height:86vh;display:flex;flex-direction:column;justify-content:center}
-.hero h1{font-size:clamp(3rem,9.5vw,8rem);max-width:11ch}
-.w{display:inline-block;opacity:0;transform:translateY(60px) rotate(4deg);animation:wd .9s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes wd{to{opacity:1;transform:none}}
-.hero p{max-width:34ch;font-size:1.2rem;opacity:.85;margin:22px 0 30px}
-.btn{display:inline-block;background:var(--er);color:#fff;border:0;border-radius:99px;padding:14px 28px;font-weight:700;text-decoration:none;transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px #0004}.btn:disabled{opacity:.5}
-.cup{position:absolute;right:7vw;top:50%;width:min(32vw,320px);transform:translateY(-50%);animation:fl 5s ease-in-out infinite}
-@keyframes fl{50%{transform:translateY(-54%) rotate(2deg)}}
-.bean{position:absolute;width:22px;height:30px;background:#5a3520;border-radius:50%;opacity:.55;animation:bf 7s ease-in-out infinite}.bean:after{content:"";position:absolute;left:50%;top:10%;bottom:10%;width:2px;background:#2a170c;transform:rotate(12deg)}
-@keyframes bf{50%{transform:translateY(-30px) rotate(40deg)}}
-@media(max-width:760px){.cup{opacity:.25;right:-8vw}}
-.mq{background:var(--gr);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font:700 1.1rem var(--f)}
-.mq div{display:inline-block;animation:mq 22s linear infinite}.mq span{margin:0 28px}
-@keyframes mq{to{transform:translateX(-50%)}}
-section{padding:90px 5vw}.wrap{max-width:1080px;margin:0 auto}h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:26px}
-.js .rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}.js .rv.in{opacity:1;transform:none}
-.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-.tools input{flex:1;min-width:180px;padding:11px 16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);font:inherit}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:18px}
-.tabs button,.pill{white-space:nowrap;border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:99px;padding:8px 18px;transition:all .25s}
-.tabs button[aria-pressed=true],.pill[aria-pressed=true]{background:var(--gr);color:var(--bg);border-color:var(--gr)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.item{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:6px;animation:pop .5s both;transition:transform .3s,box-shadow .3s}
-.item:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 14px 30px #0002}
-@keyframes pop{from{opacity:0;transform:scale(.92) translateY(20px)}}
-.em{font-size:2.2rem;transition:transform .4s}.item:hover .em{transform:scale(1.25) rotate(-10deg)}
-.item h3{font-size:1.2rem}.item p{margin:0;color:var(--mute);font-size:.95rem;flex:1}
-.row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.add{background:none;border:2px solid var(--er);color:var(--er);border-radius:99px;padding:6px 16px;font-weight:700;transition:all .2s}.add:hover{background:var(--er);color:#fff}.add:active{transform:scale(.9)}
-.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:#2e9e4f}.dot.n{background:#c0392b}
-.story{background:var(--hero);color:var(--ht)}.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-@media(max-width:760px){.two{grid-template-columns:1fr}}
-.bar{margin:16px 0}.bar div{height:10px;border-radius:9px;background:#ffffff22;overflow:hidden;margin-top:5px}
-.bar span{display:block;height:100%;width:0;background:var(--er);transition:width 1.6s cubic-bezier(.2,.8,.2,1)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;text-align:center}
-.stats b{display:block;font:800 clamp(2rem,6vw,3.6rem) var(--f);color:var(--er)}
-.tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.tags span{border:1px solid var(--gr);color:var(--gr);border-radius:99px;padding:4px 14px;font-weight:500;transition:all .25s}.tags span:hover{background:var(--gr);color:var(--bg);transform:translateY(-3px)}
-.books{display:flex;align-items:flex-end;gap:6px;height:150px}.books i{flex:1;border-radius:4px 4px 0 0;transform-origin:bottom;transform:scaleY(0);transition:transform .7s cubic-bezier(.3,1.4,.5,1)}.books.in i{transform:scaleY(1)}
-.charm{background:var(--sf);border-block:1px solid var(--ln)}
-.picks{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.picks button{background:var(--bg);color:var(--ink);border:2px solid var(--ln);border-radius:14px;padding:14px 18px;font-size:1.05rem;transition:transform .2s}
-.picks button:not(:disabled):hover{transform:scale(1.08) rotate(-3deg)}.picks button[aria-pressed=true]{border-color:var(--gr);background:var(--gr);color:var(--bg)}.picks button:disabled{opacity:.4}
-.meter{height:12px;background:var(--ln);border-radius:9px;overflow:hidden;max-width:420px}.meter span{display:block;height:100%;width:0;background:var(--gr);transition:width .5s}
-.note{color:var(--mute);font-size:.9rem}
-.dude{text-align:center;max-width:560px;margin:0 auto}.dude .face{font-size:6rem;cursor:pointer;display:inline-block;animation:wig 3s ease-in-out infinite;user-select:none}
-@keyframes wig{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-8px)}}
-.bub{background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:16px 20px;margin-top:14px;min-height:80px;display:grid;place-items:center}
-.tm{max-width:640px;margin:0 auto;text-align:center;font:500 1.5rem/1.4 var(--f);min-height:120px;transition:opacity .4s}
-footer{background:var(--hero);color:var(--ht);padding:50px 5vw;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between}footer a{display:block;text-decoration:none;opacity:.8;margin:4px 0}footer a:hover{opacity:1}
-#top{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:46px;height:46px;border-radius:50%;border:0;background:var(--er);color:#fff;font-size:20px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:30}#top.on{opacity:1;pointer-events:auto}
-.veil{position:fixed;inset:0;background:#000a;z-index:70;opacity:0;pointer-events:none;transition:opacity .3s}.veil.on{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--sf);z-index:71;transform:translateX(105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;padding:20px}.drawer.on{transform:none}
-.drawer header{display:flex;justify-content:space-between;align-items:center}.drawer h3{font-size:1.6rem}
-.x{background:none;border:0;color:var(--ink);font-size:30px;line-height:1}
-.lines{flex:1;overflow:auto;margin:14px 0}.line{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--ln);animation:pop .3s}
-.q{display:flex;align-items:center;gap:8px}.q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--ln);background:var(--bg);color:var(--ink)}
-.tot{display:flex;justify-content:space-between;font-size:1.25rem;font-weight:700;margin:10px 0}
-.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.94);width:min(480px,92vw);max-height:90vh;overflow:auto;background:var(--sf);border-radius:20px;padding:26px;z-index:72;opacity:0;pointer-events:none;transition:all .3s}.modal.on{opacity:1;transform:translate(-50%,-50%);pointer-events:auto}
-.step{display:none}.step.on{display:block;animation:pop .4s}
-.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--ink);border:2px solid var(--ln);border-radius:12px;padding:14px;margin:10px 0}.opt[aria-pressed=true]{border-color:var(--gr)}
-label{display:block}input.f,select{width:100%;padding:12px;margin:6px 0 14px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140px);background:var(--gr);color:var(--bg);padding:12px 22px;border-radius:99px;z-index:90;transition:transform .35s cubic-bezier(.3,1.5,.5,1);font-weight:700}.toast.on{transform:translate(-50%,0)}
-.cf{position:fixed;top:-20px;width:10px;height:14px;z-index:95;animation:cf 2.4s ease-in forwards;pointer-events:none}
-@keyframes cf{to{transform:translateY(110vh) rotate(720deg);opacity:.8}}
-.item{position:relative}.bd{position:absolute;top:14px;right:14px;background:var(--er);color:#fff;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:99px}
-.sz{padding:6px 10px;margin-top:6px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:.9rem}
-.sp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.sp div{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:22px}.sp h3{font-size:1.3rem;margin:4px 0 8px}.sp b{color:var(--er)}
-.vis{display:grid;grid-template-columns:1fr 1fr;gap:48px}@media(max-width:760px){.vis{grid-template-columns:1fr}}
-.hrs div{display:flex;justify-content:space-between;border-bottom:1px solid var(--ln);padding:10px 0}
-details{border-bottom:1px solid var(--ln);padding:16px 0}summary{cursor:pointer;font:700 1.15rem var(--f)}details p{margin:10px 0 0;color:var(--mute);animation:pop .4s}
-.rf{background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:24px}.rf .g{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mq div,.bean{animation-duration:60s}}
+:root{--espresso:#30211b;--dark:#18110e;--coffee:#684837;--caramel:#bd8b63;--cream:#f3ebdf;--oat:#dfd0bc;--paper:#faf5ed;--white:#fffaf3;--muted:#817269;--line:rgba(48,33,27,.14);--serif:"DM Serif Display",serif;--sans:"DM Sans",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--cream);color:var(--espresso);overflow-x:hidden}body.lock{overflow:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}h1,h2,h3,h4{font-family:var(--serif);font-weight:400}section{padding:105px 6.5%}.eyebrow{margin-bottom:14px;color:var(--caramel);font-size:10px;font-weight:700;letter-spacing:2.7px;text-transform:uppercase}.display{font-family:var(--serif);font-size:clamp(47px,6.2vw,90px);line-height:.94;letter-spacing:-2px}.copy{color:var(--muted);font-size:14px;line-height:1.85}
+.loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--cream);transition:.6s}.loader.hide{opacity:0;visibility:hidden}.cup{position:relative;width:86px;height:58px;border:4px solid var(--espresso);border-radius:5px 5px 26px 26px;margin:25px auto}.cup:after{content:"";position:absolute;width:27px;height:29px;right:-28px;top:9px;border:4px solid var(--espresso);border-left:0;border-radius:0 18px 18px 0}.fill{position:absolute;left:4px;right:4px;bottom:4px;height:0;background:var(--coffee);border-radius:3px 3px 19px 19px;animation:fill 1.7s forwards}@keyframes fill{to{height:45px}}.steam{position:absolute;top:-35px;width:2px;height:26px;background:var(--caramel);opacity:0;animation:steam 1.5s infinite}.steam:nth-child(1){left:22px}.steam:nth-child(2){left:42px;animation-delay:.35s}.steam:nth-child(3){left:60px;animation-delay:.7s}@keyframes steam{0%{opacity:0;transform:translateY(8px)}50%{opacity:.6}100%{opacity:0;transform:translateY(-15px)}}
+nav{position:fixed;z-index:1000;top:0;width:100%;padding:20px 5%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--white);transition:.3s}nav.scrolled{padding-block:13px;background:rgba(24,17,14,.95);backdrop-filter:blur(14px)}.navside{display:flex;align-items:center;gap:23px}.navside.right{justify-content:flex-end}.navlink{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}.brand{font-family:var(--serif);font-size:30px}.cartbtn{padding:10px 15px;border:1px solid #ffffff70;border-radius:99px;background:none;color:white}.badge{display:inline-grid;place-items:center;min-width:19px;height:19px;margin-left:5px;border-radius:20px;background:var(--cream);color:var(--espresso);font-size:9px}
+.hero{background-color:#241914;position:relative;min-height:100vh;padding:140px 6.5% 65px;display:flex;align-items:flex-end;overflow:hidden;color:white;background:linear-gradient(90deg,rgba(18,11,8,.86),rgba(18,11,8,.42),rgba(18,11,8,.1)),url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1900&q=88") center/cover}.hero h1{font-size:clamp(74px,11vw,160px);line-height:.77;letter-spacing:-6px}.hero h1 span{color:#dbb894}.hero-bottom{margin-top:42px;display:flex;justify-content:space-between;align-items:end;gap:30px}.hero p{max-width:450px;color:#ffffffba;line-height:1.8}.hero a{padding:14px 21px;border-radius:99px;background:var(--cream);color:var(--espresso);font-size:10px;font-weight:700;text-transform:uppercase}.bean{position:absolute;width:56px;height:78px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#a87959,#543426 48%,#1c0f0a 82%);box-shadow:10px 18px 30px #0005;animation:float 7s ease-in-out infinite}.bean:after{content:"";position:absolute;top:10%;left:49%;width:3px;height:80%;background:#120906aa;border-radius:50%;transform:rotate(7deg)}.b1{right:11%;top:21%}.b2{right:26%;top:54%;transform:scale(.6) rotate(35deg);animation-delay:1s}.b3{right:7%;bottom:8%;animation-delay:2s}@keyframes float{50%{translate:0 -22px;rotate:10deg}}
+.marquee{overflow:hidden;padding:17px 0;background:var(--espresso);color:var(--cream);white-space:nowrap}.track{width:max-content;animation:marquee 28s linear infinite}.track span{margin-right:42px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase}.track b{margin-right:42px;color:var(--caramel)}@keyframes marquee{to{transform:translateX(-50%)}}
+.intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:10%}.intro .copy p+p{margin-top:20px}.quote{margin-top:28px!important;color:var(--espresso)!important;font:26px/1.3 var(--serif)}
+.menu{position:relative;overflow:hidden;background:radial-gradient(circle at 90% 10%,#bd8b6315,transparent 25%),var(--dark);color:var(--cream)}.menuhead{display:grid;grid-template-columns:1.2fr .8fr;gap:8%;align-items:end;margin-bottom:55px}.menuintro{color:#a99a91;font-size:13px;line-height:1.8}.tabs{display:flex;overflow:auto;border-block:1px solid #ffffff18}.tab{flex:1;min-width:140px;padding:18px;border:0;border-right:1px solid #ffffff14;background:none;color:#8f8078;text-align:left;transition:.25s}.tab small{display:block;margin-bottom:5px;color:#655750}.tab.active,.tab:hover{color:var(--cream);background:#ffffff08}.category{display:grid;grid-template-columns:.7fr 1.3fr;gap:30px;align-items:end;padding:55px 0 25px}.category h3{font-size:45px}.category p{color:#91837b;font-size:12px;line-height:1.8}.grid{display:grid;grid-template-columns:repeat(2,1fr);column-gap:70px}.menuitem{position:relative;display:grid;grid-template-columns:1fr auto;gap:20px;min-height:150px;padding:26px 0;border-bottom:1px solid #ffffff17;opacity:0;transform:translateY(15px);animation:itemin .5s forwards;transition:.3s}.menuitem:hover{padding-left:9px}.menuitem:before{content:"";position:absolute;left:0;top:50%;width:2px;height:0;background:var(--caramel);transform:translateY(-50%);transition:.3s}.menuitem:hover:before{height:45%}@keyframes itemin{to{opacity:1;transform:none}}.topline{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.itemname{font:25px/1.1 var(--serif)}.desc{max-width:430px;margin-top:8px;color:#85766f;font-size:11px;line-height:1.7}.tag{padding:3px 7px;border:1px solid #675349;border-radius:99px;color:#c89a73;font-size:7px;text-transform:uppercase}.veg{color:#83927c;font-size:8px}.ordercol{min-width:70px;display:flex;flex-direction:column;align-items:end;justify-content:space-between}.price{color:#d4a47e;font-size:13px;font-weight:600}.plus{width:36px;height:36px;border:1px solid #55463f;border-radius:50%;background:none;color:white;font-size:18px;transition:.25s}.plus:hover{background:var(--cream);color:var(--espresso);transform:rotate(90deg)}.custom{margin-top:10px;border:0;background:none;color:#817068;font-size:8px;text-decoration:underline;text-transform:uppercase}.footnote{display:flex;justify-content:space-between;gap:15px;margin-top:55px;padding-top:18px;border-top:1px solid #ffffff17;color:#62554f;font-size:8px;text-transform:uppercase;letter-spacing:1px}
+.charm{position:absolute;color:#bd8b6330;pointer-events:none;animation:float 7s ease-in-out infinite}.cstar{right:5%;top:28%;font:48px var(--serif)}.cbook{right:3%;bottom:12%;font-size:50px;transform:rotate(-10deg)}.cspark{left:4%;bottom:7%;font-size:36px}
+.story{padding:0;display:grid;grid-template-columns:1fr 1fr;background:var(--oat)}.storyphoto{min-height:690px;background:url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1300&q=88") center/cover}.storycopy{padding:95px 10%;display:flex;flex-direction:column;justify-content:center}.storycopy p{margin-top:25px}.reading{background-color:#241914;min-height:650px;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#120c09dc,#120c0955),url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=88") center/cover}.reading .copy{max-width:520px;margin-top:25px;color:#ffffffb5}.features{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}.features span{padding:9px 13px;border:1px solid #ffffff55;border-radius:99px;font-size:8px;text-transform:uppercase}
+.peoplehead{text-align:center;margin-bottom:50px}.peoplegrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.person{padding:34px 20px;border:1px solid var(--line);border-radius:12px;background:var(--white);text-align:center;transition:.3s}.person:hover{transform:translateY(-6px);box-shadow:0 18px 45px #30211b12}.avatar{width:76px;height:76px;margin:0 auto 18px;display:grid;place-items:center;border-radius:50%;background:var(--espresso);color:var(--cream);font:29px var(--serif)}.person h3{font-size:26px}.role{display:block;margin:6px 0 13px;color:var(--caramel);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px}.person p{color:var(--muted);font-size:11px;line-height:1.7}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:9%;background:var(--oat)}.visit p{margin-top:22px}.detail{padding:18px 0;border-bottom:1px solid #30211b25}.detail span{display:block;color:var(--caramel);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px}.detail strong{font:24px var(--serif)}
+footer{padding:75px 6.5% 30px;background:var(--dark);color:var(--cream);overflow:hidden}.wordmark{padding-bottom:60px;border-bottom:1px solid #ffffff18;font:clamp(90px,17vw,245px)/.7 var(--serif);letter-spacing:-8px}.footerrow{padding-top:27px;display:flex;justify-content:space-between;gap:20px;color:#887a72;font-size:10px}
+.backdrop{position:fixed;inset:0;z-index:1900;background:#0c08069c;opacity:0;visibility:hidden;transition:.3s}.backdrop.show{opacity:1;visibility:visible}.cart{position:fixed;z-index:2000;top:0;right:0;width:min(480px,100%);height:100%;padding:32px;display:flex;flex-direction:column;background:var(--cream);transform:translateX(100%);transition:.4s}.cart.show{transform:none}.carthead{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}.carthead h2{font-size:36px}.close{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:none;font-size:20px}.cartitems{flex:1;overflow:auto}.empty{padding:70px 10px;text-align:center;color:var(--muted)}.cartitem{padding:18px 0;border-bottom:1px solid var(--line)}.carttop{display:flex;justify-content:space-between;gap:12px}.cartitem h4{font-size:20px}.opts{margin-top:5px;color:var(--muted);font-size:9px;line-height:1.5}.cartcontrols{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.qty{display:flex;align-items:center;gap:9px}.qty button{width:27px;height:27px;border:1px solid var(--line);border-radius:50%;background:none}.linkbtn{border:0;background:none;color:var(--coffee);font-size:9px;text-decoration:underline;margin-left:9px}.summary{padding-top:18px;border-top:1px solid var(--line)}.total{display:flex;justify-content:space-between;font:26px var(--serif)}.checkoutbtn{width:100%;margin-top:16px;padding:14px;border:0;border-radius:99px;background:var(--espresso);color:var(--cream);font-size:10px;font-weight:700;text-transform:uppercase}
+.modal{position:fixed;inset:0;z-index:2200;padding:20px;display:none;place-items:center;background:#0c0806b5}.modal.show{display:grid}.panel{width:min(700px,100%);max-height:92vh;overflow:auto;border-radius:15px;background:var(--cream)}.panelhead{padding:28px 32px 22px;display:flex;justify-content:space-between;border-bottom:1px solid var(--line)}.panelhead h2{font-size:38px}.panelbody{padding:26px 32px}.option{padding:18px 0;border-bottom:1px solid var(--line)}.option>strong{display:block;margin-bottom:10px;font-size:10px;text-transform:uppercase}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.choice input{display:none}.choice label{display:block;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:10px}.choice input:checked+label{background:var(--espresso);color:var(--cream)}textarea{width:100%;min-height:80px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--paper)}.modalfoot{padding-top:22px;display:flex;justify-content:space-between;align-items:center}.modalprice{font:28px var(--serif)}
+.checkoutmodal{position:fixed;inset:0;z-index:2300;padding:20px;display:none;place-items:center;background:#0c0806b5}.checkoutmodal.show{display:grid}.checkoutpanel{width:min(760px,100%);max-height:92vh;overflow:auto;padding:34px;border-radius:15px;background:var(--cream)}.checkoutgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:25px}.types{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}.type{padding:16px;border:1px solid var(--line);border-radius:8px;background:var(--paper);text-align:left}.type.active{background:var(--espresso);color:var(--cream)}.field{margin-bottom:13px}.field label{display:block;margin-bottom:5px;font-size:8px;font-weight:700;text-transform:uppercase}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:7px;background:var(--paper)}.bill{padding:18px;border-radius:9px;background:var(--paper)}.billrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:10px}.success{display:none;text-align:center;padding:50px 10px}.success.show{display:block}.success h2{font-size:44px}.toast{position:fixed;z-index:3000;left:50%;bottom:25px;padding:11px 17px;border-radius:99px;background:var(--espresso);color:var(--cream);font-size:10px;transform:translate(-50%,20px);opacity:0;transition:.3s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(28px);transition:.7s}.reveal.on{opacity:1;transform:none}
+@media(max-width:1050px){.peoplegrid{grid-template-columns:repeat(2,1fr)}.navlink{display:none}}
+@media(max-width:800px){section{padding:72px 6%}.hero{padding:120px 6% 50px}.hero h1{font-size:clamp(70px,21vw,105px);letter-spacing:-4px}.hero-bottom,.footerrow{align-items:flex-start;flex-direction:column}.intro,.story,.visit,.menuhead,.category,.checkoutgrid{grid-template-columns:1fr}.storyphoto{min-height:450px}.storycopy{padding:65px 6%}.grid,.peoplegrid{grid-template-columns:1fr}.choices,.types{grid-template-columns:1fr}.menuitem:hover{padding-left:0}.footnote{flex-direction:column}.wordmark{letter-spacing:-4px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* === Professional editorial refinement === */
+:root{--ink:#17110e;--ivory:#f1efe4;--ivory2:#e9e5d7;--rust:#9c4f35;--ochre:#d6a03e;--navy:#063852}
+.brand,.logo{letter-spacing:.06em;text-transform:uppercase;font-family:var(--sans, "DM Sans", sans-serif);font-weight:700;font-size:18px}
+.hero{background-color:var(--ivory);color:var(--ink);align-items:center;background:linear-gradient(90deg,rgba(241,239,228,.98) 0%,rgba(241,239,228,.93) 45%,rgba(241,239,228,.12) 67%),url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1800&q=88") center right/cover no-repeat}
+.hero h1{color:var(--ink);font-size:clamp(70px,8.5vw,132px);line-height:.8}.hero h1 span,.hero h1 em{color:var(--rust)}.hero p,.hero-copy{color:#655c54}.hero-label,.hero-kicker,.eyebrow{color:var(--rust)}
+.hero-primary,.primary-btn{background:var(--ink);color:var(--ivory);border-color:var(--ink)}.hero-secondary{color:var(--ink);border-color:var(--ink)}
+.marquee{background:var(--rust)}.intro{background:var(--ivory)}.display-title,.section-title{letter-spacing:-.035em}
+.menu-section,.menu{background:#1b1512;color:var(--ivory);position:relative}.menu-section:before,.menu:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.05) 50%,transparent 50.1%)}
+.coffee-story,.story,.coffee-copy,.storycopy{background:var(--ivory)}
+.reading-room,.reading{background:linear-gradient(90deg,var(--navy) 0 50%,var(--ivory) 50%);color:var(--ink);position:relative;overflow:hidden}
+.reading-room:before,.reading:before{content:"";position:absolute;left:8%;top:18%;width:29%;aspect-ratio:1;border:28px solid var(--ochre);border-radius:50%}
+.reading-room:after,.reading:after{content:"";position:absolute;left:18%;top:69%;width:18%;height:13px;background:var(--rust);box-shadow:0 21px 0 var(--ivory),0 42px 0 #7b945d}
+.reading-content,.reading-copy,.reading>div{position:relative;z-index:2;margin-left:52%;padding-left:4%;max-width:46%}.reading-content p,.reading-copy .body-copy,.reading .copy{color:#6f675e}.reading-features span,.features span{border-color:rgba(23,17,14,.25);color:var(--ink)}
+.visit{background:var(--ivory2)}
+.theme-toggle{display:flex;align-items:center;gap:8px;border:0;background:none;color:inherit;font-size:9px;text-transform:uppercase;letter-spacing:1px}.toggle-track{width:38px;height:21px;border:1px solid currentColor;border-radius:30px;padding:2px;display:block}.toggle-knob{display:block;width:15px;height:15px;border-radius:50%;background:currentColor;transition:.3s}.theme-dark .toggle-knob{transform:translateX(17px)}
+body.theme-dark{--cream:#1b1512;--oat:#241b17;--paper:#2b211c;--white:#30251f;--muted:#b5a99d;background:#17110e;color:#f1efe4}.theme-dark .intro,.theme-dark .coffee-story,.theme-dark .story,.theme-dark .coffee-copy,.theme-dark .storycopy,.theme-dark .visit{background:#211915;color:#f1efe4}.theme-dark .hero{color:#f1efe4;background:linear-gradient(90deg,rgba(23,17,14,.97),rgba(23,17,14,.87) 45%,rgba(23,17,14,.2) 67%),url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1800&q=88") center right/cover}.theme-dark .hero h1{color:#f1efe4}.theme-dark .hero p,.theme-dark .hero-copy{color:#c0b5aa}.theme-dark .hero-secondary{color:#f1efe4;border-color:#f1efe4}.theme-dark .reading-room,.theme-dark .reading{background:linear-gradient(90deg,#063852 0 50%,#211915 50%);color:#f1efe4}.theme-dark .reading-content p,.theme-dark .reading-copy .body-copy,.theme-dark .reading .copy{color:#b9ada1}.theme-dark .reading-features span,.theme-dark .features span{color:#f1efe4;border-color:#ffffff50}
+@media(max-width:800px){.reading-room,.reading{background:var(--ivory);padding-top:410px}.reading-room:before,.reading:before{left:18%;top:75px;width:52%}.reading-room:after,.reading:after{left:36%;top:305px}.reading-content,.reading-copy,.reading>div{margin-left:0;padding-left:0;max-width:100%}.theme-toggle .toggle-label{display:none}}
+
 </style>
 </head>
 <body>
-<div id="ld" role="status" aria-label="Loading">
-  <div>
-    <svg viewBox="0 0 120 140" aria-hidden="true">
-      <g stroke="#f3ead9" stroke-width="5" stroke-linecap="round" fill="none"><path class="stm" d="M40 30q-8-10 0-20"/><path class="stm" d="M60 30q-8-10 0-20"/><path class="stm" d="M80 30q-8-10 0-20"/></g>
-      <clipPath id="cp"><path d="M20 50h80v30a40 40 0 0 1-80 0z"/></clipPath>
-      <g clip-path="url(#cp)"><rect class="fill" x="0" y="50" width="120" height="100" fill="#a8432b"/></g>
-      <path d="M20 50h80v30a40 40 0 0 1-80 0z" fill="none" stroke="#f3ead9" stroke-width="5"/>
-      <path d="M100 58h8a12 12 0 0 1 0 28h-10" fill="none" stroke="#f3ead9" stroke-width="5"/>
-      <rect x="14" y="128" width="92" height="6" rx="3" fill="#f3ead9"/>
-    </svg>
-    <h2>Mocha Yard</h2><div id="pct">Warming up the yard… 0%</div>
-  </div>
-</div>
-<div id="prog"></div>
-<nav>
-  <b>Mocha Yard</b>
-  <a class="l" href="#menu">Menu</a><a class="l" href="#coffee">Coffee</a><a class="l" href="#reading">Reading room</a><a class="l" href="#visit">Visit</a>
-  <button class="ib" id="th" aria-label="Switch light or dark theme">🌙</button>
-  <button class="cb" id="open">Cart <span id="cnt">0</span></button>
-</nav>
+<div class="loader" id="loader"><div><div class="cup"><i class="steam"></i><i class="steam"></i><i class="steam"></i><div class="fill"></div></div><p style="font-family:var(--serif)">Opening Morrow…</p></div></div>
+<nav id="nav"><div class="navside"><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#coffee">Coffee</a><a class="navlink" href="#reading">Reading Room</a></div><a class="brand" href="#">Morrow</a><div class="navside right"><a class="navlink" href="#visit">Visit</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme"><span class="toggle-track"><span class="toggle-knob"></span></span><span class="toggle-label">Light</span></button><button class="cartbtn" onclick="openCart()">Cart <span class="badge" id="badge">0</span></button></div></nav>
+<header class="hero"><div class="bean b1"></div><div class="bean b2"></div><div class="bean b3"></div><div><div class="eyebrow">Coffee · Food · Reading Room</div><h1>Good coffee.<br><span>Stay awhile.</span></h1><div class="hero-bottom"><p>Morrow is a neighbourhood café for coffee, breakfast, books and afternoons that don't need to become anything else.</p><a href="#menu">See the menu</a></div></div></header>
+<div class="marquee"><div class="track"><span>Espresso</span><b>●</b><span>Fresh Pastries</span><b>●</b><span>Books</span><b>●</b><span>Slow Mornings</span><b>●</b><span>All Day Breakfast</span><b>●</b><span>Reading Room</span><b>●</b><span>Espresso</span><b>●</b><span>Fresh Pastries</span><b>●</b><span>Books</span><b>●</b><span>Slow Mornings</span><b>●</b><span>All Day Breakfast</span><b>●</b><span>Reading Room</span><b>●</b></div></div>
+<section class="intro reveal"><div><div class="eyebrow">Morrow</div><h2 class="display">Come for coffee.<br>Forget the time.</h2></div><div class="copy"><p>Morrow is a small café built around a simple idea: not every hour needs to be productive.</p><p>There is coffee when you need waking up, breakfast when you've missed breakfast, and enough books to justify staying longer than you planned.</p><p class="quote">“Some places serve coffee. Some give you somewhere to be.”</p></div></section>
 
-<header class="hero" id="hero">
-  <i class="bean" style="left:8%;top:18%"></i><i class="bean" style="left:46%;top:70%;animation-delay:1s"></i><i class="bean" style="left:30%;top:12%;animation-delay:2s"></i><i class="bean" style="left:60%;top:24%;animation-delay:3s"></i>
-  <h1 id="h1">Good coffee. Grown closer.</h1>
-  <p>Arabica and Robusta inspired by the shade-grown coffee gardens of Chikmagalur and Coorg.</p>
-  <div><a class="btn" href="#menu">View menu</a></div>
-  <svg class="cup" id="cup" viewBox="0 0 120 140" aria-hidden="true">
-    <g stroke="#f3ead9" stroke-width="4" stroke-linecap="round" fill="none"><path class="stm" d="M40 30q-8-10 0-20"/><path class="stm" d="M60 30q-8-10 0-20"/><path class="stm" d="M80 30q-8-10 0-20"/></g>
-    <path d="M20 50h80v30a40 40 0 0 1-80 0z" fill="#f3ead9"/><ellipse cx="60" cy="52" rx="40" ry="6" fill="#5a3520"/>
-    <path d="M100 58h8a12 12 0 0 1 0 28h-10" fill="none" stroke="#f3ead9" stroke-width="5"/><rect x="10" y="128" width="100" height="6" rx="3" fill="#a8432b"/>
-  </svg>
-</header>
-<div class="mq" aria-hidden="true"><div id="mq"></div></div>
+<section class="menu" id="menu">
+<div class="charm cstar">✦</div><div class="charm cbook">▤</div><div class="charm cspark">✧</div>
+<div class="menuhead reveal"><div><div class="eyebrow">Morrow Menu</div><h2 class="display">Made for staying<br>a little longer.</h2></div><p class="menuintro">Coffee made properly, food made simply, and a few things worth ordering even when you weren't hungry.</p></div>
+<div class="tabs"><button class="tab active" onclick="showMenu('coffee',this)"><small>01</small>Coffee</button><button class="tab" onclick="showMenu('pastries',this)"><small>02</small>Bakery</button><button class="tab" onclick="showMenu('breakfast',this)"><small>03</small>Breakfast</button><button class="tab" onclick="showMenu('pairings',this)"><small>04</small>Morrow Pairings</button><button class="tab" onclick="showMenu('bites',this)"><small>05</small>All Day</button></div>
+<div class="category"><div><div class="eyebrow" id="catnum">01</div><h3 id="cattitle">Coffee</h3></div><p id="catdesc"></p></div>
+<div class="grid" id="menuGrid"></div>
+<div class="footnote"><span>Milk alternatives available</span><span>Please tell us about allergies</span><span>Prices include taxes</span></div>
+</section>
 
-<section id="menu"><div class="wrap">
-  <h2 class="rv">What are you having?</h2>
-  <div class="tools rv"><input id="q" type="search" placeholder="Search the menu" aria-label="Search the menu"><button class="pill" id="vg" aria-pressed="false">Veg only</button></div>
-  <div class="tabs rv" id="tabs"></div>
-  <div class="grid" id="grid"></div>
-</div></section>
+<section class="story" id="coffee"><div class="storyphoto"></div><div class="storycopy reveal"><div class="eyebrow">Our Coffee</div><h2 class="display">Coffee that tastes like coffee.</h2><p class="copy">Our house style is balanced rather than complicated: enough sweetness to drink slowly, enough body to survive milk, and enough character to make a small espresso worth sitting down for.</p><p class="copy">Expect caramel, cocoa, toasted nuts and deeper dark-chocolate notes.</p></div></section>
+<section class="reading" id="reading"><div class="reveal"><div class="eyebrow">Reading Room</div><h2 class="display">Stay for a page.<br>Or fifty.</h2><p class="copy">Take something from the shelf while you're here. Bring back a book you've finished, leave one for somebody else, or simply sit somewhere quiet until your coffee goes cold.</p><div class="features"><span>Book Swap</span><span>Quiet Tables</span><span>Window Seats</span><span>Open All Day</span></div></div></section>
 
-<section class="story" id="coffee"><div class="wrap">
-  <div class="two">
-    <div class="rv"><h2>Arabica for aroma. Robusta for body.</h2><p>Shade-grown coffee, red earth, monsoon air and slow mornings. Our coffee story takes its cues from Karnataka's garden estates.</p></div>
-    <div class="rv" id="bars">
-      <div class="bar">Arabica: smooth and aromatic<div><span data-w="78"></span></div></div>
-      <div class="bar">Robusta: bold and full-bodied<div><span data-w="92"></span></div></div>
-      <div class="bar">Moka: brewed slowly<div><span data-w="64"></span></div></div>
-      <div class="bar">Espresso bar: shot by shot<div><span data-w="85"></span></div></div>
-    </div>
-  </div>
-  <div class="stats rv" id="stats"><div><b data-n="18" data-u="h">0</b>cold brew steep</div><div><b data-n="14" data-u="h">0</b>open every day</div><div><b data-n="2">0</b>beans, one yard</div></div>
-</div></section>
 
-<section id="reading"><div class="wrap two">
-  <div class="rv"><h2>Stay for a page.</h2><p>A quiet corner for books, coffee and unhurried afternoons.</p><div class="tags"><span>Book swap</span><span>Quiet tables</span><span>Open all day</span></div></div>
-  <div class="books rv" id="books"></div>
-</div></section>
 
-<section class="charm"><div class="wrap rv">
-  <h2>A free charm with every ₹500.</h2>
-  <p>Pick one. It unlocks automatically when your cart reaches ₹500.</p>
-  <div class="picks" id="picks"></div><div class="meter"><span id="meter"></span></div><p class="note" id="cn"></p>
-</div></section>
+<section class="visit" id="visit"><div class="reveal"><div class="eyebrow">Visit</div><h2 class="display">There's probably a table.</h2><p class="copy">Come early for the quietest hour, stay through lunch, or arrive when the afternoon needs rescuing.</p></div><div><div class="detail"><span>Hours</span><strong>Daily · 8 AM — 10 PM</strong></div><div class="detail"><span>Good for</span><strong>Coffee · Reading · Long conversations</strong></div><div class="detail"><span>Orders</span><strong>Dine in · Takeaway</strong></div></div></section>
+<footer><div class="wordmark">Morrow</div><div class="footerrow"><span>Coffee · Books · Better afternoons.</span><span>You can stay a little longer.</span></div></footer>
 
-<section><div class="dude rv">
-  <h2>The Mocha Yard Dude</h2>
-  <div class="face" id="face" role="button" tabindex="0" aria-label="Ask the Yard Dude for a tip">🧔☕</div>
-  <div class="bub" id="bub">Tap me. I know what you should order.</div>
-</div></section>
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+<aside class="cart" id="cart"><div class="carthead"><div><div class="eyebrow">Morrow</div><h2>Your order</h2></div><button class="close" onclick="closeCart()">×</button></div><div class="cartitems" id="cartItems"></div><div class="summary"><div class="total"><span>Total</span><span id="cartTotal">₹0</span></div><button class="checkoutbtn" onclick="openCheckout()">Continue to checkout</button></div></aside>
 
-<section class="story"><div class="tm rv" id="tm"></div></section>
+<div class="modal" id="productModal"><div class="panel"><div class="panelhead"><div><div class="eyebrow">Make it yours</div><h2 id="modalName"></h2><p class="copy" id="modalDesc"></p></div><button class="close" onclick="closeProduct()">×</button></div><div class="panelbody">
+<div class="option"><strong>Temperature</strong><div class="choices"><div class="choice"><input type="radio" name="temp" id="hot" value="Hot" checked><label for="hot">Hot</label></div><div class="choice"><input type="radio" name="temp" id="iced" value="Iced"><label for="iced">Iced + ₹20</label></div></div></div>
+<div class="option"><strong>Size</strong><div class="choices"><div class="choice"><input type="radio" name="size" id="regular" value="Regular" checked><label for="regular">Regular</label></div><div class="choice"><input type="radio" name="size" id="large" value="Large"><label for="large">Large + ₹40</label></div></div></div>
+<div class="option" id="milkOption"><strong>Milk</strong><div class="choices"><div class="choice"><input type="radio" name="milk" id="dairy" value="Regular Milk" checked><label for="dairy">Regular</label></div><div class="choice"><input type="radio" name="milk" id="oat" value="Oat Milk"><label for="oat">Oat + ₹40</label></div><div class="choice"><input type="radio" name="milk" id="almond" value="Almond Milk"><label for="almond">Almond + ₹40</label></div></div></div>
+<div class="option"><strong>Extras</strong><div class="choices"><div class="choice"><input type="checkbox" id="shot"><label for="shot">Extra shot + ₹50</label></div><div class="choice"><input type="checkbox" id="vanilla"><label for="vanilla">Vanilla + ₹25</label></div><div class="choice"><input type="checkbox" id="caramel"><label for="caramel">Caramel + ₹25</label></div></div></div>
+<div class="option"><strong>Special instructions</strong><textarea id="notes" placeholder="Less sweet, extra hot, no cinnamon..."></textarea></div>
+<div class="modalfoot"><div class="modalprice" id="modalPrice">₹0</div><button class="checkoutbtn" style="width:auto;margin:0;padding-inline:24px" id="saveProduct" onclick="saveCustom()">Add to order</button></div>
+</div></div></div>
 
-<section><div class="wrap"><h2 class="rv">Through the day at the yard</h2><div class="sp rv"><div><span class="note">8 to 11 AM</span><h3>🌅 Slow mornings</h3><p>Filter kaapi with a Poha Bowl or Mini Idli Sambar. Fresh croissants come out of the oven around 8:30.</p><b>Try: Kaapi + Poha, ₹260</b></div><div><span class="note">12 to 3 PM</span><h3>🥪 Lunch at the yard</h3><p>Toasted sandwiches, wraps and burgers, with a Mango Lassi or Virgin Mojito alongside.</p><b>Try: Paneer Wrap + Lassi, ₹350</b></div><div><span class="note">4 to 10 PM</span><h3>🌙 Evening pages</h3><p>Moka pot, brownies and long reads in the Reading Room until close.</p><b>Try: Moka Mocha + Brownie, ₹330</b></div></div></div></section>
-<section id="visit"><div class="wrap vis"><div class="rv"><h2>Visit the yard</h2><p>Mocha Yard, Garden Lane<br><span class="note">Parking nearby. Walk-ins always welcome. Phone: +91 98765 43210</span></p><div class="hrs"><div><span>Mon to Fri</span><b>8 AM to 10 PM</b></div><div><span>Sat and Sun</span><b>8 AM to 10 PM</b></div><div><span>Reading Room</span><b>Open all day</b></div></div></div><form class="rf rv" id="rf"><h3 style="font-size:1.6rem;margin-bottom:14px">Reserve a table</h3><label>Name<input class="f" required autocomplete="name"></label><div class="g"><label>Date<input class="f" type="date" required></label><label>Guests<select><option>1</option><option>2</option><option>3 to 4</option><option>5 to 8</option></select></label></div><label>Seating<select><option>Any available table</option><option>Window seat</option><option>Reading room</option><option>Garden corner</option></select></label><button class="btn">Request table</button></form></div></section>
-<section class="charm"><div class="wrap rv" style="max-width:760px"><h2>Good to know</h2><details><summary>Is everything marked veg actually vegetarian?</summary><p>Yes. A green dot means vegetarian and a red dot means it contains egg or meat.</p></details><details><summary>Can I get a drink in a larger size?</summary><p>Every coffee and cold drink has a Large option for ₹40 extra, chosen on the menu card.</p></details><details><summary>How does the free charm work?</summary><p>Once your cart reaches ₹500, pick one charm in the cart or the charm section. It is added at no cost.</p></details><details><summary>Can I bring my own book?</summary><p>Please do. Swap it for one from the Reading Room shelf, or just read quietly.</p></details></div></section>
-<footer>
-  <div><b style="font:800 24px var(--f)">Mocha Yard</b><br>Coffee, kitchen and good company.<br><span class="note">Open daily, 8 AM to 10 PM</span></div>
-  <div><a href="#menu">Menu</a><a href="#coffee">Our story</a><a href="#reading">Reading room</a></div><div><a href="#">Instagram</a><a href="#visit">Find us</a></div><form id="nl" style="display:flex;gap:8px;width:100%;max-width:380px"><input class="f" type="email" required placeholder="Email for weekly specials" aria-label="Email" style="margin:0"><button class="btn" style="padding:10px 22px">Join</button></form>
-</footer>
-<button id="top" aria-label="Back to top">↑</button>
-<div class="veil" id="veil"></div>
-
-<aside class="drawer" id="drawer" aria-label="Your order">
-  <header><h3>Your order</h3><button class="x" id="close" aria-label="Close cart">&times;</button></header>
-  <div class="lines" id="lines"></div><p class="note" id="gift"></p>
-  <div class="tot"><span>Total</span><span id="total">₹0</span></div><button class="btn" id="checkout">Continue to checkout</button>
-</aside>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Checkout">
-  <button class="x" id="mclose" style="float:right" aria-label="Close checkout">&times;</button>
-  <div class="step on" data-s="1"><h3>How will you have it?</h3>
-    <button class="opt" data-type="Dine in" aria-pressed="true"><b>Dine in</b><br><span class="note">Enjoy your order at Mocha Yard.</span></button>
-    <button class="opt" data-type="Takeaway" aria-pressed="false"><b>Takeaway</b><br><span class="note">Collect from the counter.</span></button>
-    <button class="btn" data-go="2">Continue</button></div>
-  <div class="step" data-s="2"><h3>Your details</h3>
-    <label>Name<input class="f" id="nm" autocomplete="name"></label><label>Phone<input class="f" id="ph" inputmode="tel" autocomplete="tel"></label>
-    <label>Seating<select id="seat"><option>Any available table</option><option>Window seat</option><option>Reading room</option><option>Garden corner</option></select></label>
-    <button class="btn" data-go="3">Continue to payment</button></div>
-  <div class="step" data-s="3"><h3>Payment</h3>
-    <button class="opt" aria-pressed="true"><b>UPI</b><br><span class="note">Any UPI app</span></button><button class="opt" aria-pressed="false"><b>Card</b><br><span class="note">Credit or debit</span></button>
-    <div class="tot"><span>Total payable</span><span id="pay">₹0</span></div><p class="note">Academic demo only. No banking information is transmitted or stored.</p>
-    <button class="btn" id="place">Pay and place order</button></div>
-  <div class="step" data-s="4"><h3>Order confirmed</h3><p id="done"></p><button class="btn" id="finish">Done</button></div>
-</div>
-<div class="toast" id="toast" role="status"></div>
+<div class="checkoutmodal" id="checkoutModal"><div class="checkoutpanel"><div id="checkoutContent"><div class="carthead" style="margin-bottom:20px"><div><div class="eyebrow">Morrow</div><h2>Checkout</h2></div><button class="close" onclick="closeCheckout()">×</button></div><div class="types"><button class="type active" onclick="setType(this,'Dine in')"><strong>Dine in</strong><br><small>Stay at Morrow</small></button><button class="type" onclick="setType(this,'Takeaway')"><strong>Takeaway</strong><br><small>Collect at the counter</small></button></div><div class="checkoutgrid"><div><div class="field"><label>Name</label><input id="name" placeholder="Your name"></div><div class="field"><label>Phone</label><input id="phone" placeholder="+91 98765 43210"></div><div class="field"><label>Payment</label><select id="payment"><option>Pay at counter</option><option>UPI — demo</option><option>Card — demo</option></select></div><p class="copy" style="font-size:9px">Demo billing only. No real payment details are processed or stored.</p><button class="checkoutbtn" onclick="placeOrder()">Place demo order</button></div><div class="bill"><h3>Bill</h3><div id="billItems"></div><div class="total" style="margin-top:15px"><span>Total</span><span id="billTotal">₹0</span></div></div></div></div><div class="success" id="success"><div style="font-size:45px">✓</div><h2>Order confirmed.</h2><p class="copy">Your demo bill has been generated.</p><div class="quote" id="orderNo"></div><button class="checkoutbtn" style="max-width:220px;margin:25px auto" onclick="finishOrder()">Done</button></div></div></div>
+<div class="toast" id="toast"></div>
 
 <script>
-const $=id=>document.getElementById(id),rs=n=>"₹"+n,all=(s,r=document)=>[...r.querySelectorAll(s)];
-const MENU={"Coffee":[["Filter Kaapi","Decoction with frothed milk",120,1,"☕"],["Moka Pot Mocha","Slow moka, dark chocolate",190,1,"🫖"],["Espresso","Robusta-led double shot",110,1,"⚡"],["Cappuccino","Arabica, silky milk",150,1,"☕"],["Coorg Cold Brew","Steeped 18 hours",180,1,"🧊"],["Flat White","Double ristretto, velvet milk",160,1,"☕"],["Cortado","Espresso cut with warm milk",140,1,"☕"],["Jaggery Latte","Palm jaggery, cardamom, espresso",180,1,"🍯"],["Affogato","Vanilla ice cream, hot espresso",200,1,"🍨"],["Masala Chai","Ginger, cardamom, black tea",90,1,"🫖"],["Hot Chocolate","Dark cocoa, whipped cream",170,1,"🍫"]],
-"Desserts & Bakery":[["Chocolate Brownie","Fudgy, sea salt top",140,1,"🍫"],["Butter Croissant","Baked every morning",110,1,"🥐"],["Banana Walnut Loaf","Warm, lightly spiced",130,1,"🍞"],["Tiramisu Cup","Espresso-soaked sponge",190,1,"🍮"],["Coffee Cheesecake","Baked, filter coffee swirl",210,1,"🍰"],["Cinnamon Roll","Warm, cream cheese glaze",130,1,"🥮"],["Choc Chip Cookie","Large, gooey centre",90,1,"🍪"],["Almond Biscotti","Twice-baked, made for dunking",100,1,"🥜"]],
-"All Day Eats":[["Masala Omelette Toast","Green chilli, coriander",170,0,"🍳"],["Poha Bowl","Peanuts, lemon, sev",140,1,"🥣"],["Avocado Toast","Sourdough, chilli flakes",230,1,"🥑"],["Mini Idli Sambar","Ghee podi idlis, hot sambar",150,1,"🍲"],["Egg Bhurji Pav","Spiced scramble, buttered pav",160,0,"🍳"],["Shakshuka","Eggs poached in spiced tomato",240,0,"🍅"],["Mushroom Cheese Toast","Garlic mushrooms, melted cheese",190,1,"🍄"]],
-"Yard Favourites":[["Yard Burger","Crisp patty, house sauce",260,0,"🍔"],["Peri Peri Fries","Shaken with spice mix",150,1,"🍟"],["Paneer Wrap","Grilled, mint chutney",210,1,"🌯"],["Loaded Nachos","Cheese, jalapeño, salsa",220,1,"🧀"],["Mac and Cheese","Baked, crumb top",240,1,"🧆"],["Chicken Wings","Smoky BBQ glaze, six pieces",280,0,"🍗"]],
-"Sandwiches":[["Grilled Cheese","Three cheeses, sourdough",190,1,"🧀"],["Veg Club","Layered and toasted",210,1,"🥪"],["Chicken Pesto","Basil pesto, chicken",250,0,"🥪"],["Tandoori Paneer Melt","Smoky paneer, onion, cheese",220,1,"🥪"],["Egg Mayo","Soft eggs, chive, brioche",180,0,"🥚"]],
-"Cold Drinks":[["Iced Latte","Arabica, cold milk",170,1,"🥤"],["Lemon Mint Cooler","Fresh and fizzy",120,1,"🍋"],["Mocha Frappe","Blended with chocolate",210,1,"🍹"],["Mango Lassi","Thick, chilled, cardamom",140,1,"🥭"],["Coffee Float","Cold brew, vanilla scoop",200,1,"🥤"],["Peach Iced Tea","Black tea, peach, lemon",150,1,"🍑"],["Virgin Mojito","Mint, lime, soda",160,1,"🍃"]]};
-const DR=new Set([...MENU["Coffee"],...MENU["Cold Drinks"]].map(m=>m[0])),BD={"Moka Pot Mocha":"Bestseller","Filter Kaapi":"House classic","Coorg Cold Brew":"Cold favourite","Butter Croissant":"Baked fresh","Yard Burger":"Fan favourite","Tiramisu Cup":"New","Jaggery Latte":"New","Mango Lassi":"Seasonal","Shakshuka":"Chef's pick"};
-const CH=["☕ Mini cup","🥐 Croissant","🍪 Cookie","🧸 Mocha bear"],LIM=500;
-const TIPS=["Order the Moka Pot Mocha. Trust me.","Rainy day? Filter kaapi and a brownie.","Take a book from the shelf. Leave one behind.","Robusta for body, Arabica for aroma. Try both.","Cart at ₹500 gets you a free charm."];
-const REV=["“The filter kaapi tastes like a Coorg morning.” — Regular, window seat","“Came for coffee, stayed three hours with a book.” — Reading room guest","“The mocha bear charm made my week.” — First-time visitor"];
-let cat="Coffee",cart={},charm=null,type="Dine in",veg=false,qs="";
-// loader
-(function(){let p=0,t0=Date.now();const iv=setInterval(()=>{p=Math.min(100,Math.round((Date.now()-t0)/22));$("pct").textContent="Warming up the yard… "+p+"%";if(p>=100){clearInterval(iv);hide()}},40);
-let done=false;function hide(){if(done)return;done=true;$("ld").classList.add("out");document.body.style.overflow="";start();setTimeout(()=>$("ld").remove(),1000)}
-document.body.style.overflow="hidden";setTimeout(hide,4000)})();
-function start(){
-  const h=$("h1");h.innerHTML=h.textContent.split(" ").map((w,i)=>`<span class="w" style="animation-delay:${i*.12}s">${w}</span>`).join(" ");
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add("in");io.unobserve(t);
-    if(t.id=="bars")all("span[data-w]",t).forEach(s=>s.style.width=s.dataset.w+"%");
-    if(t.id=="stats")all("b",t).forEach(b=>{let n=+b.dataset.n,i=0;const iv=setInterval(()=>{i++;b.textContent=i+(b.dataset.u||"");if(i>=n)clearInterval(iv)},1200/n)})}),{threshold:.2});
-  all(".rv").forEach(e=>io.observe(e));setTimeout(()=>all(".rv").forEach(e=>e.classList.add("in")),6000);
-}
-// marquee, books, reviews
-$("mq").innerHTML=("<span>Karnataka Arabica</span><span>☕</span><span>Roasted daily</span><span>☕</span><span>Shade grown</span><span>☕</span><span>Good company</span><span>☕</span>").repeat(4);
-$("books").innerHTML=[60,95,75,120,85,140,70,110].map((h,i)=>`<i style="height:${h}px;background:${["#a8432b","#2c4a38","#c9a35a","#5a3520"][i%4]};transition-delay:${i*.08}s"></i>`).join("");
-let ri=0;function rev(){const t=$("tm");t.textContent=REV[ri];ri=(ri+1)%REV.length}rev();setInterval(()=>{$("tm").style.opacity=0;setTimeout(()=>{rev();$("tm").style.opacity=1},400)},4500);
-// theme
-function dark(){const t=document.documentElement.dataset.theme;return t?t=="dark":matchMedia("(prefers-color-scheme:dark)").matches}
-function icon(){$("th").textContent=dark()?"☀️":"🌙"}icon();
-$("th").onclick=()=>{const n=dark()?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("my-theme",n)}catch(e){}icon();toast(n=="dark"?"Dark mode on":"Light mode on")};
-// menu
-function tabs(){$("tabs").innerHTML=Object.keys(MENU).map(c=>`<button aria-pressed="${c==cat}" data-c="${c}">${c}</button>`).join("")}
-function grid(){const q=qs.toLowerCase();let L=q?Object.values(MENU).flat():MENU[cat];L=L.filter(m=>(!veg||m[3])&&(!q||(m[0]+m[1]).toLowerCase().includes(q)));
-  $("grid").innerHTML=L.length?L.map((m,i)=>`<div class="item" style="animation-delay:${i*.06}s"><span class="em">${m[4]}</span>${BD[m[0]]?`<span class="bd">${BD[m[0]]}</span>`:""}<h3>${m[0]}</h3><p><span class="dot ${m[3]?"":"n"}"></span>${m[1]}</p>${DR.has(m[0])?`<select class="sz" aria-label="Size of ${m[0]}"><option value="0">Regular</option><option value="40">Large +₹40</option></select>`:""}<div class="row"><b>${rs(m[2])}</b><button class="add" data-n="${m[0]}" data-p="${m[2]}">Add</button></div></div>`).join(""):`<p class="note">Nothing matches. Try another word or clear the filter.</p>`}
-$("q").oninput=e=>{qs=e.target.value;grid()};$("vg").onclick=e=>{veg=!veg;e.target.setAttribute("aria-pressed",veg);grid()};
-// cart
-const tot=()=>Object.values(cart).reduce((a,l)=>a+l.p*l.n,0);
-function toast(t){const e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),1700)}
-function render(){const t=tot(),ok=t>=LIM,n=Object.values(cart).reduce((a,l)=>a+l.n,0);
-  $("cnt").textContent=n;$("total").textContent=rs(t);$("pay").textContent=rs(t);
-  $("lines").innerHTML=n?Object.entries(cart).map(([k,l])=>`<div class="line"><span>${k}<br><span class="note">${rs(l.p)}</span></span><span class="q"><button data-d="-1" data-k="${k}" aria-label="Remove one ${k}">−</button>${l.n}<button data-d="1" data-k="${k}" aria-label="Add one ${k}">+</button></span></div>`).join(""):`<p class="note">Your cart is empty. Add something from the menu.</p>`;
-  $("meter").style.width=Math.min(100,t/LIM*100)+"%";
-  const m=ok?(charm?`Your free ${charm} is added.`:"Unlocked. Pick your free charm."):`Add ${rs(LIM-t)} more to unlock a complimentary charm.`;$("cn").textContent=m;$("gift").textContent=m;
-  $("picks").innerHTML=CH.map(c=>`<button data-ch="${c}" aria-pressed="${charm==c}" ${ok?"":"disabled"}>${c}</button>`).join("");$("checkout").disabled=!n}
-function drawer(o){$("drawer").classList.toggle("on",o);$("veil").classList.toggle("on",o)}
-function step(s){all(".step").forEach(e=>e.classList.toggle("on",e.dataset.s==s))}
-function modal(o){$("modal").classList.toggle("on",o);$("veil").classList.toggle("on",o);if(o){$("drawer").classList.remove("on");step(1)}}
-function confetti(){for(let i=0;i<60;i++){const c=document.createElement("i");c.className="cf";c.style.cssText=`left:${Math.random()*100}vw;background:${["#a8432b","#2c4a38","#c9a35a","#f3ead9"][i%4]};animation-delay:${Math.random()*.6}s;animation-duration:${1.8+Math.random()*1.4}s`;document.body.append(c);setTimeout(()=>c.remove(),3500)}}
-document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
-  if(d.c){cat=d.c;qs="";$("q").value="";tabs();grid()}
-  else if(d.n){const sz=b.closest(".item").querySelector(".sz"),up=sz?+sz.value:0,key=d.n+(up?" (Large)":"");(cart[key]=cart[key]||{p:+d.p+up,n:0}).n++;render();toast("Added: "+key);$("open").classList.remove("bump");void $("open").offsetWidth;$("open").classList.add("bump")}
-  else if(d.k){const l=cart[d.k];l.n+=+d.d;if(l.n<1)delete cart[d.k];render()}
-  else if(d.ch){charm=charm==d.ch?null:d.ch;render()}
-  else if(d.type){type=d.type;all("[data-type]").forEach(x=>x.setAttribute("aria-pressed",x==b))}
-  else if(d.go){if(d.go==3&&!$("nm").value.trim()){toast("Enter your name to continue");$("nm").focus();return}step(d.go)}
-  else if(b.classList.contains("opt")){all(".opt",b.parentNode).forEach(x=>x.setAttribute("aria-pressed",x==b))}});
-$("open").onclick=()=>drawer(true);$("close").onclick=()=>drawer(false);
-$("veil").onclick=()=>{drawer(false);$("modal").classList.remove("on");$("veil").classList.remove("on")};
-$("checkout").onclick=()=>modal(true);$("mclose").onclick=()=>$("veil").onclick();
-$("place").onclick=()=>{$("done").textContent=`Thanks, ${$("nm").value.trim()}. Your ${type.toLowerCase()} order of ${rs(tot())} is with the kitchen${charm&&tot()>=LIM?`, with a free ${charm} on the side`:""}.`;step(4);confetti()};
-$("finish").onclick=()=>{cart={};charm=null;render();$("veil").onclick()};
-document.addEventListener("keydown",e=>{if(e.key=="Escape")$("veil").onclick()});
-// dude, scroll, parallax
-let ti=0;function tip(){$("bub").textContent=TIPS[ti++%TIPS.length]}$("face").onclick=tip;$("face").onkeydown=e=>{if(e.key=="Enter"||e.key==" "){e.preventDefault();tip()}};
-$("top").onclick=()=>scrollTo({top:0,behavior:"smooth"});
-addEventListener("scroll",()=>{const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;$("prog").style.width=(h>0?y/h*100:0)+"%";$("top").classList.toggle("on",y>600);$("cup").style.marginTop=Math.min(y*.15,120)+"px"},{passive:true});
-$("hero").addEventListener("mousemove",e=>{const x=(e.clientX/innerWidth-.5)*20,y=(e.clientY/innerHeight-.5)*20;all(".bean").forEach((b,i)=>b.style.translate=`${x*(i+1)}px ${y*(i+1)}px`)});
-$("rf").onsubmit=e=>{e.preventDefault();toast("Table requested. We will confirm shortly.");e.target.reset()};$("nl").onsubmit=e=>{e.preventDefault();toast("You're on the list.");e.target.reset()};
-tabs();grid();render();
+const menus={
+coffee:{number:"01",title:"Coffee",description:"Our house espresso is balanced, chocolate-forward and made to work beautifully both black and with milk.",custom:true,items:[
+{name:"Flat White",desc:"Double espresso with silky steamed milk. Small, strong and properly balanced.",price:220,milk:true,badge:"House Favourite"},
+{name:"Cappuccino",desc:"Espresso, steamed milk and a generous cap of microfoam.",price:210,milk:true},
+{name:"Morrow Latte",desc:"House espresso, steamed milk, vanilla bean and brown sugar.",price:250,milk:true,badge:"Morrow"},
+{name:"Sea Salt Mocha",desc:"Dark chocolate, espresso, steamed milk and sea salt.",price:280,milk:true,badge:"Best Seller"},
+{name:"Americano",desc:"Double espresso lengthened with hot water. Clean and uncomplicated.",price:180,milk:false},
+{name:"Orange Espresso",desc:"Double espresso finished with fresh orange zest.",price:200,milk:false,badge:"New"},
+{name:"Cold Brew",desc:"Slow-steeped overnight with cocoa and caramel notes.",price:240,milk:false},
+{name:"Vanilla Cream Cold Brew",desc:"House cold brew finished with lightly sweetened vanilla cream.",price:270,milk:true}]},
+pastries:{number:"02",title:"From the Bakery",description:"Baked for the morning, but we won't judge you for ordering a croissant at four.",custom:false,items:[
+{name:"Butter Croissant",desc:"Classic laminated pastry. Crisp outside, soft and buttery within.",price:170},
+{name:"Almond Croissant",desc:"Butter croissant filled with almond cream and toasted almonds.",price:240,badge:"Best Seller"},
+{name:"Dark Chocolate Croissant",desc:"Flaky pastry wrapped around dark chocolate.",price:220},
+{name:"Cinnamon Roll",desc:"Soft cinnamon swirl with brown sugar and vanilla glaze.",price:210,badge:"House Favourite"},
+{name:"Seasonal Berry Danish",desc:"Buttery Danish with vanilla cream and seasonal berries.",price:230,badge:"Seasonal"},
+{name:"Lemon Loaf",desc:"Soft lemon cake with citrus glaze.",price:190}]},
+breakfast:{number:"03",title:"Breakfast",description:"Served all day, because breakfast ending at eleven seems unnecessarily strict.",custom:false,items:[
+{name:"Avocado & Eggs",desc:"Sourdough, avocado, tomatoes, poached eggs and chilli oil.",price:350,badge:"Popular"},
+{name:"Slow Sunday Pancakes",desc:"Buttermilk pancakes, seasonal fruit, maple and whipped butter.",price:330},
+{name:"Caramelised French Toast",desc:"Brioche, banana, cinnamon, honey and toasted almonds.",price:320,badge:"House Favourite"},
+{name:"Morrow Granola",desc:"Greek yogurt, toasted granola, fruit and wildflower honey.",price:280},
+{name:"Mushroom Scramble",desc:"Soft eggs, roasted mushrooms, tomatoes and sourdough.",price:360},
+{name:"Peanut Butter Toast",desc:"Sourdough, natural peanut butter, banana, honey and sea salt.",price:250}]},
+pairings:{number:"04",title:"Morrow Pairings",description:"One drink, one bite, and a reasonable excuse to stay another hour.",custom:false,items:[
+{name:"The Window Seat",desc:"Flat White + Almond Croissant.",price:420,badge:"Most Ordered"},
+{name:"The Plot Twist",desc:"Sea Salt Mocha + Dark Chocolate Croissant.",price:470},
+{name:"Writer's Block",desc:"Orange Espresso + Cinnamon Roll.",price:360},
+{name:"One More Chapter",desc:"Vanilla Cream Cold Brew + Almond Croissant.",price:450,badge:"House Favourite"},
+{name:"Slow Morning",desc:"Cappuccino + Lemon Loaf.",price:370},
+{name:"Main Character",desc:"Morrow Latte + Butter Croissant + mystery book pick.",price:490,badge:"Morrow"}]},
+bites:{number:"05",title:"All Day",description:"For when the coffee became lunch and nobody is sure when that happened.",custom:false,items:[
+{name:"Pesto Mozzarella Toastie",desc:"Basil pesto, mozzarella, tomato and rocket on sourdough.",price:320},
+{name:"Spiced Paneer Melt",desc:"Spiced paneer, caramelised onion, cheddar and mint mayo.",price:340,badge:"Best Seller"},
+{name:"Roasted Tomato Pesto Pasta",desc:"Basil pesto, parmesan and roasted cherry tomatoes.",price:370},
+{name:"Herb Potato Wedges",desc:"Crisp wedges, rosemary salt and roasted garlic dip.",price:230},
+{name:"Morrow Green Bowl",desc:"Avocado, cucumber, feta, greens, seeds and lemon dressing.",price:330,badge:"Fresh"},
+{name:"Mushroom Cheese Panini",desc:"Roasted mushrooms, cheddar, mozzarella and herb butter.",price:350}]}
+};
+let cartData=[],activeCat="coffee",activeProduct=null,activeIndex=null,editIndex=null,orderType="Dine in";
+function hideLoader(){const el=document.getElementById("loader");if(el)el.classList.add("hide")}
+document.addEventListener("DOMContentLoaded",()=>{showMenu("coffee");updateCart();setTimeout(hideLoader,900)});
+setTimeout(hideLoader,3000);
+window.addEventListener("scroll",()=>{const el=document.getElementById("nav");if(el)el.classList.toggle("scrolled",window.scrollY>60)});
+function showMenu(cat,btn){activeCat=cat;let d=menus[cat];catnum.textContent=d.number;cattitle.textContent=d.title;catdesc.textContent=d.description;menuGrid.innerHTML="";d.items.forEach((p,i)=>{let e=document.createElement("article");e.className="menuitem";e.style.animationDelay=`${i*65}ms`;e.innerHTML=`<div><div class="topline"><h4 class="itemname">${p.name}</h4>${p.badge?`<span class="tag">${p.badge}</span>`:""}<span class="veg">● Veg</span></div><p class="desc">${p.desc}</p>${d.custom?`<button class="custom" onclick="openProduct('${cat}',${i})">Customize</button>`:""}</div><div class="ordercol"><span class="price">₹${p.price}</span><button class="plus" onclick="quickAdd('${cat}',${i})">+</button></div>`;menuGrid.appendChild(e)});if(btn){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}}
+function quickAdd(cat,i){let p=menus[cat].items[i];cartData.push({name:p.name,category:cat,base:p.price,unit:p.price,qty:1,custom:menus[cat].custom,options:{temp:"",size:"",milk:"",extras:[]},notes:""});updateCart();toastMsg(`${p.name} added`)}
+function openProduct(cat,i,ci=null){activeCat=cat;activeIndex=i;activeProduct=menus[cat].items[i];editIndex=ci;modalName.textContent=activeProduct.name;modalDesc.textContent=activeProduct.desc;milkOption.style.display=activeProduct.milk?"block":"none";document.querySelectorAll('#productModal input[type="radio"]').forEach((x,j)=>x.checked=["hot","regular","dairy"].includes(x.id));shot.checked=vanilla.checked=caramel.checked=false;notes.value="";if(ci!==null){let x=cartData[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(activeProduct.milk)setRadio("milk",x.options.milk||"Regular Milk");shot.checked=x.options.extras.includes("Extra Shot");vanilla.checked=x.options.extras.includes("Vanilla");caramel.checked=x.options.extras.includes("Caramel");notes.value=x.notes||"";saveProduct.textContent="Save changes"}else saveProduct.textContent="Add to order";priceCustom();productModal.classList.add("show");document.body.classList.add("lock")}
+function closeProduct(){productModal.classList.remove("show");document.body.classList.remove("lock");editIndex=null}
+function setRadio(n,v){let x=document.querySelector(`input[name="${n}"][value="${v}"]`);if(x)x.checked=true}
+function val(n){let x=document.querySelector(`input[name="${n}"]:checked`);return x?x.value:""}
+function priceCustom(){if(!activeProduct)return 0;let t=activeProduct.price;if(val("temp")==="Iced")t+=20;if(val("size")==="Large")t+=40;if(activeProduct.milk&&["Oat Milk","Almond Milk"].includes(val("milk")))t+=40;if(shot.checked)t+=50;if(vanilla.checked)t+=25;if(caramel.checked)t+=25;modalPrice.textContent=`₹${t}`;return t}
+document.querySelectorAll("#productModal input").forEach(x=>x.addEventListener("change",priceCustom));
+function saveCustom(){let extras=[];if(shot.checked)extras.push("Extra Shot");if(vanilla.checked)extras.push("Vanilla");if(caramel.checked)extras.push("Caramel");let item={name:activeProduct.name,category:activeCat,base:activeProduct.price,unit:priceCustom(),qty:editIndex!==null?cartData[editIndex].qty:1,custom:true,options:{temp:val("temp"),size:val("size"),milk:activeProduct.milk?val("milk"):"",extras},notes:notes.value.trim()};if(editIndex!==null)cartData[editIndex]=item;else cartData.push(item);updateCart();closeProduct();toastMsg(editIndex!==null?"Item updated":`${item.name} added`)}
+function openCart(){updateCart();document.getElementById("cart").classList.add("show");document.getElementById("backdrop").classList.add("show");document.body.classList.add("lock")}
+function closeCart(){document.getElementById("cart").classList.remove("show");document.getElementById("backdrop").classList.remove("show");document.body.classList.remove("lock")}
+function updateCart(){const badgeEl=document.getElementById("badge");const cartItemsEl=document.getElementById("cartItems");const cartTotalEl=document.getElementById("cartTotal");badgeEl.textContent=cartData.reduce((s,x)=>s+x.qty,0);cartItemsEl.innerHTML=cartData.length?"":`<div class="empty">Nothing here yet.<br><br>Coffee would be a reasonable place to begin.</div>`;cartData.forEach((x,i)=>{let d=document.createElement("div");d.className="cartitem";let op=[x.options.temp,x.options.size,x.options.milk,...x.options.extras].filter(Boolean).join(" · ")||"As it comes";d.innerHTML=`<div class="carttop"><div><h4>${x.name}</h4><div class="opts">${op}</div>${x.notes?`<div class="opts">“${safe(x.notes)}”</div>`:""}</div><strong>₹${x.unit*x.qty}</strong></div><div class="cartcontrols"><div class="qty"><button onclick="qty(${i},-1)">−</button><span>${x.qty}</span><button onclick="qty(${i},1)">+</button></div><div>${x.custom?`<button class="linkbtn" onclick="editItem(${i})">Edit</button>`:""}<button class="linkbtn" onclick="removeItem(${i})">Remove</button></div></div>`;cartItemsEl.appendChild(d)});cartTotalEl.textContent=`₹${total()}`}
+function qty(i,n){cartData[i].qty+=n;if(cartData[i].qty<=0)cartData.splice(i,1);updateCart()}function removeItem(i){cartData.splice(i,1);updateCart()}function total(){return cartData.reduce((s,x)=>s+x.unit*x.qty,0)}
+function editItem(i){let x=cartData[i],pi=menus[x.category].items.findIndex(p=>p.name===x.name);closeCart();openProduct(x.category,pi,i)}
+function openCheckout(){if(!cartData.length){toastMsg("Your cart is empty");return}closeCart();billItems.innerHTML="";cartData.forEach(x=>{let r=document.createElement("div");r.className="billrow";r.innerHTML=`<span>${x.qty} × ${x.name}</span><strong>₹${x.unit*x.qty}</strong>`;billItems.appendChild(r)});billTotal.textContent=`₹${total()}`;checkoutModal.classList.add("show");document.body.classList.add("lock")}
+function closeCheckout(){checkoutModal.classList.remove("show");document.body.classList.remove("lock")}
+function setType(b,t){orderType=t;document.querySelectorAll(".type").forEach(x=>x.classList.remove("active"));b.classList.add("active")}
+function placeOrder(){if(!name.value.trim()||!phone.value.trim()){toastMsg("Enter your name and phone");return}let no="MRW-"+Math.floor(1000+Math.random()*9000);orderNo.textContent=`${orderType} · ${no} · ₹${total()}`;checkoutContent.style.display="none";success.classList.add("show")}
+function finishOrder(){cartData=[];updateCart();success.classList.remove("show");checkoutContent.style.display="block";name.value=phone.value="";closeCheckout()}
+function safe(t){let d=document.createElement("div");d.textContent=t;return d.innerHTML}
+let tt;function toastMsg(t){toast.textContent=t;toast.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove("show"),1800)}
+const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");observer.unobserve(e.target)}}),{threshold:.15});document.querySelectorAll(".reveal").forEach(e=>observer.observe(e));
+document.addEventListener("mousemove",e=>{if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;document.querySelectorAll(".bean,.charm").forEach((x,i)=>{let k=(i+1)*.5;x.style.marginLeft=`${(e.clientX/innerWidth-.5)*k*4}px`;x.style.marginTop=`${(e.clientY/innerHeight-.5)*k*4}px`})});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeProduct();closeCheckout();closeCart()}});
+
+(function(){
+ const b=document.getElementById("themeToggle");
+ if(!b)return;
+ const l=b.querySelector(".toggle-label");
+ const sync=()=>{const d=document.body.classList.contains("theme-dark");if(l)l.textContent=d?"Dark":"Light";b.setAttribute("aria-pressed",String(d));};
+ b.addEventListener("click",()=>{document.body.classList.toggle("theme-dark");sync();});
+ sync();
+})();
+
 </script>
 </body>
 </html>
