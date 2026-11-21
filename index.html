@@ -4,33 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Quiet Chapter | Coffee & Books</title>
+<title>Morrow Café — Coffee, Books & Slow Mornings</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
 
-/* =====================================================
-   THE QUIET CHAPTER
-===================================================== */
+/* =========================================================
+   MORROW CAFÉ
+========================================================= */
 
 :root {
-    --espresso: #35251f;
-    --dark-roast: #1e1714;
-    --coffee: #604537;
-    --caramel: #b9845a;
-    --cream: #f5efe6;
-    --oat: #e9ded0;
-    --white: #fffaf4;
-    --muted: #76685f;
+    --espresso: #2d211c;
+    --dark-roast: #17110e;
+    --brown: #594036;
+    --coffee: #755342;
+    --caramel: #bd8a62;
+    --cream: #f3ecdf;
+    --oat: #dfd1bd;
+    --white: #fffaf2;
+    --muted: #807268;
+    --line: rgba(45,33,28,.15);
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -38,26 +41,38 @@ html {
 }
 
 body {
-    font-family: "Manrope", sans-serif;
     background: var(--cream);
     color: var(--espresso);
+    font-family: "DM Sans", sans-serif;
     overflow-x: hidden;
+}
+
+body.cart-open {
+    overflow: hidden;
 }
 
 h1,
 h2,
 h3,
-blockquote {
-    font-family: "Cormorant Garamond", serif;
+.logo,
+.serif {
+    font-family: "DM Serif Display", serif;
+    font-weight: 400;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select {
+    font: inherit;
 }
 
 button {
-    font: inherit;
+    cursor: pointer;
 }
 
 img {
@@ -65,68 +80,87 @@ img {
     width: 100%;
 }
 
+section {
+    padding: 110px 7%;
+}
 
-/* =====================================================
+.eyebrow {
+    margin-bottom: 17px;
+
+    color: var(--caramel);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2.7px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: clamp(46px, 6vw, 82px);
+    line-height: .98;
+}
+
+
+/* =========================================================
    LOADER
-===================================================== */
+========================================================= */
 
-#loader {
+.loader {
     position: fixed;
     inset: 0;
 
-    background: var(--cream);
-
     z-index: 9999;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    place-items: center;
+
+    background: var(--cream);
 
     transition:
-        opacity .7s ease,
-        visibility .7s ease;
+        opacity .7s,
+        visibility .7s;
 }
 
-#loader.hidden {
+.loader.hide {
     opacity: 0;
     visibility: hidden;
 }
 
-.loader-content {
+.loader-inner {
     text-align: center;
 }
 
-.cup {
-    width: 95px;
-    height: 65px;
+.loader-cup {
+    position: relative;
+
+    width: 85px;
+    height: 58px;
+
+    margin: 30px auto 22px;
 
     border: 4px solid var(--espresso);
-
-    border-radius: 8px 8px 28px 28px;
-
-    margin: 35px auto 20px;
-
-    position: relative;
+    border-radius: 5px 5px 25px 25px;
 }
 
-.cup::after {
+.loader-cup::after {
     content: "";
 
     position: absolute;
 
-    width: 30px;
-    height: 32px;
+    width: 27px;
+    height: 29px;
+
+    right: -28px;
+    top: 10px;
 
     border: 4px solid var(--espresso);
-    border-left: none;
-
-    right: -31px;
-    top: 10px;
+    border-left: 0;
 
     border-radius: 0 18px 18px 0;
 }
 
-.coffee-fill {
+.loader-fill {
     position: absolute;
 
     left: 4px;
@@ -135,55 +169,43 @@ img {
 
     height: 0;
 
+    border-radius: 3px 3px 18px 18px;
+
     background: var(--coffee);
 
-    border-radius: 3px 3px 20px 20px;
-
-    animation: fillCoffee 2.2s ease forwards;
+    animation: fill 1.8s forwards;
 }
 
-@keyframes fillCoffee {
+@keyframes fill {
     to {
-        height: 52px;
+        height: 45px;
     }
 }
 
-.steam {
+.loader-steam {
     position: absolute;
 
-    top: -40px;
+    top: -35px;
 
-    width: 3px;
-    height: 30px;
+    width: 2px;
+    height: 27px;
 
     background: var(--caramel);
 
-    border-radius: 10px;
-
     opacity: 0;
 
-    animation: steam 1.6s infinite ease-in-out;
+    animation: steam 1.5s infinite;
 }
 
-.steam.one {
-    left: 25px;
-}
-
-.steam.two {
-    left: 47px;
-    animation-delay: .35s;
-}
-
-.steam.three {
-    left: 67px;
-    animation-delay: .7s;
-}
+.s1 { left: 22px; }
+.s2 { left: 41px; animation-delay: .35s; }
+.s3 { left: 59px; animation-delay: .7s; }
 
 @keyframes steam {
 
     0% {
-        transform: translateY(8px) scaleY(.7);
         opacity: 0;
+        transform: translateY(10px);
     }
 
     50% {
@@ -191,22 +213,20 @@ img {
     }
 
     100% {
-        transform: translateY(-20px) scaleY(1.2);
         opacity: 0;
+        transform: translateY(-15px);
     }
-
 }
 
-.loader-content p {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
-    font-style: italic;
+.loader p {
+    font-family: "DM Serif Display", serif;
+    font-size: 20px;
 }
 
 
-/* =====================================================
+/* =========================================================
    NAVIGATION
-===================================================== */
+========================================================= */
 
 nav {
     position: fixed;
@@ -214,15 +234,15 @@ nav {
     top: 0;
     left: 0;
 
-    width: 100%;
-
-    padding: 22px 7%;
-
     z-index: 1000;
 
+    width: 100%;
+
+    padding: 22px 6%;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     color: var(--white);
 
@@ -230,239 +250,206 @@ nav {
 }
 
 nav.scrolled {
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
-    background: rgba(30, 23, 20, .96);
+    background: rgba(23,17,14,.95);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
 }
 
 .logo {
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 24px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
+    font-size: 27px;
+    letter-spacing: -.5px;
 }
 
-.nav-links {
+.navlinks {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+
     list-style: none;
 
-    display: flex;
-    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
 
-    gap: 27px;
-
-    font-size: 12px;
-
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-
-    letter-spacing: 1.2px;
 }
 
-.nav-links a {
-    opacity: .86;
-    transition: .25s;
+.navlinks a {
+    opacity: .85;
 }
 
-.nav-links a:hover {
+.navlinks a:hover {
     opacity: 1;
-    color: #f1d5b9;
 }
 
-.reserve {
-    border: 1px solid rgba(255,255,255,.7);
+.order-button {
+    padding: 11px 19px;
 
-    padding: 11px 17px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 50px;
 
-    border-radius: 30px;
+    background: transparent;
+    color: var(--white);
 }
 
-
-/* Dropdown */
-
-.dropdown {
+.cart-nav {
     position: relative;
 }
 
-.dropdown-menu {
-    position: absolute;
+.cart-count {
+    display: inline-grid;
+    place-items: center;
 
-    top: 30px;
-    left: -25px;
+    min-width: 20px;
+    height: 20px;
 
-    width: 235px;
+    margin-left: 5px;
+    padding: 0 5px;
 
-    padding: 18px;
+    border-radius: 20px;
 
-    background: var(--espresso);
+    background: var(--cream);
+    color: var(--espresso);
 
-    border-radius: 12px;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateY(10px);
-
-    transition: .25s;
-}
-
-.dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-
-    transform: translateY(0);
-}
-
-.dropdown-menu a {
-    display: block;
-
-    padding: 10px;
-
-    text-transform: none;
-
-    letter-spacing: 0;
-
-    border-radius: 7px;
-}
-
-.dropdown-menu a:hover {
-    background: rgba(255,255,255,.08);
+    font-size: 10px;
 }
 
 
-/* =====================================================
+/* =========================================================
    HERO
-===================================================== */
+========================================================= */
 
 .hero {
-    min-height: 100vh;
-
     position: relative;
 
+    min-height: 100vh;
+
+    padding: 145px 7% 75px;
+
     display: flex;
-    align-items: center;
-
-    padding: 130px 8% 80px;
-
-    color: var(--white);
+    align-items: flex-end;
 
     overflow: hidden;
+
+    color: var(--white);
 
     background:
         linear-gradient(
             90deg,
-            rgba(25,16,12,.84),
-            rgba(25,16,12,.46),
-            rgba(25,16,12,.16)
+            rgba(20,13,10,.83),
+            rgba(20,13,10,.48),
+            rgba(20,13,10,.1)
         ),
-        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85")
+        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1900&q=90")
         center / cover no-repeat;
 }
 
 .hero-content {
-    max-width: 760px;
-
     position: relative;
-
     z-index: 5;
+
+    max-width: 1000px;
 }
 
-.eyebrow {
-    margin-bottom: 22px;
+.hero-label {
+    margin-bottom: 25px;
 
-    color: #e7c6a6;
+    color: #e1c2a3;
 
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 600;
 
     letter-spacing: 3px;
-
     text-transform: uppercase;
 }
 
 .hero h1 {
-    margin-bottom: 30px;
+    max-width: 1000px;
 
-    font-size: clamp(55px, 7vw, 100px);
+    font-size: clamp(70px, 10vw, 145px);
+    line-height: .78;
 
-    font-weight: 500;
-
-    line-height: .92;
+    letter-spacing: -4px;
 }
 
-.hero p {
-    max-width: 520px;
+.hero h1 em {
+    color: #d9b995;
 
-    color: rgba(255,255,255,.82);
+    font-style: normal;
+}
 
-    font-size: 17px;
+.hero-bottom {
+    margin-top: 42px;
 
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+}
+
+.hero-copy {
+    max-width: 430px;
+
+    color: rgba(255,255,255,.76);
+
+    font-size: 14px;
     line-height: 1.8;
 }
 
-.hero-buttons {
-    display: flex;
-
-    gap: 14px;
-
-    margin-top: 35px;
-}
-
-.btn {
+.primary-btn {
     display: inline-block;
 
-    padding: 14px 24px;
+    padding: 15px 25px;
 
-    border: 1px solid var(--white);
+    border: 1px solid var(--cream);
+    border-radius: 50px;
 
-    border-radius: 30px;
+    background: var(--cream);
+    color: var(--espresso);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
 
     transition: .3s;
 }
 
-.btn-primary {
-    background: var(--cream);
-    color: var(--espresso);
-}
-
-.btn-primary:hover {
-    background: var(--oat);
-
+.primary-btn:hover {
     transform: translateY(-3px);
+
+    background: var(--white);
 }
 
-.btn-secondary:hover {
-    background: rgba(255,255,255,.12);
-}
 
-
-/* =====================================================
-   COFFEE BEANS
-===================================================== */
+/* Beans */
 
 .bean {
     position: absolute;
 
-    width: 55px;
-    height: 80px;
-
     z-index: 3;
+
+    width: 54px;
+    height: 75px;
 
     border-radius: 50%;
 
     background:
         radial-gradient(
-            circle at 35% 30%,
-            #9b6a4b,
-            #583526 45%,
-            #241510 80%
+            circle at 30% 25%,
+            #a77759,
+            #513326 48%,
+            #1d100b 82%
         );
 
-    box-shadow: 8px 15px 25px rgba(0,0,0,.35);
+    box-shadow: 10px 18px 30px rgba(0,0,0,.3);
 
-    animation: floatingBean 7s ease-in-out infinite;
+    animation: beanFloat 7s ease-in-out infinite;
 }
 
 .bean::after {
@@ -470,134 +457,342 @@ nav.scrolled {
 
     position: absolute;
 
-    top: 10%;
-    left: 48%;
+    top: 9%;
+    left: 49%;
 
-    width: 4px;
-    height: 80%;
-
-    background: rgba(20,10,7,.7);
+    width: 3px;
+    height: 82%;
 
     border-radius: 50%;
 
-    transform: rotate(7deg);
+    background: rgba(15,7,5,.7);
+
+    transform: rotate(8deg);
 }
 
-.bean1 {
-    top: 25%;
+.bean-a {
+    top: 20%;
     right: 12%;
-
-    transform: rotate(30deg) scale(.9);
 }
 
-.bean2 {
-    top: 65%;
+.bean-b {
+    top: 50%;
     right: 25%;
 
-    transform: rotate(-20deg) scale(.55);
+    transform: scale(.6) rotate(40deg);
 
     animation-delay: 1s;
 }
 
-.bean3 {
-    top: 15%;
-    right: 36%;
+.bean-c {
+    bottom: 9%;
+    right: 7%;
 
-    transform: rotate(70deg) scale(.45);
+    transform: scale(1.1) rotate(-25deg);
 
     animation-delay: 2s;
 }
 
-.bean4 {
-    bottom: 8%;
-    right: 6%;
+@keyframes beanFloat {
 
-    transform: rotate(-35deg) scale(1.1);
-
-    animation-delay: 3s;
-}
-
-@keyframes floatingBean {
-
-    0%,
-    100% {
+    0%, 100% {
         translate: 0 0;
         rotate: 0deg;
     }
 
     50% {
-        translate: 0 -25px;
-        rotate: 12deg;
+        translate: 0 -22px;
+        rotate: 10deg;
     }
-
 }
 
 
-/* =====================================================
-   SHARED SECTION STYLING
-===================================================== */
+/* =========================================================
+   MARQUEE
+========================================================= */
 
-section {
-    padding: 110px 8%;
+.marquee {
+    overflow: hidden;
+
+    padding: 18px 0;
+
+    background: var(--espresso);
+    color: var(--cream);
+
+    white-space: nowrap;
 }
 
-.section-label {
-    margin-bottom: 15px;
+.marquee-track {
+    display: inline-block;
 
-    color: var(--caramel);
+    animation: marquee 28s linear infinite;
+}
+
+.marquee span {
+    margin-right: 50px;
 
     font-size: 11px;
+    font-weight: 600;
 
-    letter-spacing: 3px;
-
+    letter-spacing: 2.2px;
     text-transform: uppercase;
 }
 
-.section-title {
-    font-size: clamp(42px, 5vw, 70px);
+.marquee i {
+    margin-right: 50px;
 
-    font-weight: 500;
+    color: var(--caramel);
+}
 
-    line-height: 1;
+@keyframes marquee {
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 
-/* =====================================================
-   OUR STORY
-===================================================== */
+/* =========================================================
+   INTRO
+========================================================= */
 
-.story {
+.intro {
+    display: grid;
+
+    grid-template-columns: .8fr 1.2fr;
+
+    gap: 10%;
+
+    align-items: start;
+}
+
+.intro-copy {
+    padding-top: 20px;
+
+    color: var(--muted);
+
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.intro-copy p + p {
+    margin-top: 20px;
+}
+
+.signature {
+    margin-top: 28px !important;
+
+    color: var(--espresso) !important;
+
+    font-family: "DM Serif Display", serif;
+    font-size: 25px;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.menu-section {
+    background: var(--dark-roast);
+    color: var(--cream);
+}
+
+.menu-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 50px;
+}
+
+.menu-head p {
+    max-width: 390px;
+
+    color: #a99c93;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.tabs {
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 40px;
+
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 11px 18px;
+
+    border: 1px solid #55463f;
+    border-radius: 50px;
+
+    background: transparent;
+    color: #b9aaa0;
+
+    font-size: 11px;
+
+    transition: .25s;
+}
+
+.tab:hover,
+.tab.active {
+    background: var(--cream);
+    color: var(--espresso);
+
+    border-color: var(--cream);
+}
+
+.menu-description {
+    max-width: 650px;
+
+    margin-bottom: 32px;
+
+    color: #8f8078;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.menu-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 13px;
+}
+
+.menu-card {
+    position: relative;
+
+    min-height: 245px;
+
+    padding: 27px;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #423630;
+    border-radius: 9px;
+
+    background: transparent;
+
+    transition: .3s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+
+    background: #211916;
+
+    border-color: #745a4b;
+}
+
+.menu-type {
+    color: var(--caramel);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.menu-card h3 {
+    margin-top: 15px;
+
+    padding-right: 65px;
+
+    font-size: 29px;
+    line-height: 1;
+}
+
+.menu-card p {
+    margin-top: 13px;
+
+    color: #92837b;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.price {
+    position: absolute;
+
+    top: 27px;
+    right: 25px;
+
+    color: #d5a57e;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.add-btn {
+    width: fit-content;
+
+    margin-top: auto;
+    padding-top: 24px;
+
+    border: 0;
+
+    background: none;
+    color: var(--cream);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+
+.add-btn:hover {
+    color: var(--caramel);
+}
+
+
+/* =========================================================
+   COFFEE STORY
+========================================================= */
+
+.coffee-story {
+    padding: 0;
+
     display: grid;
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 8%;
-
-    align-items: center;
+    background: var(--oat);
 }
 
-.story-image {
-    height: 620px;
+.coffee-image {
+    min-height: 700px;
 
-    overflow: hidden;
-
-    border-radius: 5px;
+    background:
+        linear-gradient(
+            rgba(20,12,8,.08),
+            rgba(20,12,8,.08)
+        ),
+        url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=85")
+        center / cover;
 }
 
-.story-image img {
-    height: 100%;
+.coffee-copy {
+    padding: 100px 10%;
 
-    object-fit: cover;
-
-    transition: transform .7s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.story-image:hover img {
-    transform: scale(1.04);
-}
-
-.story-text p {
-    max-width: 550px;
+.coffee-copy p {
+    max-width: 560px;
 
     margin-top: 28px;
 
@@ -606,488 +801,283 @@ section {
     line-height: 1.9;
 }
 
-.story-signoff {
-    color: var(--espresso) !important;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 26px;
-
-    font-style: italic;
-}
-
-
-/* =====================================================
-   MENU
-===================================================== */
-
-#menu {
-    background: var(--dark-roast);
-
-    color: var(--cream);
-}
-
-.menu-header {
-    max-width: 700px;
-
-    margin: auto;
-
-    text-align: center;
-}
-
-.menu-header p {
-    margin-top: 20px;
-
-    color: #bcaea5;
-}
-
-.tabs {
-    margin: 55px auto 45px;
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-}
-
-.tab {
-    padding: 12px 21px;
-
-    color: #bcaea5;
-
-    background: transparent;
-
-    border: 1px solid #5a4940;
-
-    border-radius: 30px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-.tab:hover,
-.tab.active {
-    color: var(--espresso);
-
-    background: var(--cream);
-
-    border-color: var(--cream);
-}
-
-.category-description {
-    min-height: 58px;
-
-    max-width: 670px;
-
-    margin: 0 auto 40px;
-
-    color: #a99990;
-
-    text-align: center;
-
-    line-height: 1.8;
-}
-
-.menu-grid {
+.bean-notes {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
 
-    gap: 18px;
+    gap: 15px;
 
-    max-width: 1000px;
-
-    margin: auto;
+    margin-top: 45px;
 }
 
-.menu-card {
-    position: relative;
+.note {
+    padding-top: 18px;
 
-    padding: 27px;
-
-    border: 1px solid #493b34;
-
-    border-radius: 12px;
-
-    transition: .3s;
+    border-top: 1px solid rgba(45,33,28,.25);
 }
 
-.menu-card:hover {
-    background: #291f1b;
-
-    border-color: #7d5d4c;
-
-    transform: translateY(-5px);
-}
-
-.menu-card h3 {
-    padding-right: 70px;
-
-    font-size: 27px;
-
-    font-weight: 500;
-}
-
-.menu-card p {
-    margin-top: 8px;
-
-    padding-right: 55px;
-
-    color: #9e8e85;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-}
-
-.price {
-    position: absolute;
-
-    top: 29px;
-    right: 24px;
-
-    color: #d3a77f;
-
-    font-weight: 600;
-}
-
-
-/* =====================================================
-   PHILOSOPHY
-===================================================== */
-
-.philosophy {
-    min-height: 500px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-}
-
-.philosophy blockquote {
-    max-width: 900px;
-
-    font-size: clamp(40px, 5vw, 72px);
-
-    font-weight: 400;
-
-    line-height: 1.12;
-}
-
-.philosophy p {
-    margin-top: 30px;
-
-    color: var(--caramel);
+.note strong {
+    display: block;
 
     font-size: 11px;
 
-    letter-spacing: 2px;
-
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
-
-/* =====================================================
-   REGULARS
-===================================================== */
-
-.regulars {
-    background: var(--oat);
-}
-
-.regulars-heading {
-    margin-bottom: 55px;
-
-    text-align: center;
-}
-
-.character-grid {
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 18px;
-
-    max-width: 1300px;
-
-    margin: auto;
-}
-
-.character {
-    padding: 35px 24px;
-
-    background: var(--cream);
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    transition: .3s;
-}
-
-.character:hover {
-    transform: translateY(-7px);
-
-    box-shadow: 0 18px 45px rgba(53,37,31,.09);
-}
-
-.avatar {
-    width: 85px;
-    height: 85px;
-
-    margin: 0 auto 20px;
-
-    display: grid;
-
-    place-items: center;
-
-    background: var(--espresso);
-
-    color: var(--cream);
-
-    border-radius: 50%;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 32px;
-}
-
-.character h3 {
-    font-size: 28px;
-}
-
-.character span {
+.note span {
     display: block;
 
-    margin: 5px 0 15px;
+    margin-top: 7px;
 
-    color: var(--caramel);
-
-    font-size: 10px;
-
-    letter-spacing: 1.7px;
-
-    text-transform: uppercase;
-}
-
-.character p {
     color: var(--muted);
 
-    font-size: 13px;
-
-    line-height: 1.7;
+    font-size: 12px;
 }
 
 
-/* =====================================================
-   LIBRARY
-===================================================== */
+/* =========================================================
+   READING ROOM
+========================================================= */
 
-.library {
-    min-height: 650px;
+.reading-room {
+    position: relative;
+
+    min-height: 680px;
 
     display: flex;
-
     align-items: center;
 
     color: var(--white);
 
     background:
         linear-gradient(
-            rgba(25,16,12,.67),
-            rgba(25,16,12,.67)
+            90deg,
+            rgba(18,12,9,.8),
+            rgba(18,12,9,.4)
         ),
         url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=85")
-        center / cover fixed;
+        center / cover;
 }
 
-.library-content {
-    max-width: 700px;
+.reading-content {
+    max-width: 680px;
 }
 
-.library p {
-    max-width: 540px;
+.reading-content p {
+    max-width: 500px;
 
-    margin-top: 25px;
+    margin-top: 28px;
 
-    color: rgba(255,255,255,.8);
+    color: rgba(255,255,255,.74);
 
     line-height: 1.8;
 }
 
+.reading-features {
+    display: flex;
 
-/* =====================================================
-   FIND YOUR QUIET CORNER
-===================================================== */
+    gap: 12px;
 
-.quiet-corner {
-    position: relative;
+    margin-top: 35px;
 
-    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.reading-features span {
+    padding: 10px 15px;
+
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 50px;
+
+    font-size: 9px;
+
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PEOPLE HERE
+   Kept intact in content
+========================================================= */
+
+.people {
+    background: var(--cream);
+}
+
+.people-heading {
+    margin-bottom: 55px;
+
+    text-align: center;
+}
+
+.people-grid {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 15px;
+
+    max-width: 1350px;
+
+    margin: auto;
+}
+
+.person {
+    padding: 35px 22px;
+
+    background: var(--white);
+
+    border: 1px solid var(--line);
+    border-radius: 12px;
+
+    text-align: center;
+
+    transition: .3s;
+}
+
+.person:hover {
+    transform: translateY(-6px);
+
+    box-shadow: 0 20px 50px rgba(45,33,28,.07);
+}
+
+.avatar {
+    width: 78px;
+    height: 78px;
+
+    margin: 0 auto 20px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
 
     background: var(--espresso);
+    color: var(--cream);
 
+    font-family: "DM Serif Display", serif;
+    font-size: 30px;
+}
+
+.person h3 {
+    font-size: 27px;
+}
+
+.person-role {
+    display: block;
+
+    margin: 6px 0 15px;
+
+    color: var(--caramel);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+.person p {
+    color: var(--muted);
+
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   QUIET CORNER
+========================================================= */
+
+.corner {
+    background: var(--espresso);
     color: var(--cream);
 }
 
-.corner-header {
-    max-width: 750px;
+.corner-head {
+    max-width: 760px;
 
     margin: 0 auto 55px;
 
     text-align: center;
 }
 
-.corner-header .section-title {
-    color: var(--cream);
-}
+.corner-head p {
+    max-width: 570px;
 
-.corner-header p {
-    max-width: 600px;
+    margin: 20px auto 0;
 
-    margin: 22px auto 0;
+    color: rgba(245,239,230,.6);
 
-    color: rgba(245,239,230,.67);
-
+    font-size: 13px;
     line-height: 1.8;
 }
 
-
-/* Decorative circle */
-
-.quiet-corner::before {
-    content: "";
-
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    right: -250px;
-    top: -250px;
-
-    background: rgba(255,250,244,.035);
-
-    border-radius: 50%;
-}
-
-
-/* Mood selection */
-
 .mood-grid {
-    position: relative;
-
-    z-index: 2;
-
     display: grid;
 
     grid-template-columns: repeat(4, 1fr);
 
-    gap: 16px;
+    gap: 13px;
 
     max-width: 1150px;
 
     margin: auto;
 }
 
-.mood-card {
-    min-height: 245px;
+.mood {
+    min-height: 230px;
 
-    padding: 30px 24px;
+    padding: 28px;
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
 
-    align-items: flex-start;
-
-    color: var(--cream);
+    border: 1px solid rgba(245,239,230,.18);
+    border-radius: 10px;
 
     background: transparent;
-
-    border: 1px solid rgba(245,239,230,.2);
-
-    border-radius: 15px;
+    color: var(--cream);
 
     text-align: left;
-
-    cursor: pointer;
-
-    transition: .35s ease;
-}
-
-.mood-card:hover {
-    color: var(--espresso);
-
-    background: var(--cream);
-
-    border-color: var(--cream);
-
-    transform: translateY(-8px);
-}
-
-.mood-symbol {
-    width: 55px;
-    height: 55px;
-
-    display: grid;
-
-    place-items: center;
-
-    background: rgba(255,255,255,.08);
-
-    border-radius: 50%;
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 25px;
 
     transition: .3s;
 }
 
-.mood-card:hover .mood-symbol {
-    color: var(--cream);
+.mood:hover {
+    transform: translateY(-6px);
 
-    background: var(--espresso);
+    background: var(--cream);
+    color: var(--espresso);
 }
 
-.mood-card strong {
+.mood-icon {
+    font-size: 25px;
+}
+
+.mood strong {
     display: block;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 29px;
-
-    font-weight: 500;
+    font-family: "DM Serif Display", serif;
+    font-size: 26px;
+    font-weight: 400;
 }
 
-.mood-card small {
-    color: rgba(245,239,230,.55);
+.mood small {
+    color: rgba(245,239,230,.52);
 
-    font-size: 11px;
-
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
-.mood-card:hover small {
-    color: rgba(53,37,31,.65);
+.mood:hover small {
+    color: var(--muted);
 }
-
-
-/* =====================================================
-   RECOMMENDATION
-===================================================== */
 
 .corner-result {
     display: none;
@@ -1096,53 +1086,28 @@ section {
 
     margin: auto;
 
-    animation: revealResult .6s ease;
+    text-align: center;
 }
 
-.corner-result.visible {
+.corner-result.show {
     display: block;
+
+    animation: resultIn .5s ease;
 }
 
-@keyframes revealResult {
+@keyframes resultIn {
 
     from {
         opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+        transform: translateY(20px);
     }
 
 }
 
-.result-label {
-    margin-bottom: 15px;
-
-    color: var(--caramel);
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    text-align: center;
-
-    text-transform: uppercase;
-}
-
-.result-title {
-    margin-bottom: 45px;
-
-    color: var(--cream);
-
-    font-family: "Cormorant Garamond", serif;
+.corner-result h2 {
+    margin-bottom: 40px;
 
     font-size: clamp(45px, 6vw, 75px);
-
-    font-weight: 500;
-
-    text-align: center;
 }
 
 .result-grid {
@@ -1150,180 +1115,519 @@ section {
 
     grid-template-columns: repeat(4, 1fr);
 
-    border: 1px solid rgba(245,239,230,.17);
-
-    border-radius: 15px;
+    border: 1px solid rgba(245,239,230,.18);
+    border-radius: 12px;
 
     overflow: hidden;
+
+    text-align: left;
 }
 
-.result-item {
-    min-height: 220px;
+.result-card {
+    min-height: 190px;
 
-    padding: 30px;
+    padding: 27px;
 
     border-right: 1px solid rgba(245,239,230,.15);
 }
 
-.result-item:last-child {
-    border-right: none;
+.result-card:last-child {
+    border-right: 0;
 }
 
-.result-icon {
+.result-card span {
     display: block;
 
-    margin-bottom: 25px;
-
-    font-size: 25px;
-}
-
-.result-item span {
-    display: block;
-
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     color: var(--caramel);
 
     font-size: 9px;
+    font-weight: 700;
 
-    letter-spacing: 2px;
-
+    letter-spacing: 1.8px;
     text-transform: uppercase;
 }
 
-.result-item h3 {
-    color: var(--cream);
-
-    font-size: 25px;
-
-    font-weight: 500;
+.result-card h3 {
+    font-size: 24px;
 }
 
-.result-item p {
+.result-card p {
     margin-top: 8px;
 
-    color: rgba(245,239,230,.55);
+    color: rgba(245,239,230,.52);
 
     font-size: 11px;
-
     line-height: 1.6;
 }
 
-.corner-quote {
-    max-width: 700px;
+.result-quote {
+    max-width: 680px;
 
-    margin: 45px auto 0;
+    margin: 35px auto;
 
-    color: var(--cream);
-
-    font-family: "Cormorant Garamond", serif;
-
-    font-size: 30px;
-
-    font-style: italic;
-
+    font-family: "DM Serif Display", serif;
+    font-size: 27px;
     line-height: 1.3;
-
-    text-align: center;
 }
 
-.choose-again {
-    display: block;
+.again {
+    padding: 11px 18px;
 
-    margin: 35px auto 0;
-
-    padding: 12px 20px;
-
-    color: var(--cream);
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 50px;
 
     background: transparent;
-
-    border: 1px solid rgba(245,239,230,.4);
-
-    border-radius: 30px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-.choose-again:hover {
-    color: var(--espresso);
-
-    background: var(--cream);
+    color: var(--cream);
 }
 
 
-/* =====================================================
+/* =========================================================
+   VISIT
+========================================================= */
+
+.visit {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8%;
+
+    background: var(--oat);
+}
+
+.visit-copy p {
+    max-width: 470px;
+
+    margin-top: 25px;
+
+    color: var(--muted);
+
+    line-height: 1.8;
+}
+
+.visit-details {
+    display: grid;
+
+    gap: 20px;
+}
+
+.visit-line {
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid rgba(45,33,28,.18);
+}
+
+.visit-line span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--caramel);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.visit-line strong {
+    font-family: "DM Serif Display", serif;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+/* =========================================================
    FOOTER
-===================================================== */
+========================================================= */
 
 footer {
-    padding: 70px 8% 35px;
+    padding: 75px 7% 30px;
 
-    color: var(--cream);
+    overflow: hidden;
 
     background: var(--dark-roast);
+    color: var(--cream);
 }
 
-.footer-top {
-    display: flex;
+.footer-brand {
+    padding-bottom: 60px;
 
+    font-family: "DM Serif Display", serif;
+    font-size: clamp(70px, 14vw, 210px);
+    line-height: .75;
+
+    letter-spacing: -6px;
+
+    border-bottom: 1px solid #3c302b;
+}
+
+.footer-row {
+    padding-top: 30px;
+
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 
-    gap: 40px;
+    gap: 30px;
 
-    padding-bottom: 50px;
+    color: #887a72;
 
-    border-bottom: 1px solid #433630;
-}
-
-footer h2 {
-    font-size: 38px;
-}
-
-footer p {
-    margin-top: 8px;
-
-    color: #9e8e85;
+    font-size: 11px;
 }
 
 .footer-links {
     display: flex;
 
+    gap: 25px;
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1998;
+
+    background: rgba(12,8,6,.58);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .3s;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart {
+    position: fixed;
+
+    z-index: 1999;
+
+    top: 0;
+    right: 0;
+
+    width: min(470px, 100%);
+    height: 100%;
+
+    padding: 35px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--cream);
+
+    transform: translateX(100%);
+
+    transition: .4s ease;
+}
+
+.cart.show {
+    transform: translateX(0);
+}
+
+.cart-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.cart-top h2 {
+    font-size: 35px;
+}
+
+.close {
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid var(--line);
+    border-radius: 50%;
+
+    background: transparent;
+
+    font-size: 20px;
+}
+
+.cart-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px 0;
+}
+
+.empty {
+    padding: 60px 0;
+
+    color: var(--muted);
+
+    text-align: center;
+}
+
+.cart-item {
+    padding: 18px 0;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    gap: 15px;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.cart-item h4 {
+    font-family: "DM Serif Display", serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.cart-item p {
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.qty {
+    margin-top: 12px;
+
+    display: flex;
     align-items: center;
 
-    gap: 25px;
-
-    font-size: 13px;
+    gap: 10px;
 }
 
-.footer-links a:hover {
-    color: var(--caramel);
+.qty button {
+    width: 26px;
+    height: 26px;
+
+    border: 1px solid var(--line);
+    border-radius: 50%;
+
+    background: transparent;
 }
 
-.footer-bottom {
+.remove {
+    margin-top: 10px;
+
+    border: 0;
+
+    background: none;
+    color: #9c6e58;
+
+    font-size: 10px;
+}
+
+.cart-total {
+    padding-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-top: 1px solid var(--line);
+
+    font-family: "DM Serif Display", serif;
+    font-size: 26px;
+}
+
+.checkout-btn {
+    width: 100%;
+
+    margin-top: 18px;
+    padding: 15px;
+
+    border: 0;
+    border-radius: 50px;
+
+    background: var(--espresso);
+    color: var(--cream);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CHECKOUT MODAL
+========================================================= */
+
+.checkout-modal {
+    position: fixed;
+
+    z-index: 2100;
+
+    inset: 0;
+
+    padding: 20px;
+
+    display: none;
+    place-items: center;
+
+    background: rgba(15,10,8,.7);
+}
+
+.checkout-modal.show {
+    display: grid;
+}
+
+.checkout-box {
+    width: min(620px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 38px;
+
+    background: var(--cream);
+
+    border-radius: 15px;
+}
+
+.checkout-header {
     display: flex;
 
     justify-content: space-between;
+    align-items: center;
 
-    gap: 20px;
+    margin-bottom: 30px;
+}
 
-    padding-top: 30px;
+.checkout-header h2 {
+    font-size: 38px;
+}
 
-    color: #776a63;
+.checkout-options {
+    display: grid;
 
-    font-size: 12px;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.order-type {
+    padding: 20px;
+
+    border: 1px solid var(--line);
+    border-radius: 9px;
+
+    background: transparent;
+
+    text-align: left;
+}
+
+.order-type.active {
+    border-color: var(--espresso);
+
+    background: var(--espresso);
+    color: var(--cream);
+}
+
+.form-group {
+    margin-top: 17px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid var(--line);
+    border-radius: 6px;
+
+    background: var(--white);
+
+    outline: none;
+}
+
+.checkout-note {
+    margin-top: 18px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.success {
+    display: none;
+
+    padding: 50px 10px;
+
+    text-align: center;
+}
+
+.success.show {
+    display: block;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: var(--espresso);
+    color: var(--cream);
+
+    font-size: 30px;
+}
+
+.success h2 {
+    font-size: 42px;
 }
 
 
-/* =====================================================
-   TABLET
-===================================================== */
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1050px) {
 
-    .character-grid {
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .people-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -1331,190 +1635,91 @@ footer p {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .result-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .navlinks {
+        gap: 15px;
     }
-
-    .result-item {
-        border-bottom: 1px solid rgba(245,239,230,.15);
-    }
-
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
-
 @media (max-width: 800px) {
-
-    nav {
-        padding: 18px 6%;
-    }
-
-    .logo {
-        max-width: 80%;
-
-        font-size: 20px;
-
-        overflow-wrap: anywhere;
-    }
-
-    .nav-links {
-        display: none;
-    }
 
     section {
         padding: 75px 6%;
     }
 
-    h1,
-    h2,
-    h3,
-    p,
-    blockquote {
-        max-width: 100%;
-
-        overflow-wrap: anywhere;
+    .navlinks {
+        display: none;
     }
 
-
-    /* Hero */
+    nav {
+        padding: 18px 6%;
+    }
 
     .hero {
         min-height: 100svh;
 
-        padding: 120px 6% 60px;
+        padding: 120px 6% 55px;
     }
 
     .hero h1 {
-        font-size: clamp(48px, 14vw, 70px);
+        font-size: clamp(65px, 20vw, 100px);
 
-        line-height: .98;
+        letter-spacing: -3px;
     }
 
-    .hero p {
-        font-size: 15px;
-    }
-
-    .hero-buttons {
-        flex-direction: column;
-
+    .hero-bottom {
         align-items: flex-start;
+        flex-direction: column;
     }
 
-
-    /* Story */
-
-    .story {
-        grid-template-columns: 1fr;
-
-        gap: 45px;
-    }
-
-    .story-image {
-        height: 420px;
-    }
-
-    .section-title {
-        font-size: clamp(38px, 11vw, 55px);
-
-        line-height: 1.05;
-    }
-
-
-    /* Menu */
-
-    .tabs {
-        margin: 40px auto 30px;
-
-        gap: 8px;
-    }
-
-    .tab {
-        padding: 10px 15px;
-
-        font-size: 12px;
-    }
-
-    .category-description {
-        min-height: auto;
-    }
-
-    .menu-grid {
+    .intro,
+    .coffee-story,
+    .visit {
         grid-template-columns: 1fr;
     }
 
-    .menu-card h3 {
-        padding-right: 65px;
-
-        font-size: 24px;
+    .coffee-image {
+        min-height: 480px;
     }
 
-    .menu-card p {
-        padding-right: 0;
+    .coffee-copy {
+        padding: 70px 6%;
     }
 
-
-    /* Philosophy */
-
-    .philosophy {
-        min-height: 400px;
+    .menu-head {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
-    .philosophy blockquote {
-        font-size: clamp(34px, 10vw, 52px);
-    }
-
-
-    /* Characters */
-
-    .character-grid {
-        grid-template-columns: 1fr;
-    }
-
-
-    /* Library */
-
-    .library {
-        min-height: 550px;
-
-        background-attachment: scroll;
-    }
-
-
-    /* Quiet Corner */
-
-    .mood-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .mood-card {
-        min-height: 190px;
-    }
-
+    .menu-grid,
+    .people-grid,
+    .mood-grid,
     .result-grid {
         grid-template-columns: 1fr;
     }
 
-    .result-item {
+    .result-card {
         min-height: auto;
 
-        border-right: none;
-
+        border-right: 0;
         border-bottom: 1px solid rgba(245,239,230,.15);
     }
 
-    .result-item:last-child {
-        border-bottom: none;
+    .result-card:last-child {
+        border-bottom: 0;
     }
 
+    .reading-room {
+        min-height: 580px;
+    }
 
-    /* Footer */
-
-    .footer-top,
-    .footer-bottom {
+    .footer-row {
+        align-items: flex-start;
         flex-direction: column;
+    }
+
+    .footer-brand {
+        letter-spacing: -3px;
     }
 
     .footer-links {
@@ -1522,135 +1727,124 @@ footer p {
     }
 
     .bean {
-        opacity: .4;
+        opacity: .45;
     }
 
+    .checkout-options {
+        grid-template-columns: 1fr;
+    }
 }
 
 
-/* =====================================================
-   ACCESSIBILITY
-===================================================== */
-
 @media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto;
-    }
 
     *,
     *::before,
     *::after {
+        scroll-behavior: auto !important;
+
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
+
         transition-duration: .01ms !important;
     }
-
 }
 
 </style>
 </head>
 
-
 <body>
 
 
-<!-- =====================================================
+<!-- =========================================================
      LOADER
-===================================================== -->
+========================================================= -->
 
-<div id="loader">
+<div class="loader" id="loader">
 
-    <div class="loader-content">
+    <div class="loader-inner">
 
-        <div class="cup">
+        <div class="loader-cup">
 
-            <div class="steam one"></div>
-            <div class="steam two"></div>
-            <div class="steam three"></div>
+            <span class="loader-steam s1"></span>
+            <span class="loader-steam s2"></span>
+            <span class="loader-steam s3"></span>
 
-            <div class="coffee-fill"></div>
+            <div class="loader-fill"></div>
 
         </div>
 
-        <p>Brewing your next chapter…</p>
+        <p>Opening Morrow…</p>
 
     </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================================
      NAVIGATION
-===================================================== -->
+========================================================= -->
 
 <nav id="navbar">
 
-    <a href="#home" class="logo">
-        THE QUIET CHAPTER
+    <a class="logo" href="#home">
+        Morrow
     </a>
 
 
-    <ul class="nav-links">
+    <ul class="navlinks">
 
         <li>
-            <a href="#home">Home</a>
-        </li>
-
-
-        <li class="dropdown">
-
             <a href="#menu">
-                Menu ▾
+                Menu
             </a>
-
-            <div class="dropdown-menu">
-
-                <a href="#menu" onclick="showMenu('coffee')">
-                    ☕ Coffee
-                </a>
-
-                <a href="#menu" onclick="showMenu('pastries')">
-                    🥐 Pastries
-                </a>
-
-                <a href="#menu" onclick="showMenu('breakfast')">
-                    🍳 Breakfast
-                </a>
-
-                <a href="#menu" onclick="showMenu('readers')">
-                    📖 Reader's Picks
-                </a>
-
-                <a href="#menu" onclick="showMenu('bites')">
-                    🥪 Bookside Bites
-                </a>
-
-            </div>
-
-        </li>
-
-
-        <li>
-            <a href="#story">Our Story</a>
         </li>
 
         <li>
-            <a href="#regulars">Regulars</a>
-        </li>
-
-        <li>
-            <a href="#library">Library</a>
-        </li>
-
-        <li>
-            <a href="#quiet-corner">Your Corner</a>
-        </li>
-
-        <li>
-            <a href="#footer" class="reserve">
-                Reserve
+            <a href="#coffee">
+                Our Coffee
             </a>
+        </li>
+
+        <li>
+            <a href="#reading">
+                Reading Room
+            </a>
+        </li>
+
+        <li>
+            <a href="#people">
+                People Here
+            </a>
+        </li>
+
+        <li>
+            <a href="#visit">
+                Visit
+            </a>
+        </li>
+
+        <li>
+            <button
+                class="order-button"
+                onclick="scrollToMenu()">
+
+                Order
+
+            </button>
+        </li>
+
+        <li>
+            <button
+                class="order-button cart-nav"
+                onclick="openCart()">
+
+                Cart
+                <span class="cart-count" id="cartCount">
+                    0
+                </span>
+
+            </button>
         </li>
 
     </ul>
@@ -1658,45 +1852,45 @@ footer p {
 </nav>
 
 
-<!-- =====================================================
+<!-- =========================================================
      HERO
-===================================================== -->
+========================================================= -->
 
 <header class="hero" id="home">
 
-    <div class="bean bean1"></div>
-    <div class="bean bean2"></div>
-    <div class="bean bean3"></div>
-    <div class="bean bean4"></div>
+    <div class="bean bean-a"></div>
+    <div class="bean bean-b"></div>
+    <div class="bean bean-c"></div>
 
 
     <div class="hero-content">
 
-        <div class="eyebrow">
-            Coffee · Books · Unhurried Mornings
+        <div class="hero-label">
+            Morrow Café / Coffee & Reading Room
         </div>
 
         <h1>
-            Some chapters<br>
-            are meant to<br>
-            be lived.
+            Coffee for<br>
+            <em>slower</em> days.
         </h1>
 
-        <p>
-            A quiet corner for wandering minds,
-            unfinished novels and coffee worth
-            slowing down for.
-        </p>
+
+        <div class="hero-bottom">
+
+            <p class="hero-copy">
+
+                Coffee, warm food and shelves worth
+                getting lost in. Made for mornings
+                without hurry and afternoons without
+                somewhere else to be.
+
+            </p>
 
 
-        <div class="hero-buttons">
+            <a href="#menu" class="primary-btn">
 
-            <a href="#menu" class="btn btn-primary">
-                Explore the Menu →
-            </a>
+                See the menu
 
-            <a href="#quiet-corner" class="btn btn-secondary">
-                Find Your Corner
             </a>
 
         </div>
@@ -1706,44 +1900,95 @@ footer p {
 </header>
 
 
-<!-- =====================================================
-     OUR STORY
-===================================================== -->
+<!-- =========================================================
+     MARQUEE
+========================================================= -->
 
-<section class="story" id="story">
+<div class="marquee">
 
-    <div class="story-image">
+    <div class="marquee-track">
 
-        <img
-            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=85"
-            alt="Coffee in warm morning sunlight">
+        <span>Espresso</span>
+        <i>●</i>
+
+        <span>Fresh Pastries</span>
+        <i>●</i>
+
+        <span>Books</span>
+        <i>●</i>
+
+        <span>Slow Mornings</span>
+        <i>●</i>
+
+        <span>All Day Breakfast</span>
+        <i>●</i>
+
+        <span>Reading Room</span>
+        <i>●</i>
+
+        <span>Espresso</span>
+        <i>●</i>
+
+        <span>Fresh Pastries</span>
+        <i>●</i>
+
+        <span>Books</span>
+        <i>●</i>
+
+        <span>Slow Mornings</span>
+        <i>●</i>
+
+        <span>All Day Breakfast</span>
+        <i>●</i>
+
+        <span>Reading Room</span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     INTRO
+========================================================= -->
+
+<section class="intro">
+
+    <div>
+
+        <div class="eyebrow">
+            Morrow / Since the first cup
+        </div>
+
+        <h2 class="section-title">
+            Come for coffee.<br>
+            Forget the time.
+        </h2>
 
     </div>
 
 
-    <div class="story-text">
-
-        <div class="section-label">
-            Our Story
-        </div>
-
-        <h2 class="section-title">
-            A café for people who don't mind losing track of time.
-        </h2>
+    <div class="intro-copy">
 
         <p>
-            We built The Quiet Chapter around a simple idea:
-            life doesn't always need to be rushed.
+
+            Morrow is a small neighbourhood café built
+            around a simple idea: not every hour needs
+            to be productive.
+
         </p>
 
         <p>
-            Sometimes all you need is good coffee,
-            an unfinished book, a warm window and
-            nowhere else you need to be.
+
+            There is coffee when you need waking up,
+            breakfast when you've missed breakfast,
+            and enough books to justify staying longer
+            than you planned.
+
         </p>
 
-        <p class="story-signoff">
-            Sit. Sip. Stay awhile.
+        <p class="signature">
+            Take the corner table. We don't mind.
         </p>
 
     </div>
@@ -1751,24 +1996,32 @@ footer p {
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================================
      MENU
-===================================================== -->
+========================================================= -->
 
-<section id="menu">
+<section class="menu-section" id="menu">
 
-    <div class="menu-header">
+    <div class="menu-head">
 
-        <div class="section-label">
-            The Café Menu
+        <div>
+
+            <div class="eyebrow">
+                Menu
+            </div>
+
+            <h2 class="section-title">
+                What are you having?
+            </h2>
+
         </div>
 
-        <h2 class="section-title">
-            Choose your next chapter.
-        </h2>
 
         <p>
-            Familiar favourites and slightly unexpected characters.
+
+            Familiar things, made carefully.
+            Select anything to add it to your order.
+
         </p>
 
     </div>
@@ -1778,41 +2031,55 @@ footer p {
 
         <button
             class="tab active"
-            onclick="showMenu('coffee', this)">
+            onclick="showMenu('coffee',this)">
+
             Coffee
+
         </button>
+
 
         <button
             class="tab"
-            onclick="showMenu('pastries', this)">
+            onclick="showMenu('pastries',this)">
+
             Pastries
+
         </button>
+
 
         <button
             class="tab"
-            onclick="showMenu('breakfast', this)">
+            onclick="showMenu('breakfast',this)">
+
             Breakfast
+
         </button>
+
 
         <button
             class="tab"
-            onclick="showMenu('readers', this)">
+            onclick="showMenu('readers',this)">
+
             Reader's Picks
+
         </button>
+
 
         <button
             class="tab"
-            onclick="showMenu('bites', this)">
+            onclick="showMenu('bites',this)">
+
             Bookside Bites
+
         </button>
 
     </div>
 
 
-    <div
-        class="category-description"
-        id="categoryDescription">
-    </div>
+    <p
+        class="menu-description"
+        id="menuDescription">
+    </p>
 
 
     <div
@@ -1823,38 +2090,135 @@ footer p {
 </section>
 
 
-<!-- =====================================================
-     PHILOSOPHY
-===================================================== -->
+<!-- =========================================================
+     COFFEE STORY
+========================================================= -->
 
-<section class="philosophy">
+<section class="coffee-story" id="coffee">
 
-    <div>
+    <div class="coffee-image"></div>
 
-        <blockquote>
-            “Perhaps a good life isn't measured by how much
-            we fit into our days, but by how often we notice them.”
-        </blockquote>
+
+    <div class="coffee-copy">
+
+        <div class="eyebrow">
+            Our Coffee
+        </div>
+
+        <h2 class="section-title">
+            Every cup has a beginning.
+        </h2>
+
 
         <p>
-            Stay for another cup.
+
+            We like coffee that tastes unmistakably
+            like coffee — aromatic, balanced and
+            comfortable enough to become part of
+            your morning.
+
         </p>
+
+
+        <p>
+
+            Our house style brings together softer
+            aromatic notes with a deeper roasted body,
+            whether you're drinking a small espresso
+            or sitting over a cappuccino for an hour.
+
+        </p>
+
+
+        <div class="bean-notes">
+
+            <div class="note">
+
+                <strong>
+                    Light side
+                </strong>
+
+                <span>
+                    Cocoa · caramel · toasted nuts
+                </span>
+
+            </div>
+
+
+            <div class="note">
+
+                <strong>
+                    Deep side
+                </strong>
+
+                <span>
+                    Dark chocolate · roast · body
+                </span>
+
+            </div>
+
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     MEET THE REGULARS
-===================================================== -->
+<!-- =========================================================
+     READING ROOM
+========================================================= -->
 
-<section class="regulars" id="regulars">
+<section class="reading-room" id="reading">
 
-    <div class="regulars-heading">
+    <div class="reading-content">
 
-        <div class="section-label">
-            Meet The Regulars
+        <div class="eyebrow">
+            The Reading Room
+        </div>
+
+
+        <h2 class="section-title">
+            Stay for a page.<br>
+            Or fifty.
+        </h2>
+
+
+        <p>
+
+            Take a book from the shelf while you're here.
+            Bring one you've finished and leave it for
+            somebody else. There is no timer on the table.
+
+        </p>
+
+
+        <div class="reading-features">
+
+            <span>Book Swap</span>
+
+            <span>Quiet Tables</span>
+
+            <span>Window Seats</span>
+
+            <span>Open All Day</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PEOPLE HERE — KEPT
+========================================================= -->
+
+<section class="people" id="people">
+
+    <div class="people-heading">
+
+        <div class="eyebrow">
+            People Here
         </div>
 
         <h2 class="section-title">
@@ -1864,86 +2228,127 @@ footer p {
     </div>
 
 
-    <div class="character-grid">
+    <div class="people-grid">
 
 
-        <article class="character">
+        <article class="person">
 
-            <div class="avatar">M</div>
+            <div class="avatar">
+                M
+            </div>
 
-            <h3>Mira</h3>
+            <h3>
+                Mira
+            </h3>
 
-            <span>The Window Reader</span>
+            <span class="person-role">
+                The Window Reader
+            </span>
 
             <p>
+
                 Orders the same cappuccino and somehow
                 leaves with a different book every Thursday.
+
             </p>
 
         </article>
 
 
-        <article class="character">
+        <article class="person">
 
-            <div class="avatar">T</div>
+            <div class="avatar">
+                T
+            </div>
 
-            <h3>Theo</h3>
+            <h3>
+                Theo
+            </h3>
 
-            <span>The Accidental Writer</span>
+            <span class="person-role">
+                The Accidental Writer
+            </span>
 
             <p>
+
                 Came in to answer one email.
                 He's currently on chapter seven.
+
             </p>
 
         </article>
 
 
-        <article class="character">
+        <article class="person">
 
-            <div class="avatar">J</div>
+            <div class="avatar">
+                J
+            </div>
 
-            <h3>Juniper</h3>
+            <h3>
+                Juniper
+            </h3>
 
-            <span>The Morning Regular</span>
+            <span class="person-role">
+                The Morning Regular
+            </span>
 
             <p>
+
                 Firmly believes every difficult decision
                 deserves coffee first.
+
             </p>
 
         </article>
 
 
-        <article class="character">
+        <article class="person">
 
-            <div class="avatar">A</div>
+            <div class="avatar">
+                A
+            </div>
 
-            <h3>Arden Vale</h3>
+            <h3>
+                Arden Vale
+            </h3>
 
-            <span>The Laptop Loyalist</span>
+            <span class="person-role">
+                The Laptop Loyalist
+            </span>
 
             <p>
+
                 Built a fictional tech empire, but still
-                claims his best ideas happen at the corner table.
-                His espresso usually goes cold between meetings.
+                claims his best ideas happen at the corner
+                table. His espresso usually goes cold
+                between meetings.
+
             </p>
 
         </article>
 
 
-        <article class="character">
+        <article class="person">
 
-            <div class="avatar">R</div>
+            <div class="avatar">
+                R
+            </div>
 
-            <h3>Ravi Mehra</h3>
+            <h3>
+                Ravi Mehra
+            </h3>
 
-            <span>The Afternoon Correspondent</span>
+            <span class="person-role">
+                The Afternoon Correspondent
+            </span>
 
             <p>
-                Knows every neighbourhood story before it
-                becomes a story. Arrives for one coffee
+
+                Knows every neighbourhood story before
+                it becomes a story. Arrives for one coffee
                 and somehow stays until sunset.
+
             </p>
 
         </article>
@@ -1954,76 +2359,43 @@ footer p {
 </section>
 
 
-<!-- =====================================================
-     LIBRARY
-===================================================== -->
+<!-- =========================================================
+     QUIET CORNER
+========================================================= -->
 
-<section class="library" id="library">
+<section class="corner" id="corner">
 
-    <div class="library-content">
+    <div class="corner-head">
 
-        <div class="section-label">
-            The Library
+        <div class="eyebrow">
+            Your Corner
         </div>
 
         <h2 class="section-title">
-            Borrow a story.<br>
-            Leave one behind.
+            What kind of day is it?
         </h2>
 
         <p>
-            Pick something from our shelves, leave a book
-            you've loved, or simply spend the afternoon
-            discovering a story you weren't looking for.
-        </p>
 
-        <br>
+            Pick a mood. We'll choose something to drink,
+            something to eat, something to read and
+            somewhere to sit.
 
-        <a href="#quiet-corner" class="btn btn-secondary">
-            Find Your Reading Corner →
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FIND YOUR QUIET CORNER
-===================================================== -->
-
-<section class="quiet-corner" id="quiet-corner">
-
-
-    <div class="corner-header">
-
-        <div class="section-label">
-            Your Quiet Corner
-        </div>
-
-        <h2 class="section-title">
-            What kind of day are you having?
-        </h2>
-
-        <p>
-            Not every day asks for the same chapter.
-            Tell us how you're feeling and we'll find
-            your coffee, your story and your corner.
         </p>
 
     </div>
 
-
-    <!-- MOODS -->
 
     <div class="mood-grid" id="moodGrid">
 
 
         <button
-            class="mood-card"
+            class="mood"
             onclick="findCorner('peace')">
 
-            <span class="mood-symbol">☁</span>
+            <span class="mood-icon">
+                ☁
+            </span>
 
             <div>
 
@@ -2032,8 +2404,7 @@ footer p {
                 </strong>
 
                 <small>
-                    Something gentle for a mind
-                    that's had enough noise today.
+                    Something gentle for a noisy day.
                 </small>
 
             </div>
@@ -2042,10 +2413,12 @@ footer p {
 
 
         <button
-            class="mood-card"
+            class="mood"
             onclick="findCorner('focus')">
 
-            <span class="mood-symbol">✎</span>
+            <span class="mood-icon">
+                ✎
+            </span>
 
             <div>
 
@@ -2054,8 +2427,7 @@ footer p {
                 </strong>
 
                 <small>
-                    Coffee, concentration and
-                    somewhere to get things done.
+                    Coffee, concentration and a clear table.
                 </small>
 
             </div>
@@ -2064,10 +2436,12 @@ footer p {
 
 
         <button
-            class="mood-card"
+            class="mood"
             onclick="findCorner('dream')">
 
-            <span class="mood-symbol">✦</span>
+            <span class="mood-icon">
+                ✦
+            </span>
 
             <div>
 
@@ -2076,8 +2450,7 @@ footer p {
                 </strong>
 
                 <small>
-                    No plans. No deadlines.
-                    Just somewhere for thoughts to wander.
+                    Nowhere particular for your thoughts to go.
                 </small>
 
             </div>
@@ -2086,10 +2459,12 @@ footer p {
 
 
         <button
-            class="mood-card"
+            class="mood"
             onclick="findCorner('comfort')">
 
-            <span class="mood-symbol">♨</span>
+            <span class="mood-icon">
+                ♨
+            </span>
 
             <div>
 
@@ -2098,8 +2473,7 @@ footer p {
                 </strong>
 
                 <small>
-                    Something warm, familiar and
-                    considerably better than today.
+                    Something warm and reliably good.
                 </small>
 
             </div>
@@ -2110,73 +2484,66 @@ footer p {
     </div>
 
 
-    <!-- RESULT -->
-
     <div class="corner-result" id="cornerResult">
 
-
-        <div class="result-label">
-            Your chapter for today
+        <div class="eyebrow">
+            Your afternoon, sorted
         </div>
 
-
-        <h2
-            class="result-title"
-            id="resultTitle">
-        </h2>
+        <h2 id="cornerTitle"></h2>
 
 
         <div class="result-grid">
 
 
-            <div class="result-item">
+            <div class="result-card">
 
-                <span class="result-icon">☕</span>
+                <span>
+                    Coffee
+                </span>
 
-                <span>Your Coffee</span>
+                <h3 id="cornerDrink"></h3>
 
-                <h3 id="resultDrink"></h3>
-
-                <p id="resultDrinkDescription"></p>
-
-            </div>
-
-
-            <div class="result-item">
-
-                <span class="result-icon">🥐</span>
-
-                <span>Your Pairing</span>
-
-                <h3 id="resultFood"></h3>
-
-                <p id="resultFoodDescription"></p>
+                <p id="cornerDrinkText"></p>
 
             </div>
 
 
-            <div class="result-item">
+            <div class="result-card">
 
-                <span class="result-icon">📖</span>
+                <span>
+                    Something with it
+                </span>
 
-                <span>Your Book</span>
+                <h3 id="cornerFood"></h3>
 
-                <h3 id="resultBook"></h3>
-
-                <p id="resultAuthor"></p>
+                <p id="cornerFoodText"></p>
 
             </div>
 
 
-            <div class="result-item">
+            <div class="result-card">
 
-                <span class="result-icon">⌂</span>
+                <span>
+                    Read
+                </span>
 
-                <span>Your Corner</span>
+                <h3 id="cornerBook"></h3>
 
-                <h3 id="resultSeat"></h3>
+                <p id="cornerAuthor"></p>
 
-                <p id="resultSeatDescription"></p>
+            </div>
+
+
+            <div class="result-card">
+
+                <span>
+                    Sit here
+                </span>
+
+                <h3 id="cornerSeat"></h3>
+
+                <p id="cornerSeatText"></p>
 
             </div>
 
@@ -2184,45 +2551,113 @@ footer p {
         </div>
 
 
-        <blockquote
-            class="corner-quote"
-            id="resultQuote">
-        </blockquote>
+        <div
+            class="result-quote"
+            id="cornerQuote">
+        </div>
 
 
         <button
-            class="choose-again"
+            class="again"
             onclick="chooseAgain()">
 
-            ← Choose another mood
+            ← Choose again
 
         </button>
-
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+<!-- =========================================================
+     VISIT
+========================================================= -->
 
-<footer id="footer">
+<section class="visit" id="visit">
 
-    <div class="footer-top">
+    <div class="visit-copy">
 
-        <div>
+        <div class="eyebrow">
+            Visit Morrow
+        </div>
 
-            <h2>
-                The Quiet Chapter
-            </h2>
+        <h2 class="section-title">
+            There's probably a table.
+        </h2>
 
-            <p>
-                Coffee · Books · Unhurried Mornings
-            </p>
+        <p>
+
+            Come early for the quietest hour,
+            stay through lunch, or arrive when
+            the afternoon needs rescuing.
+
+        </p>
+
+    </div>
+
+
+    <div class="visit-details">
+
+        <div class="visit-line">
+
+            <span>
+                Hours
+            </span>
+
+            <strong>
+                Daily · 8 AM — 10 PM
+            </strong>
 
         </div>
+
+
+        <div class="visit-line">
+
+            <span>
+                Best for
+            </span>
+
+            <strong>
+                Coffee · Reading · Long conversations
+            </strong>
+
+        </div>
+
+
+        <div class="visit-line">
+
+            <span>
+                Reading Room
+            </span>
+
+            <strong>
+                Open all day
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        Morrow
+    </div>
+
+
+    <div class="footer-row">
+
+        <span>
+            Coffee · Books · Better afternoons.
+        </span>
 
 
         <div class="footer-links">
@@ -2231,35 +2666,23 @@ footer p {
                 Menu
             </a>
 
-            <a href="#library">
-                Library
+            <a href="#reading">
+                Reading Room
             </a>
 
-            <a href="#story">
-                Our Story
+            <a href="#people">
+                People Here
             </a>
 
-            <a href="#quiet-corner">
-                Your Corner
-            </a>
-
-            <a href="#">
-                Instagram
+            <a href="#visit">
+                Visit
             </a>
 
         </div>
 
-    </div>
-
-
-    <div class="footer-bottom">
 
         <span>
-            Open daily · 8 AM — 10 PM
-        </span>
-
-        <span>
-            You don't have to finish the chapter today.
+            You can stay a little longer.
         </span>
 
     </div>
@@ -2267,96 +2690,403 @@ footer p {
 </footer>
 
 
+<!-- =========================================================
+     OVERLAY + CART
+========================================================= -->
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeCart()">
+</div>
+
+
+<aside class="cart" id="cart">
+
+    <div class="cart-top">
+
+        <div>
+
+            <div class="eyebrow">
+                Morrow
+            </div>
+
+            <h2>
+                Your order
+            </h2>
+
+        </div>
+
+
+        <button
+            class="close"
+            onclick="closeCart()">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="cart-items"
+        id="cartItems">
+    </div>
+
+
+    <div class="cart-total">
+
+        <span>
+            Total
+        </span>
+
+        <span id="cartTotal">
+            ₹0
+        </span>
+
+    </div>
+
+
+    <button
+        class="checkout-btn"
+        onclick="openCheckout()">
+
+        Continue to checkout
+
+    </button>
+
+</aside>
+
+
+<!-- =========================================================
+     CHECKOUT
+========================================================= -->
+
+<div
+    class="checkout-modal"
+    id="checkoutModal">
+
+
+    <div class="checkout-box">
+
+
+        <div id="checkoutForm">
+
+
+            <div class="checkout-header">
+
+                <div>
+
+                    <div class="eyebrow">
+                        Morrow
+                    </div>
+
+                    <h2>
+                        Checkout
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="close"
+                    onclick="closeCheckout()">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div class="checkout-options">
+
+                <button
+                    class="order-type active"
+                    onclick="selectOrderType(this,'Dine in')">
+
+                    <strong>
+                        Dine in
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        Stay at Morrow
+                    </small>
+
+                </button>
+
+
+                <button
+                    class="order-type"
+                    onclick="selectOrderType(this,'Takeaway')">
+
+                    <strong>
+                        Takeaway
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        Collect at the counter
+                    </small>
+
+                </button>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Your name
+                </label>
+
+                <input
+                    id="customerName"
+                    type="text"
+                    placeholder="Name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Phone
+                </label>
+
+                <input
+                    type="tel"
+                    placeholder="+91 98765 43210">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Seating preference
+                </label>
+
+                <select>
+
+                    <option>
+                        No preference
+                    </option>
+
+                    <option>
+                        Window seat
+                    </option>
+
+                    <option>
+                        Reading room
+                    </option>
+
+                    <option>
+                        Quiet corner
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Payment
+                </label>
+
+                <select>
+
+                    <option>
+                        Pay at counter
+                    </option>
+
+                    <option>
+                        UPI — demo
+                    </option>
+
+                    <option>
+                        Card — demo
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <p class="checkout-note">
+
+                This website checkout is a front-end demonstration.
+                No real payment information is processed or stored.
+
+            </p>
+
+
+            <button
+                class="checkout-btn"
+                onclick="placeOrder()">
+
+                Place demo order
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="success"
+            id="success">
+
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <h2>
+                Order confirmed.
+            </h2>
+
+
+            <p style="
+                margin-top:12px;
+                color:var(--muted);
+                line-height:1.7;
+            ">
+
+                We'll pretend the coffee machine
+                has already started.
+
+            </p>
+
+
+            <button
+                class="checkout-btn"
+                style="margin-top:30px"
+                onclick="finishOrder()">
+
+                Done
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
 <script>
 
-/* =====================================================
+/* =========================================================
    LOADER
-===================================================== */
+========================================================= */
 
-window.addEventListener("load", () => {
+window.addEventListener(
+    "load",
+    () => {
 
-    setTimeout(() => {
+        setTimeout(
+            () => {
 
-        document
-            .getElementById("loader")
-            .classList
-            .add("hidden");
+                document
+                    .getElementById("loader")
+                    .classList
+                    .add("hide");
 
-    }, 2200);
-
-});
-
-
-/* =====================================================
-   NAVBAR
-===================================================== */
-
-window.addEventListener("scroll", () => {
-
-    const navbar =
-        document.getElementById("navbar");
-
-    if (window.scrollY > 80) {
-
-        navbar.classList.add("scrolled");
-
-    } else {
-
-        navbar.classList.remove("scrolled");
+            },
+            1800
+        );
 
     }
+);
 
-});
+
+/* =========================================================
+   NAV
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        document
+            .getElementById("navbar")
+            .classList
+            .toggle(
+                "scrolled",
+                window.scrollY > 60
+            );
+
+    }
+);
 
 
-/* =====================================================
+function scrollToMenu() {
+
+    document
+        .getElementById("menu")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =========================================================
    MENU DATA
-===================================================== */
+========================================================= */
 
 const menus = {
 
     coffee: {
 
         description:
-            "Thoughtfully brewed classics and house creations, made for slow sips and longer conversations.",
+            "Espresso drinks, slow coffee and house favourites for mornings that deserve more than instant coffee.",
 
         items: [
 
-            [
-                "The Quiet Latte",
-                "Espresso, silky steamed milk & vanilla bean.",
-                "₹240"
-            ],
+            {
+                name: "Quiet Latte",
+                desc: "Espresso, steamed milk and vanilla bean.",
+                price: 240
+            },
 
-            [
-                "First Draft",
-                "Bold double espresso finished with fresh orange zest.",
-                "₹190"
-            ],
+            {
+                name: "First Draft",
+                desc: "Double espresso with a little orange zest.",
+                price: 190
+            },
 
-            [
-                "Plot Twist",
-                "Dark chocolate mocha, espresso & a touch of sea salt.",
-                "₹270"
-            ],
+            {
+                name: "Plot Twist",
+                desc: "Dark chocolate mocha finished with sea salt.",
+                price: 270
+            },
 
-            [
-                "Chapter One",
-                "Cappuccino with cinnamon and caramelized brown sugar.",
-                "₹250"
-            ],
+            {
+                name: "Chapter One",
+                desc: "Cappuccino, cinnamon and caramelized brown sugar.",
+                price: 250
+            },
 
-            [
-                "Midnight Margins",
-                "Cold brew with vanilla cream and cocoa dust.",
-                "₹260"
-            ],
+            {
+                name: "Midnight Margins",
+                desc: "Cold brew with vanilla cream and cocoa.",
+                price: 260
+            },
 
-            [
-                "The Classic",
-                "A smooth Americano for people who like things uncomplicated.",
-                "₹180"
-            ]
+            {
+                name: "The Classic",
+                desc: "A clean, uncomplicated Americano.",
+                price: 180
+            }
 
         ]
 
@@ -2366,45 +3096,45 @@ const menus = {
     pastries: {
 
         description:
-            "Freshly baked, buttery comforts — best enjoyed with warm coffee and an unfinished chapter.",
+            "Buttery, warm and deliberately difficult to eat without ordering coffee.",
 
         items: [
 
-            [
-                "Morning Bookmark",
-                "Classic butter croissant, flaky and golden.",
-                "₹170"
-            ],
+            {
+                name: "Morning Bookmark",
+                desc: "Classic golden butter croissant.",
+                price: 170
+            },
 
-            [
-                "Cinnamon Chapter",
-                "Warm cinnamon roll finished with vanilla glaze.",
-                "₹210"
-            ],
+            {
+                name: "Cinnamon Chapter",
+                desc: "Warm cinnamon roll with vanilla glaze.",
+                price: 210
+            },
 
-            [
-                "Chocolate Footnote",
-                "Dark chocolate-filled croissant with cocoa dust.",
-                "₹220"
-            ],
+            {
+                name: "Chocolate Footnote",
+                desc: "Dark chocolate-filled croissant.",
+                price: 220
+            },
 
-            [
-                "Berry Paperback",
-                "Buttery Danish layered with seasonal berries.",
-                "₹230"
-            ],
+            {
+                name: "Berry Paperback",
+                desc: "Seasonal berry Danish.",
+                price: 230
+            },
 
-            [
-                "Almond Pages",
-                "Almond croissant filled with toasted almond cream.",
-                "₹240"
-            ],
+            {
+                name: "Almond Pages",
+                desc: "Croissant with toasted almond cream.",
+                price: 240
+            },
 
-            [
-                "Lemon Letters",
-                "Soft lemon loaf with a light citrus glaze.",
-                "₹190"
-            ]
+            {
+                name: "Lemon Letters",
+                desc: "Soft lemon loaf with citrus glaze.",
+                price: 190
+            }
 
         ]
 
@@ -2414,45 +3144,45 @@ const menus = {
     breakfast: {
 
         description:
-            "Simple, wholesome morning plates made to ease you gently into the day.",
+            "Breakfast for early mornings, late mornings and people who refuse to acknowledge lunchtime.",
 
         items: [
 
-            [
-                "The Early Chapter",
-                "Sourdough, avocado, cherry tomatoes & poached eggs.",
-                "₹340"
-            ],
+            {
+                name: "Early Chapter",
+                desc: "Sourdough, avocado, tomato and poached eggs.",
+                price: 340
+            },
 
-            [
-                "Slow Sunday",
-                "Fluffy pancakes, berries, maple syrup & whipped butter.",
-                "₹320"
-            ],
+            {
+                name: "Slow Sunday",
+                desc: "Pancakes, berries, maple and whipped butter.",
+                price: 320
+            },
 
-            [
-                "Sunlit Toast",
-                "French toast with caramelized banana, cinnamon & honey.",
-                "₹310"
-            ],
+            {
+                name: "Sunlit Toast",
+                desc: "French toast, banana, cinnamon and honey.",
+                price: 310
+            },
 
-            [
-                "Morning Margins",
-                "Greek yogurt, granola, berries & honey.",
-                "₹280"
-            ],
+            {
+                name: "Morning Margins",
+                desc: "Greek yogurt, granola, berries and honey.",
+                price: 280
+            },
 
-            [
-                "The Writer's Breakfast",
-                "Scrambled eggs, sourdough, mushrooms & roasted tomatoes.",
-                "₹360"
-            ],
+            {
+                name: "Writer's Breakfast",
+                desc: "Eggs, sourdough, mushrooms and roasted tomato.",
+                price: 360
+            },
 
-            [
-                "Little Things",
-                "Sourdough, peanut butter, banana & honey.",
-                "₹240"
-            ]
+            {
+                name: "Little Things",
+                desc: "Sourdough, peanut butter, banana and honey.",
+                price: 240
+            }
 
         ]
 
@@ -2462,45 +3192,45 @@ const menus = {
     readers: {
 
         description:
-            "Signature pairings created for different reading moods, wandering minds and quiet afternoons.",
+            "Coffee-and-food pairings for people who intended to stay twenty minutes.",
 
         items: [
 
-            [
-                "The Daydreamer",
-                "Quiet Latte + Berry Paperback.",
-                "₹420"
-            ],
+            {
+                name: "The Daydreamer",
+                desc: "Quiet Latte + Berry Paperback.",
+                price: 420
+            },
 
-            [
-                "The Plot Twist",
-                "Plot Twist Mocha + Chocolate Footnote.",
-                "₹450"
-            ],
+            {
+                name: "The Plot Twist",
+                desc: "Plot Twist Mocha + Chocolate Footnote.",
+                price: 450
+            },
 
-            [
-                "The Writer's Block",
-                "First Draft Espresso + Cinnamon Chapter.",
-                "₹350"
-            ],
+            {
+                name: "Writer's Block",
+                desc: "First Draft + Cinnamon Chapter.",
+                price: 350
+            },
 
-            [
-                "One More Chapter",
-                "Midnight Margins + Almond Pages.",
-                "₹440"
-            ],
+            {
+                name: "One More Chapter",
+                desc: "Midnight Margins + Almond Pages.",
+                price: 440
+            },
 
-            [
-                "Rainy Afternoon",
-                "Chapter One Cappuccino + Lemon Letters.",
-                "₹390"
-            ],
+            {
+                name: "Rainy Afternoon",
+                desc: "Chapter One + Lemon Letters.",
+                price: 390
+            },
 
-            [
-                "The Main Character",
-                "Quiet Latte + Morning Bookmark + mystery book pick.",
-                "₹490"
-            ]
+            {
+                name: "Main Character",
+                desc: "Quiet Latte + Morning Bookmark + mystery book pick.",
+                price: 490
+            }
 
         ]
 
@@ -2510,45 +3240,45 @@ const menus = {
     bites: {
 
         description:
-            "Light savoury plates for when one more chapter unexpectedly becomes an entire afternoon.",
+            "Savoury things for when coffee quietly turns into an entire afternoon.",
 
         items: [
 
-            [
-                "Between the Lines",
-                "Grilled pesto, mozzarella & tomato sourdough.",
-                "₹310"
-            ],
+            {
+                name: "Between the Lines",
+                desc: "Pesto, mozzarella and tomato sourdough.",
+                price: 310
+            },
 
-            [
-                "The Cliffhanger",
-                "Spicy paneer, caramelized onion & mint mayo sandwich.",
-                "₹330"
-            ],
+            {
+                name: "The Cliffhanger",
+                desc: "Spicy paneer, onion and mint mayo.",
+                price: 330
+            },
 
-            [
-                "Paperback Pesto",
-                "Creamy pesto pasta with roasted cherry tomatoes.",
-                "₹360"
-            ],
+            {
+                name: "Paperback Pesto",
+                desc: "Creamy pesto pasta and roasted tomatoes.",
+                price: 360
+            },
 
-            [
-                "Plot Thickens",
-                "Crispy potato wedges with garlic-herb dip.",
-                "₹220"
-            ],
+            {
+                name: "Plot Thickens",
+                desc: "Potato wedges with garlic-herb dip.",
+                price: 220
+            },
 
-            [
-                "The Green Chapter",
-                "Lettuce, avocado, cucumber, feta & toasted seeds.",
-                "₹320"
-            ],
+            {
+                name: "Green Chapter",
+                desc: "Avocado, cucumber, feta and toasted seeds.",
+                price: 320
+            },
 
-            [
-                "Final Paragraph",
-                "Grilled mushroom and cheese panini with herb butter.",
-                "₹340"
-            ]
+            {
+                name: "Final Paragraph",
+                desc: "Mushroom and cheese panini.",
+                price: 340
+            }
 
         ]
 
@@ -2557,182 +3287,538 @@ const menus = {
 };
 
 
-/* =====================================================
-   MENU RENDERING
-===================================================== */
+let activeCategory = "coffee";
 
-function showMenu(category, clickedButton) {
 
-    const menu = menus[category];
+function showMenu(
+    category,
+    button
+) {
 
-    if (!menu) return;
+    activeCategory = category;
+
+    const data =
+        menus[category];
+
+
+    document
+        .getElementById("menuDescription")
+        .textContent =
+        data.description;
 
 
     const grid =
         document.getElementById("menuGrid");
 
-    const description =
-        document.getElementById("categoryDescription");
+
+    grid.innerHTML = "";
 
 
-    description.textContent =
-        menu.description;
-
-
-    const fragment =
-        document.createDocumentFragment();
-
-
-    menu.items.forEach(
-        ([name, itemDescription, price]) => {
+    data.items.forEach(
+        (item,index) => {
 
             const card =
                 document.createElement("article");
 
-            card.className = "menu-card";
+
+            card.className =
+                "menu-card";
 
 
-            const title =
-                document.createElement("h3");
+            card.innerHTML = `
 
-            title.textContent = name;
+                <span class="menu-type">
+                    ${category}
+                </span>
+
+                <span class="price">
+                    ₹${item.price}
+                </span>
+
+                <h3>
+                    ${item.name}
+                </h3>
+
+                <p>
+                    ${item.desc}
+                </p>
+
+                <button
+                    class="add-btn"
+                    onclick="addToCart('${category}',${index})">
+
+                    + Add to order
+
+                </button>
+
+            `;
 
 
-            const priceElement =
-                document.createElement("span");
-
-            priceElement.className = "price";
-
-            priceElement.textContent = price;
-
-
-            const descriptionElement =
-                document.createElement("p");
-
-            descriptionElement.textContent =
-                itemDescription;
-
-
-            card.append(
-                title,
-                priceElement,
-                descriptionElement
-            );
-
-
-            fragment.appendChild(card);
+            grid.appendChild(card);
 
         }
     );
 
 
-    grid.replaceChildren(fragment);
-
-
-    if (clickedButton) {
+    if (button) {
 
         document
             .querySelectorAll(".tab")
-            .forEach(tab => {
+            .forEach(
+                tab =>
+                    tab.classList.remove("active")
+            );
 
-                tab.classList.remove("active");
 
-            });
-
-
-        clickedButton.classList.add("active");
+        button.classList.add("active");
 
     }
 
 }
 
 
-/* Initial menu */
-
 showMenu("coffee");
 
 
-/* =====================================================
-   COFFEE BEAN PARALLAX
-===================================================== */
+/* =========================================================
+   CART
+========================================================= */
 
-document.addEventListener("mousemove", event => {
-
-    const x =
-        (
-            event.clientX /
-            window.innerWidth
-            -
-            .5
-        ) * 15;
+let cart = [];
 
 
-    const y =
-        (
-            event.clientY /
-            window.innerHeight
-            -
-            .5
-        ) * 15;
+function addToCart(
+    category,
+    index
+) {
+
+    const product =
+        menus[category].items[index];
 
 
-    document
-        .querySelectorAll(".bean")
-        .forEach((bean, index) => {
-
-            const depth =
-                (index + 1) * .35;
-
-
-            bean.style.marginLeft =
-                `${x * depth}px`;
+    const existing =
+        cart.find(
+            item =>
+                item.name === product.name
+        );
 
 
-            bean.style.marginTop =
-                `${y * depth}px`;
+    if (existing) {
+
+        existing.quantity++;
+
+    }
+
+    else {
+
+        cart.push({
+
+            ...product,
+
+            quantity: 1
 
         });
 
-});
+    }
 
 
-/* =====================================================
-   QUIET CORNER DATA
-===================================================== */
+    updateCart();
+    openCart();
 
-const cornerRecommendations = {
+}
+
+
+function updateCart() {
+
+    const container =
+        document.getElementById(
+            "cartItems"
+        );
+
+
+    const count =
+        cart.reduce(
+            (sum,item) =>
+                sum + item.quantity,
+            0
+        );
+
+
+    document
+        .getElementById("cartCount")
+        .textContent =
+        count;
+
+
+    if (!cart.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                Your order is empty.<br><br>
+
+                Coffee would fix that.
+
+            </div>
+
+        `;
+
+    }
+
+    else {
+
+        container.innerHTML = "";
+
+
+        cart.forEach(
+            (item,index) => {
+
+                const row =
+                    document.createElement("div");
+
+
+                row.className =
+                    "cart-item";
+
+
+                row.innerHTML = `
+
+                    <div>
+
+                        <h4>
+                            ${item.name}
+                        </h4>
+
+                        <p>
+                            ₹${item.price} each
+                        </p>
+
+
+                        <div class="qty">
+
+                            <button
+                                onclick="changeQty(${index},-1)">
+
+                                −
+
+                            </button>
+
+                            <span>
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                onclick="changeQty(${index},1)">
+
+                                +
+
+                            </button>
+
+                        </div>
+
+
+                        <button
+                            class="remove"
+                            onclick="removeItem(${index})">
+
+                            Remove
+
+                        </button>
+
+                    </div>
+
+
+                    <strong>
+                        ₹${item.price * item.quantity}
+                    </strong>
+
+                `;
+
+
+                container.appendChild(row);
+
+            }
+        );
+
+    }
+
+
+    const total =
+        cart.reduce(
+            (sum,item) =>
+                sum +
+                item.price *
+                item.quantity,
+            0
+        );
+
+
+    document
+        .getElementById("cartTotal")
+        .textContent =
+        `₹${total}`;
+
+}
+
+
+function changeQty(
+    index,
+    amount
+) {
+
+    cart[index].quantity += amount;
+
+
+    if (
+        cart[index].quantity <= 0
+    ) {
+
+        cart.splice(index,1);
+
+    }
+
+
+    updateCart();
+
+}
+
+
+function removeItem(index) {
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+function openCart() {
+
+    document
+        .getElementById("cart")
+        .classList.add("show");
+
+
+    document
+        .getElementById("overlay")
+        .classList.add("show");
+
+
+    document.body
+        .classList
+        .add("cart-open");
+
+}
+
+
+function closeCart() {
+
+    document
+        .getElementById("cart")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("overlay")
+        .classList.remove("show");
+
+
+    document.body
+        .classList
+        .remove("cart-open");
+
+}
+
+
+updateCart();
+
+
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+let orderType =
+    "Dine in";
+
+
+function openCheckout() {
+
+    if (!cart.length) {
+
+        alert(
+            "Add something to your order first."
+        );
+
+        return;
+
+    }
+
+
+    closeCart();
+
+
+    document
+        .getElementById(
+            "checkoutModal"
+        )
+        .classList
+        .add("show");
+
+}
+
+
+function closeCheckout() {
+
+    document
+        .getElementById(
+            "checkoutModal"
+        )
+        .classList
+        .remove("show");
+
+}
+
+
+function selectOrderType(
+    button,
+    type
+) {
+
+    orderType = type;
+
+
+    document
+        .querySelectorAll(
+            ".order-type"
+        )
+        .forEach(
+            item =>
+                item.classList
+                    .remove("active")
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+}
+
+
+function placeOrder() {
+
+    const name =
+        document
+            .getElementById(
+                "customerName"
+            )
+            .value
+            .trim();
+
+
+    if (!name) {
+
+        alert(
+            "Please enter your name."
+        );
+
+        return;
+
+    }
+
+
+    document
+        .getElementById(
+            "checkoutForm"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "success"
+        )
+        .classList
+        .add("show");
+
+}
+
+
+function finishOrder() {
+
+    cart = [];
+
+    updateCart();
+
+
+    document
+        .getElementById(
+            "success"
+        )
+        .classList
+        .remove("show");
+
+
+    document
+        .getElementById(
+            "checkoutForm"
+        )
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "customerName"
+        )
+        .value =
+        "";
+
+
+    closeCheckout();
+
+}
+
+
+/* =========================================================
+   QUIET CORNER
+========================================================= */
+
+const recommendations = {
 
     peace: {
 
         title:
-            "A quieter kind of morning.",
+            "A quieter kind of afternoon.",
 
         drink:
-            "The Quiet Latte",
+            "Quiet Latte",
 
-        drinkDescription:
-            "Soft vanilla, espresso and steamed milk.",
+        drinkText:
+            "Espresso, warm milk and vanilla.",
 
         food:
             "Almond Pages",
 
-        foodDescription:
-            "A warm almond croissant with toasted almond cream.",
+        foodText:
+            "A warm almond croissant.",
 
         book:
             "Where the Morning Waits",
 
         author:
-            "by Elia Wren · Fictional",
+            "Elia Wren · Fictional",
 
         seat:
-            "The Window Seat",
+            "Window Seat",
 
-        seatDescription:
-            "Morning light, a small table and nowhere you need to be.",
+        seatText:
+            "Morning light and no reason to hurry.",
 
         quote:
-            "“Peace isn't always somewhere you find. Sometimes it's something you finally stop interrupting.”"
+            "“Peace sometimes begins when you stop filling every silence.”"
 
     },
 
@@ -2740,34 +3826,34 @@ const cornerRecommendations = {
     focus: {
 
         title:
-            "A chapter for getting things done.",
+            "A table for getting things done.",
 
         drink:
             "First Draft",
 
-        drinkDescription:
-            "A bold double espresso with fresh orange zest.",
+        drinkText:
+            "Double espresso and orange zest.",
 
         food:
             "Morning Bookmark",
 
-        foodDescription:
-            "A simple golden butter croissant.",
+        foodText:
+            "A simple butter croissant.",
 
         book:
             "The Architecture of Thought",
 
         author:
-            "by Rowan Mercer · Fictional",
+            "Rowan Mercer · Fictional",
 
         seat:
-            "The Library Desk",
+            "Library Desk",
 
-        seatDescription:
-            "A quiet wooden desk tucked between the bookshelves.",
+        seatText:
+            "Wooden desk. Quiet shelf. Clear head.",
 
         quote:
-            "“Attention is a small act of choosing what deserves to exist for the next few minutes.”"
+            "“Attention is deciding what deserves the next few minutes.”"
 
     },
 
@@ -2775,31 +3861,31 @@ const cornerRecommendations = {
     dream: {
 
         title:
-            "Let your thoughts wander.",
+            "Nothing urgent. Good.",
 
         drink:
             "Chapter One",
 
-        drinkDescription:
-            "Cinnamon cappuccino with caramelized brown sugar.",
+        drinkText:
+            "Cinnamon cappuccino and brown sugar.",
 
         food:
             "Berry Paperback",
 
-        foodDescription:
-            "A buttery Danish layered with seasonal berries.",
+        foodText:
+            "A seasonal berry Danish.",
 
         book:
             "Clouds Over Bellweather",
 
         author:
-            "by Mara Ellison · Fictional",
+            "Mara Ellison · Fictional",
 
         seat:
-            "The Garden Corner",
+            "Garden Corner",
 
-        seatDescription:
-            "A sunlit chair beside plants and the eastern window.",
+        seatText:
+            "Plants, sunlight and a slightly hidden chair.",
 
         quote:
             "“Some thoughts need somewhere quiet to land.”"
@@ -2815,164 +3901,206 @@ const cornerRecommendations = {
         drink:
             "Plot Twist",
 
-        drinkDescription:
-            "Dark chocolate mocha, espresso and a little sea salt.",
+        drinkText:
+            "Dark chocolate mocha and sea salt.",
 
         food:
             "Cinnamon Chapter",
 
-        foodDescription:
-            "A warm cinnamon roll finished with vanilla glaze.",
+        foodText:
+            "Warm cinnamon roll and vanilla glaze.",
 
         book:
             "The House With Yellow Curtains",
 
         author:
-            "by Nora Vale · Fictional",
+            "Nora Vale · Fictional",
 
         seat:
-            "The Fireplace Sofa",
+            "The Soft Sofa",
 
-        seatDescription:
-            "The softest seat in the café, intentionally far from the clock.",
+        seatText:
+            "Comfortably far away from the clock.",
 
         quote:
-            "“Not every difficult day needs an answer. Some only need somewhere warm to end.”"
+            "“Not every difficult day needs an answer. Some need somewhere warm to end.”"
 
     }
 
 };
 
 
-/* =====================================================
-   FIND YOUR CORNER
-===================================================== */
-
 function findCorner(mood) {
 
-    const recommendation =
-        cornerRecommendations[mood];
+    const r =
+        recommendations[mood];
 
 
-    if (!recommendation) {
-        return;
-    }
-
-
-    document.getElementById("resultTitle")
+    document
+        .getElementById("cornerTitle")
         .textContent =
-        recommendation.title;
+        r.title;
 
 
-    document.getElementById("resultDrink")
+    document
+        .getElementById("cornerDrink")
         .textContent =
-        recommendation.drink;
+        r.drink;
 
 
-    document.getElementById("resultDrinkDescription")
+    document
+        .getElementById("cornerDrinkText")
         .textContent =
-        recommendation.drinkDescription;
+        r.drinkText;
 
 
-    document.getElementById("resultFood")
+    document
+        .getElementById("cornerFood")
         .textContent =
-        recommendation.food;
+        r.food;
 
 
-    document.getElementById("resultFoodDescription")
+    document
+        .getElementById("cornerFoodText")
         .textContent =
-        recommendation.foodDescription;
+        r.foodText;
 
 
-    document.getElementById("resultBook")
+    document
+        .getElementById("cornerBook")
         .textContent =
-        recommendation.book;
+        r.book;
 
 
-    document.getElementById("resultAuthor")
+    document
+        .getElementById("cornerAuthor")
         .textContent =
-        recommendation.author;
+        r.author;
 
 
-    document.getElementById("resultSeat")
+    document
+        .getElementById("cornerSeat")
         .textContent =
-        recommendation.seat;
+        r.seat;
 
 
-    document.getElementById("resultSeatDescription")
+    document
+        .getElementById("cornerSeatText")
         .textContent =
-        recommendation.seatDescription;
+        r.seatText;
 
 
-    document.getElementById("resultQuote")
+    document
+        .getElementById("cornerQuote")
         .textContent =
-        recommendation.quote;
+        r.quote;
 
 
-    document.getElementById("moodGrid")
+    document
+        .getElementById("moodGrid")
         .style.display =
         "none";
 
 
-    document.getElementById("cornerResult")
+    document
+        .getElementById("cornerResult")
         .classList
-        .add("visible");
+        .add("show");
 
 }
 
-
-/* =====================================================
-   CHOOSE ANOTHER MOOD
-===================================================== */
 
 function chooseAgain() {
 
-    const result =
-        document.getElementById("cornerResult");
-
-    const moods =
-        document.getElementById("moodGrid");
-
-
-    result.classList.remove("visible");
+    document
+        .getElementById("cornerResult")
+        .classList
+        .remove("show");
 
 
-    moods.style.display = "grid";
+    document
+        .getElementById("moodGrid")
+        .style.display =
+        "grid";
 
 }
 
 
-/* =====================================================
-   KEYBOARD / ACCESSIBILITY IMPROVEMENT
-===================================================== */
+/* =========================================================
+   BEAN PARALLAX
+========================================================= */
 
-document
-    .querySelectorAll("button")
-    .forEach(button => {
+document.addEventListener(
+    "mousemove",
+    event => {
 
-        button.addEventListener(
-            "keyup",
-            event => {
+        if (
+            window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches
+        ) {
+            return;
+        }
 
-                if (event.key === "Escape") {
 
-                    if (
-                        document
-                            .getElementById("cornerResult")
-                            .classList
-                            .contains("visible")
-                    ) {
+        const x =
+            (
+                event.clientX /
+                window.innerWidth
+                -
+                .5
+            ) * 12;
 
-                        chooseAgain();
 
-                    }
+        const y =
+            (
+                event.clientY /
+                window.innerHeight
+                -
+                .5
+            ) * 12;
+
+
+        document
+            .querySelectorAll(".bean")
+            .forEach(
+                (bean,index) => {
+
+                    const depth =
+                        (index + 1) * .35;
+
+
+                    bean.style.marginLeft =
+                        `${x * depth}px`;
+
+
+                    bean.style.marginTop =
+                        `${y * depth}px`;
 
                 }
+            );
 
-            }
-        );
+    }
+);
 
-    });
+
+/* Escape closes overlays */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeCart();
+            closeCheckout();
+
+        }
+
+    }
+);
 
 </script>
 
