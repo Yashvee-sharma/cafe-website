@@ -3,31 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#241914">
 
-<title>Morrow Café — Coffee, Books & Slow Mornings</title>
+<title>Morrow — Coffee & Reading Room</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
 
 <style>
 
 /* =========================================================
-   MORROW CAFÉ
+   01. VARIABLES / RESET
 ========================================================= */
 
 :root {
-    --espresso: #2d211c;
-    --dark-roast: #17110e;
-    --brown: #594036;
-    --coffee: #755342;
-    --caramel: #bd8a62;
-    --cream: #f3ecdf;
-    --oat: #dfd1bd;
-    --white: #fffaf2;
-    --muted: #807268;
-    --line: rgba(45,33,28,.15);
+    --espresso: #30211b;
+    --dark-roast: #18110e;
+    --roast: #4b342a;
+    --coffee: #684837;
+    --caramel: #bd8b63;
+    --cream: #f3ebdf;
+    --oat: #dfd0bc;
+    --paper: #faf5ed;
+    --white: #fffaf3;
+    --muted: #817269;
+    --line: rgba(48,33,27,.14);
+    --dark-line: rgba(255,255,255,.13);
+    --green: #445448;
+
+    --serif: "DM Serif Display", serif;
+    --sans: "DM Sans", sans-serif;
 }
 
 * {
@@ -43,31 +49,18 @@ html {
 body {
     background: var(--cream);
     color: var(--espresso);
-    font-family: "DM Sans", sans-serif;
+    font-family: var(--sans);
     overflow-x: hidden;
 }
 
-body.cart-open {
+body.lock {
     overflow: hidden;
-}
-
-h1,
-h2,
-h3,
-.logo,
-.serif {
-    font-family: "DM Serif Display", serif;
-    font-weight: 400;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
 }
 
 button,
 input,
-select {
+select,
+textarea {
     font: inherit;
 }
 
@@ -75,51 +68,98 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 img {
     display: block;
     width: 100%;
 }
 
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+}
+
 section {
-    padding: 110px 7%;
+    padding: 110px 6.5%;
 }
 
 .eyebrow {
-    margin-bottom: 17px;
-
+    margin-bottom: 14px;
     color: var(--caramel);
-
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-
     letter-spacing: 2.7px;
     text-transform: uppercase;
 }
 
-.section-title {
-    font-size: clamp(46px, 6vw, 82px);
-    line-height: .98;
+.display-title {
+    font-family: var(--serif);
+    font-size: clamp(47px, 6.2vw, 90px);
+    font-weight: 400;
+    line-height: .94;
+    letter-spacing: -2px;
+}
+
+.body-copy {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.pill-button {
+    padding: 13px 20px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: .25s ease;
+}
+
+.pill-button:hover {
+    transform: translateY(-2px);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
 }
 
 
 /* =========================================================
-   LOADER
+   02. LOADER
 ========================================================= */
 
 .loader {
     position: fixed;
     inset: 0;
-
-    z-index: 9999;
-
+    z-index: 10000;
     display: grid;
     place-items: center;
-
     background: var(--cream);
-
-    transition:
-        opacity .7s,
-        visibility .7s;
+    transition: opacity .65s, visibility .65s;
 }
 
 .loader.hide {
@@ -133,464 +173,406 @@ section {
 
 .loader-cup {
     position: relative;
-
-    width: 85px;
-    height: 58px;
-
-    margin: 30px auto 22px;
-
+    width: 88px;
+    height: 60px;
+    margin: 35px auto 22px;
     border: 4px solid var(--espresso);
-    border-radius: 5px 5px 25px 25px;
+    border-radius: 5px 5px 28px 28px;
 }
 
 .loader-cup::after {
     content: "";
-
     position: absolute;
-
-    width: 27px;
-    height: 29px;
-
-    right: -28px;
-    top: 10px;
-
+    width: 28px;
+    height: 31px;
+    top: 9px;
+    right: -29px;
     border: 4px solid var(--espresso);
     border-left: 0;
-
-    border-radius: 0 18px 18px 0;
+    border-radius: 0 20px 20px 0;
 }
 
-.loader-fill {
+.loader-coffee {
     position: absolute;
-
     left: 4px;
     right: 4px;
     bottom: 4px;
-
     height: 0;
-
-    border-radius: 3px 3px 18px 18px;
-
     background: var(--coffee);
-
-    animation: fill 1.8s forwards;
+    border-radius: 3px 3px 20px 20px;
+    animation: coffeeFill 1.8s forwards;
 }
 
-@keyframes fill {
-    to {
-        height: 45px;
-    }
-}
-
-.loader-steam {
+.steam {
     position: absolute;
-
-    top: -35px;
-
+    top: -38px;
     width: 2px;
-    height: 27px;
-
+    height: 28px;
     background: var(--caramel);
-
     opacity: 0;
-
-    animation: steam 1.5s infinite;
+    animation: steamRise 1.5s infinite ease;
 }
 
-.s1 { left: 22px; }
-.s2 { left: 41px; animation-delay: .35s; }
-.s3 { left: 59px; animation-delay: .7s; }
-
-@keyframes steam {
-
-    0% {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    50% {
-        opacity: .6;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-15px);
-    }
-}
+.steam:nth-child(1) { left: 22px; }
+.steam:nth-child(2) { left: 42px; animation-delay: .35s; }
+.steam:nth-child(3) { left: 61px; animation-delay: .7s; }
 
 .loader p {
-    font-family: "DM Serif Display", serif;
+    font-family: var(--serif);
     font-size: 20px;
+}
+
+@keyframes coffeeFill {
+    to { height: 47px; }
+}
+
+@keyframes steamRise {
+    0% { opacity: 0; transform: translateY(9px); }
+    50% { opacity: .55; }
+    100% { opacity: 0; transform: translateY(-15px); }
 }
 
 
 /* =========================================================
-   NAVIGATION
+   03. NAVIGATION
 ========================================================= */
 
-nav {
+.navbar {
     position: fixed;
-
     top: 0;
     left: 0;
-
     z-index: 1000;
-
     width: 100%;
-
-    padding: 22px 6%;
-
-    display: flex;
+    padding: 21px 5%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
-
     color: var(--white);
-
-    transition: .3s;
+    transition: .3s ease;
 }
 
-nav.scrolled {
-    padding-top: 15px;
-    padding-bottom: 15px;
-
-    background: rgba(23,17,14,.95);
-
-    backdrop-filter: blur(14px);
+.navbar.scrolled {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    background: rgba(24,17,14,.95);
+    backdrop-filter: blur(15px);
 }
 
-.logo {
-    font-size: 27px;
-    letter-spacing: -.5px;
-}
-
-.navlinks {
+.nav-left,
+.nav-right {
     display: flex;
     align-items: center;
+    gap: 24px;
+}
 
-    gap: 28px;
+.nav-right {
+    justify-content: flex-end;
+}
 
-    list-style: none;
-
-    font-size: 11px;
+.nav-link {
+    border: 0;
+    background: none;
+    color: inherit;
+    font-size: 10px;
     font-weight: 600;
-
     letter-spacing: 1.4px;
     text-transform: uppercase;
+    opacity: .82;
 }
 
-.navlinks a {
-    opacity: .85;
-}
-
-.navlinks a:hover {
+.nav-link:hover {
     opacity: 1;
 }
 
-.order-button {
-    padding: 11px 19px;
+.brand {
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
+}
 
-    border: 1px solid rgba(255,255,255,.55);
-    border-radius: 50px;
+.nav-cart {
+    padding: 10px 15px;
+    border: 1px solid rgba(255,255,255,.5);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
 
+.cart-badge {
+    display: inline-grid;
+    place-items: center;
+    min-width: 19px;
+    height: 19px;
+    margin-left: 6px;
+    padding: 0 5px;
+    border-radius: 20px;
+    background: var(--cream);
+    color: var(--espresso);
+    font-size: 9px;
+}
+
+.mobile-toggle {
+    display: none;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255,255,255,.45);
+    border-radius: 50%;
     background: transparent;
     color: var(--white);
 }
 
-.cart-nav {
-    position: relative;
+
+/* =========================================================
+   04. MOBILE MENU
+========================================================= */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    background: var(--dark-roast);
+    color: var(--cream);
+    transform: translateX(100%);
+    transition: .4s ease;
 }
 
-.cart-count {
-    display: inline-grid;
-    place-items: center;
+.mobile-menu.show {
+    transform: translateX(0);
+}
 
-    min-width: 20px;
-    height: 20px;
+.mobile-menu-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    margin-left: 5px;
-    padding: 0 5px;
+.mobile-menu-links {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
 
-    border-radius: 20px;
+.mobile-menu-links a {
+    font-family: var(--serif);
+    font-size: clamp(40px, 12vw, 70px);
+    line-height: 1;
+}
 
-    background: var(--cream);
-    color: var(--espresso);
-
-    font-size: 10px;
+.round-close {
+    width: 40px;
+    height: 40px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font-size: 21px;
 }
 
 
 /* =========================================================
-   HERO
+   05. HERO
 ========================================================= */
 
 .hero {
     position: relative;
-
     min-height: 100vh;
-
-    padding: 145px 7% 75px;
-
+    padding: 140px 6.5% 65px;
     display: flex;
     align-items: flex-end;
-
     overflow: hidden;
-
     color: var(--white);
-
     background:
         linear-gradient(
             90deg,
-            rgba(20,13,10,.83),
-            rgba(20,13,10,.48),
-            rgba(20,13,10,.1)
+            rgba(18,11,8,.85),
+            rgba(18,11,8,.45),
+            rgba(18,11,8,.12)
         ),
-        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1900&q=90")
+        url("https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1900&q=88")
         center / cover no-repeat;
 }
 
 .hero-content {
     position: relative;
     z-index: 5;
-
-    max-width: 1000px;
+    width: 100%;
 }
 
-.hero-label {
-    margin-bottom: 25px;
-
-    color: #e1c2a3;
-
-    font-size: 11px;
-    font-weight: 600;
-
+.hero-kicker {
+    margin-bottom: 23px;
+    color: #dfc0a0;
+    font-size: 10px;
+    font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
 }
 
 .hero h1 {
-    max-width: 1000px;
-
-    font-size: clamp(70px, 10vw, 145px);
-    line-height: .78;
-
-    letter-spacing: -4px;
+    max-width: 1100px;
+    font-size: clamp(74px, 11vw, 160px);
+    line-height: .76;
+    letter-spacing: -6px;
 }
 
-.hero h1 em {
-    color: #d9b995;
-
-    font-style: normal;
+.hero h1 span {
+    color: #dbb894;
 }
 
 .hero-bottom {
-    margin-top: 42px;
-
+    margin-top: 45px;
     display: flex;
-    align-items: center;
-
-    gap: 30px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
 }
 
 .hero-copy {
-    max-width: 430px;
-
-    color: rgba(255,255,255,.76);
-
+    max-width: 440px;
+    color: rgba(255,255,255,.72);
     font-size: 14px;
     line-height: 1.8;
 }
 
-.primary-btn {
-    display: inline-block;
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
 
-    padding: 15px 25px;
+.hero-primary,
+.hero-secondary {
+    padding: 14px 21px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+}
 
+.hero-primary {
     border: 1px solid var(--cream);
-    border-radius: 50px;
-
     background: var(--cream);
     color: var(--espresso);
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    transition: .3s;
 }
 
-.primary-btn:hover {
-    transform: translateY(-3px);
-
-    background: var(--white);
+.hero-secondary {
+    border: 1px solid rgba(255,255,255,.6);
+    background: transparent;
+    color: var(--white);
 }
 
 
-/* Beans */
+/* Coffee beans */
 
 .bean {
     position: absolute;
-
-    z-index: 3;
-
-    width: 54px;
-    height: 75px;
-
+    z-index: 2;
+    width: 58px;
+    height: 80px;
     border-radius: 50%;
-
     background:
-        radial-gradient(
-            circle at 30% 25%,
-            #a77759,
-            #513326 48%,
-            #1d100b 82%
-        );
-
-    box-shadow: 10px 18px 30px rgba(0,0,0,.3);
-
+        radial-gradient(circle at 30% 25%, #a87959, #543426 48%, #1c0f0a 82%);
+    box-shadow: 10px 18px 30px rgba(0,0,0,.35);
     animation: beanFloat 7s ease-in-out infinite;
 }
 
 .bean::after {
     content: "";
-
     position: absolute;
-
-    top: 9%;
+    top: 10%;
     left: 49%;
-
     width: 3px;
-    height: 82%;
-
+    height: 80%;
     border-radius: 50%;
-
-    background: rgba(15,7,5,.7);
-
-    transform: rotate(8deg);
+    background: rgba(14,7,4,.7);
+    transform: rotate(7deg);
 }
 
-.bean-a {
-    top: 20%;
-    right: 12%;
-}
-
-.bean-b {
-    top: 50%;
-    right: 25%;
-
-    transform: scale(.6) rotate(40deg);
-
-    animation-delay: 1s;
-}
-
-.bean-c {
-    bottom: 9%;
-    right: 7%;
-
-    transform: scale(1.1) rotate(-25deg);
-
-    animation-delay: 2s;
-}
+.bean-1 { right: 11%; top: 21%; }
+.bean-2 { right: 27%; top: 53%; transform: scale(.55) rotate(35deg); animation-delay: 1s; }
+.bean-3 { right: 7%; bottom: 8%; transform: scale(1.1) rotate(-25deg); animation-delay: 2s; }
 
 @keyframes beanFloat {
-
-    0%, 100% {
-        translate: 0 0;
-        rotate: 0deg;
-    }
-
-    50% {
-        translate: 0 -22px;
-        rotate: 10deg;
-    }
+    0%,100% { translate: 0 0; rotate: 0deg; }
+    50% { translate: 0 -22px; rotate: 10deg; }
 }
 
 
 /* =========================================================
-   MARQUEE
+   06. MARQUEE
 ========================================================= */
 
 .marquee {
     overflow: hidden;
-
-    padding: 18px 0;
-
+    padding: 17px 0;
     background: var(--espresso);
     color: var(--cream);
-
     white-space: nowrap;
 }
 
 .marquee-track {
-    display: inline-block;
-
-    animation: marquee 28s linear infinite;
+    width: max-content;
+    animation: marqueeMove 28s linear infinite;
 }
 
 .marquee span {
-    margin-right: 50px;
-
-    font-size: 11px;
-    font-weight: 600;
-
-    letter-spacing: 2.2px;
+    margin-right: 42px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.1px;
     text-transform: uppercase;
 }
 
-.marquee i {
-    margin-right: 50px;
-
+.marquee b {
+    margin-right: 42px;
     color: var(--caramel);
 }
 
-@keyframes marquee {
-
-    to {
-        transform: translateX(-50%);
-    }
+@keyframes marqueeMove {
+    to { transform: translateX(-50%); }
 }
 
 
 /* =========================================================
-   INTRO
+   07. INTRO
 ========================================================= */
 
 .intro {
     display: grid;
-
     grid-template-columns: .8fr 1.2fr;
-
     gap: 10%;
-
     align-items: start;
 }
 
 .intro-copy {
-    padding-top: 20px;
-
-    color: var(--muted);
-
-    font-size: 15px;
-    line-height: 1.9;
+    max-width: 650px;
+    padding-top: 12px;
 }
 
 .intro-copy p + p {
     margin-top: 20px;
 }
 
-.signature {
-    margin-top: 28px !important;
-
+.intro-quote {
+    margin-top: 32px !important;
     color: var(--espresso) !important;
-
-    font-family: "DM Serif Display", serif;
-    font-size: 25px;
+    font-family: var(--serif);
+    font-size: 27px !important;
+    line-height: 1.25 !important;
 }
 
 
 /* =========================================================
-   MENU
+   08. MENU
 ========================================================= */
 
 .menu-section {
@@ -598,309 +580,241 @@ nav.scrolled {
     color: var(--cream);
 }
 
-.menu-head {
+.menu-heading {
+    margin-bottom: 45px;
     display: flex;
-    align-items: end;
     justify-content: space-between;
-
-    gap: 30px;
-
-    margin-bottom: 50px;
+    align-items: end;
+    gap: 35px;
 }
 
-.menu-head p {
-    max-width: 390px;
-
-    color: #a99c93;
-
+.menu-heading-copy {
+    max-width: 420px;
+    color: #a4958d;
     font-size: 13px;
     line-height: 1.8;
 }
 
-.tabs {
+.menu-tabs {
     display: flex;
-
-    gap: 8px;
-
-    margin-bottom: 40px;
-
     flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 27px;
 }
 
-.tab {
+.menu-tab {
     padding: 11px 18px;
-
-    border: 1px solid #55463f;
-    border-radius: 50px;
-
+    border: 1px solid #51433d;
+    border-radius: 999px;
     background: transparent;
-    color: #b9aaa0;
-
-    font-size: 11px;
-
-    transition: .25s;
+    color: #b7a8a0;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .5px;
 }
 
-.tab:hover,
-.tab.active {
+.menu-tab.active,
+.menu-tab:hover {
+    border-color: var(--cream);
     background: var(--cream);
     color: var(--espresso);
-
-    border-color: var(--cream);
 }
 
 .menu-description {
-    max-width: 650px;
-
-    margin-bottom: 32px;
-
-    color: #8f8078;
-
-    font-size: 13px;
+    max-width: 680px;
+    min-height: 45px;
+    margin-bottom: 30px;
+    color: #8f817a;
+    font-size: 12px;
     line-height: 1.7;
 }
 
 .menu-grid {
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
+    grid-template-columns: repeat(3,1fr);
     gap: 13px;
 }
 
-.menu-card {
+.product-card {
     position: relative;
-
-    min-height: 245px;
-
+    min-height: 270px;
     padding: 27px;
-
     display: flex;
     flex-direction: column;
-
-    border: 1px solid #423630;
-    border-radius: 9px;
-
-    background: transparent;
-
-    transition: .3s;
+    border: 1px solid #40342f;
+    border-radius: 10px;
+    transition: .3s ease;
 }
 
-.menu-card:hover {
+.product-card:hover {
     transform: translateY(-5px);
-
+    border-color: #765a4c;
     background: #211916;
-
-    border-color: #745a4b;
 }
 
-.menu-type {
+.product-category {
     color: var(--caramel);
-
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 700;
-
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-.menu-card h3 {
-    margin-top: 15px;
-
-    padding-right: 65px;
-
-    font-size: 29px;
-    line-height: 1;
-}
-
-.menu-card p {
-    margin-top: 13px;
-
-    color: #92837b;
-
-    font-size: 12px;
-    line-height: 1.6;
-}
-
-.price {
+.product-price {
     position: absolute;
-
     top: 27px;
     right: 25px;
-
-    color: #d5a57e;
-
-    font-size: 13px;
+    color: #d5a77f;
+    font-size: 12px;
     font-weight: 600;
 }
 
-.add-btn {
-    width: fit-content;
+.product-card h3 {
+    max-width: 80%;
+    margin-top: 15px;
+    font-size: 29px;
+    line-height: 1.02;
+}
 
+.product-card > p {
+    margin-top: 13px;
+    color: #92837b;
+    font-size: 11px;
+    line-height: 1.65;
+}
+
+.product-actions {
     margin-top: auto;
     padding-top: 24px;
+    display: flex;
+    gap: 9px;
+}
 
-    border: 0;
-
-    background: none;
-    color: var(--cream);
-
-    font-size: 10px;
+.product-actions button {
+    padding: 10px 13px;
+    border-radius: 999px;
+    font-size: 9px;
     font-weight: 700;
-
-    letter-spacing: 1.4px;
+    letter-spacing: .7px;
     text-transform: uppercase;
 }
 
-.add-btn:hover {
-    color: var(--caramel);
+.customize-btn {
+    border: 1px solid #5e4c44;
+    background: transparent;
+    color: var(--cream);
+}
+
+.quick-add {
+    border: 1px solid var(--cream);
+    background: var(--cream);
+    color: var(--espresso);
 }
 
 
 /* =========================================================
-   COFFEE STORY
+   09. COFFEE STORY
 ========================================================= */
 
 .coffee-story {
     padding: 0;
-
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     background: var(--oat);
 }
 
-.coffee-image {
-    min-height: 700px;
-
+.coffee-photo {
+    min-height: 720px;
     background:
-        linear-gradient(
-            rgba(20,12,8,.08),
-            rgba(20,12,8,.08)
-        ),
-        url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=85")
+        linear-gradient(rgba(20,12,8,.05),rgba(20,12,8,.05)),
+        url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1300&q=88")
         center / cover;
 }
 
 .coffee-copy {
     padding: 100px 10%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.coffee-copy p {
-    max-width: 560px;
-
+.coffee-copy .body-copy {
+    max-width: 570px;
     margin-top: 28px;
-
-    color: var(--muted);
-
-    line-height: 1.9;
 }
 
-.bean-notes {
+.coffee-notes {
+    margin-top: 42px;
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
-    gap: 15px;
-
-    margin-top: 45px;
+    gap: 17px;
 }
 
-.note {
-    padding-top: 18px;
-
-    border-top: 1px solid rgba(45,33,28,.25);
+.coffee-note {
+    padding-top: 17px;
+    border-top: 1px solid rgba(48,33,27,.22);
 }
 
-.note strong {
+.coffee-note strong {
     display: block;
-
-    font-size: 11px;
-
+    font-size: 9px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
-.note span {
+.coffee-note span {
     display: block;
-
-    margin-top: 7px;
-
+    margin-top: 8px;
     color: var(--muted);
-
-    font-size: 12px;
+    font-size: 11px;
 }
 
 
 /* =========================================================
-   READING ROOM
+   10. READING ROOM
 ========================================================= */
 
 .reading-room {
-    position: relative;
-
     min-height: 680px;
-
     display: flex;
     align-items: center;
-
     color: var(--white);
-
     background:
-        linear-gradient(
-            90deg,
-            rgba(18,12,9,.8),
-            rgba(18,12,9,.4)
-        ),
-        url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=85")
+        linear-gradient(90deg,rgba(18,12,9,.84),rgba(18,12,9,.35)),
+        url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=88")
         center / cover;
 }
 
-.reading-content {
-    max-width: 680px;
+.reading-copy {
+    max-width: 700px;
 }
 
-.reading-content p {
-    max-width: 500px;
-
-    margin-top: 28px;
-
-    color: rgba(255,255,255,.74);
-
-    line-height: 1.8;
+.reading-copy .body-copy {
+    max-width: 520px;
+    margin-top: 27px;
+    color: rgba(255,255,255,.72);
 }
 
 .reading-features {
-    display: flex;
-
-    gap: 12px;
-
     margin-top: 35px;
-
+    display: flex;
     flex-wrap: wrap;
+    gap: 9px;
 }
 
 .reading-features span {
-    padding: 10px 15px;
-
-    border: 1px solid rgba(255,255,255,.35);
-    border-radius: 50px;
-
-    font-size: 9px;
-
-    letter-spacing: 1.7px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,.32);
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
 
 /* =========================================================
-   PEOPLE HERE
-   Kept intact in content
+   11. PEOPLE HERE — KEPT AS REQUESTED
 ========================================================= */
 
 .people {
@@ -909,56 +823,41 @@ nav.scrolled {
 
 .people-heading {
     margin-bottom: 55px;
-
     text-align: center;
 }
 
 .people-grid {
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 15px;
-
     max-width: 1350px;
-
     margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 15px;
 }
 
 .person {
     padding: 35px 22px;
-
-    background: var(--white);
-
     border: 1px solid var(--line);
     border-radius: 12px;
-
+    background: var(--white);
     text-align: center;
-
-    transition: .3s;
+    transition: .3s ease;
 }
 
 .person:hover {
     transform: translateY(-6px);
-
-    box-shadow: 0 20px 50px rgba(45,33,28,.07);
+    box-shadow: 0 20px 50px rgba(48,33,27,.07);
 }
 
 .avatar {
     width: 78px;
     height: 78px;
-
     margin: 0 auto 20px;
-
     display: grid;
     place-items: center;
-
     border-radius: 50%;
-
     background: var(--espresso);
     color: var(--cream);
-
-    font-family: "DM Serif Display", serif;
+    font-family: var(--serif);
     font-size: 30px;
 }
 
@@ -968,28 +867,23 @@ nav.scrolled {
 
 .person-role {
     display: block;
-
     margin: 6px 0 15px;
-
     color: var(--caramel);
-
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 700;
-
-    letter-spacing: 1.6px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
 }
 
 .person p {
     color: var(--muted);
-
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.7;
 }
 
 
 /* =========================================================
-   QUIET CORNER
+   12. QUIET CORNER
 ========================================================= */
 
 .corner {
@@ -997,138 +891,103 @@ nav.scrolled {
     color: var(--cream);
 }
 
-.corner-head {
-    max-width: 760px;
-
+.corner-heading {
+    max-width: 780px;
     margin: 0 auto 55px;
-
     text-align: center;
 }
 
-.corner-head p {
-    max-width: 570px;
-
+.corner-heading p {
+    max-width: 590px;
     margin: 20px auto 0;
-
-    color: rgba(245,239,230,.6);
-
-    font-size: 13px;
+    color: rgba(243,235,223,.58);
+    font-size: 12px;
     line-height: 1.8;
 }
 
 .mood-grid {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 13px;
-
     max-width: 1150px;
-
     margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 13px;
 }
 
-.mood {
+.mood-card {
     min-height: 230px;
-
-    padding: 28px;
-
+    padding: 27px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    border: 1px solid rgba(245,239,230,.18);
+    border: 1px solid rgba(243,235,223,.18);
     border-radius: 10px;
-
     background: transparent;
     color: var(--cream);
-
     text-align: left;
-
     transition: .3s;
 }
 
-.mood:hover {
+.mood-card:hover {
     transform: translateY(-6px);
-
     background: var(--cream);
     color: var(--espresso);
 }
 
 .mood-icon {
-    font-size: 25px;
+    font-size: 24px;
 }
 
-.mood strong {
+.mood-card strong {
     display: block;
-
     margin-bottom: 7px;
-
-    font-family: "DM Serif Display", serif;
-    font-size: 26px;
+    font-family: var(--serif);
+    font-size: 25px;
     font-weight: 400;
 }
 
-.mood small {
-    color: rgba(245,239,230,.52);
-
+.mood-card small {
+    color: rgba(243,235,223,.52);
     line-height: 1.5;
 }
 
-.mood:hover small {
+.mood-card:hover small {
     color: var(--muted);
 }
 
 .corner-result {
     display: none;
-
-    max-width: 1000px;
-
+    max-width: 1050px;
     margin: auto;
-
     text-align: center;
 }
 
 .corner-result.show {
     display: block;
-
-    animation: resultIn .5s ease;
+    animation: riseIn .45s ease;
 }
 
-@keyframes resultIn {
-
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
+@keyframes riseIn {
+    from { opacity: 0; transform: translateY(20px); }
 }
 
-.corner-result h2 {
+.corner-result > h2 {
     margin-bottom: 40px;
-
-    font-size: clamp(45px, 6vw, 75px);
+    font-size: clamp(45px,6vw,76px);
 }
 
 .result-grid {
     display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    border: 1px solid rgba(245,239,230,.18);
+    grid-template-columns: repeat(4,1fr);
+    border: 1px solid rgba(243,235,223,.17);
     border-radius: 12px;
-
     overflow: hidden;
-
     text-align: left;
 }
 
 .result-card {
     min-height: 190px;
-
     padding: 27px;
-
-    border-right: 1px solid rgba(245,239,230,.15);
+    border-right: 1px solid rgba(243,235,223,.15);
 }
 
 .result-card:last-child {
@@ -1137,15 +996,11 @@ nav.scrolled {
 
 .result-card span {
     display: block;
-
-    margin-bottom: 20px;
-
+    margin-bottom: 18px;
     color: var(--caramel);
-
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 700;
-
-    letter-spacing: 1.8px;
+    letter-spacing: 1.7px;
     text-transform: uppercase;
 }
 
@@ -1155,2954 +1010,66 @@ nav.scrolled {
 
 .result-card p {
     margin-top: 8px;
-
-    color: rgba(245,239,230,.52);
-
-    font-size: 11px;
+    color: rgba(243,235,223,.5);
+    font-size: 10px;
     line-height: 1.6;
 }
 
-.result-quote {
-    max-width: 680px;
-
+.corner-quote {
+    max-width: 700px;
     margin: 35px auto;
-
-    font-family: "DM Serif Display", serif;
+    font-family: var(--serif);
     font-size: 27px;
     line-height: 1.3;
 }
 
-.again {
-    padding: 11px 18px;
-
-    border: 1px solid rgba(255,255,255,.4);
-    border-radius: 50px;
-
-    background: transparent;
-    color: var(--cream);
-}
-
 
 /* =========================================================
-   VISIT
+   13. VISIT
 ========================================================= */
 
 .visit {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
-    gap: 8%;
-
+    gap: 9%;
     background: var(--oat);
 }
 
-.visit-copy p {
-    max-width: 470px;
-
+.visit-copy .body-copy {
+    max-width: 480px;
     margin-top: 25px;
-
-    color: var(--muted);
-
-    line-height: 1.8;
 }
 
 .visit-details {
     display: grid;
-
-    gap: 20px;
 }
 
-.visit-line {
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid rgba(45,33,28,.18);
+.visit-row {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(48,33,27,.18);
 }
 
-.visit-line span {
+.visit-row:first-child {
+    padding-top: 0;
+}
+
+.visit-row span {
     display: block;
-
-    margin-bottom: 6px;
-
+    margin-bottom: 7px;
     color: var(--caramel);
-
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 700;
-
-    letter-spacing: 1.7px;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
 }
 
-.visit-line strong {
-    font-family: "DM Serif Display", serif;
+.visit-row strong {
+    font-family: var(--serif);
     font-size: 25px;
     font-weight: 400;
 }
 
 
 /* =========================================================
-   FOOTER
-========================================================= */
-
-footer {
-    padding: 75px 7% 30px;
-
-    overflow: hidden;
-
-    background: var(--dark-roast);
-    color: var(--cream);
-}
-
-.footer-brand {
-    padding-bottom: 60px;
-
-    font-family: "DM Serif Display", serif;
-    font-size: clamp(70px, 14vw, 210px);
-    line-height: .75;
-
-    letter-spacing: -6px;
-
-    border-bottom: 1px solid #3c302b;
-}
-
-.footer-row {
-    padding-top: 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 30px;
-
-    color: #887a72;
-
-    font-size: 11px;
-}
-
-.footer-links {
-    display: flex;
-
-    gap: 25px;
-}
-
-
-/* =========================================================
-   CART
-========================================================= */
-
-.overlay {
-    position: fixed;
-    inset: 0;
-
-    z-index: 1998;
-
-    background: rgba(12,8,6,.58);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition: .3s;
-}
-
-.overlay.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.cart {
-    position: fixed;
-
-    z-index: 1999;
-
-    top: 0;
-    right: 0;
-
-    width: min(470px, 100%);
-    height: 100%;
-
-    padding: 35px;
-
-    display: flex;
-    flex-direction: column;
-
-    background: var(--cream);
-
-    transform: translateX(100%);
-
-    transition: .4s ease;
-}
-
-.cart.show {
-    transform: translateX(0);
-}
-
-.cart-top {
-    display: flex;
-
-    align-items: center;
-    justify-content: space-between;
-
-    padding-bottom: 25px;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.cart-top h2 {
-    font-size: 35px;
-}
-
-.close {
-    width: 38px;
-    height: 38px;
-
-    border: 1px solid var(--line);
-    border-radius: 50%;
-
-    background: transparent;
-
-    font-size: 20px;
-}
-
-.cart-items {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 20px 0;
-}
-
-.empty {
-    padding: 60px 0;
-
-    color: var(--muted);
-
-    text-align: center;
-}
-
-.cart-item {
-    padding: 18px 0;
-
-    display: grid;
-
-    grid-template-columns: 1fr auto;
-
-    gap: 15px;
-
-    border-bottom: 1px solid var(--line);
-}
-
-.cart-item h4 {
-    font-family: "DM Serif Display", serif;
-    font-size: 20px;
-    font-weight: 400;
-}
-
-.cart-item p {
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-}
-
-.qty {
-    margin-top: 12px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-}
-
-.qty button {
-    width: 26px;
-    height: 26px;
-
-    border: 1px solid var(--line);
-    border-radius: 50%;
-
-    background: transparent;
-}
-
-.remove {
-    margin-top: 10px;
-
-    border: 0;
-
-    background: none;
-    color: #9c6e58;
-
-    font-size: 10px;
-}
-
-.cart-total {
-    padding-top: 20px;
-
-    display: flex;
-    justify-content: space-between;
-
-    border-top: 1px solid var(--line);
-
-    font-family: "DM Serif Display", serif;
-    font-size: 26px;
-}
-
-.checkout-btn {
-    width: 100%;
-
-    margin-top: 18px;
-    padding: 15px;
-
-    border: 0;
-    border-radius: 50px;
-
-    background: var(--espresso);
-    color: var(--cream);
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-
-/* =========================================================
-   CHECKOUT MODAL
-========================================================= */
-
-.checkout-modal {
-    position: fixed;
-
-    z-index: 2100;
-
-    inset: 0;
-
-    padding: 20px;
-
-    display: none;
-    place-items: center;
-
-    background: rgba(15,10,8,.7);
-}
-
-.checkout-modal.show {
-    display: grid;
-}
-
-.checkout-box {
-    width: min(620px, 100%);
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    padding: 38px;
-
-    background: var(--cream);
-
-    border-radius: 15px;
-}
-
-.checkout-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 30px;
-}
-
-.checkout-header h2 {
-    font-size: 38px;
-}
-
-.checkout-options {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 12px;
-
-    margin-bottom: 25px;
-}
-
-.order-type {
-    padding: 20px;
-
-    border: 1px solid var(--line);
-    border-radius: 9px;
-
-    background: transparent;
-
-    text-align: left;
-}
-
-.order-type.active {
-    border-color: var(--espresso);
-
-    background: var(--espresso);
-    color: var(--cream);
-}
-
-.form-group {
-    margin-top: 17px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    font-size: 10px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-
-    padding: 14px;
-
-    border: 1px solid var(--line);
-    border-radius: 6px;
-
-    background: var(--white);
-
-    outline: none;
-}
-
-.checkout-note {
-    margin-top: 18px;
-
-    color: var(--muted);
-
-    font-size: 10px;
-    line-height: 1.5;
-}
-
-.success {
-    display: none;
-
-    padding: 50px 10px;
-
-    text-align: center;
-}
-
-.success.show {
-    display: block;
-}
-
-.success-icon {
-    width: 70px;
-    height: 70px;
-
-    margin: 0 auto 20px;
-
-    display: grid;
-    place-items: center;
-
-    border-radius: 50%;
-
-    background: var(--espresso);
-    color: var(--cream);
-
-    font-size: 30px;
-}
-
-.success h2 {
-    font-size: 42px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1050px) {
-
-    .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .people-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .mood-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .navlinks {
-        gap: 15px;
-    }
-}
-
-
-@media (max-width: 800px) {
-
-    section {
-        padding: 75px 6%;
-    }
-
-    .navlinks {
-        display: none;
-    }
-
-    nav {
-        padding: 18px 6%;
-    }
-
-    .hero {
-        min-height: 100svh;
-
-        padding: 120px 6% 55px;
-    }
-
-    .hero h1 {
-        font-size: clamp(65px, 20vw, 100px);
-
-        letter-spacing: -3px;
-    }
-
-    .hero-bottom {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .intro,
-    .coffee-story,
-    .visit {
-        grid-template-columns: 1fr;
-    }
-
-    .coffee-image {
-        min-height: 480px;
-    }
-
-    .coffee-copy {
-        padding: 70px 6%;
-    }
-
-    .menu-head {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .menu-grid,
-    .people-grid,
-    .mood-grid,
-    .result-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .result-card {
-        min-height: auto;
-
-        border-right: 0;
-        border-bottom: 1px solid rgba(245,239,230,.15);
-    }
-
-    .result-card:last-child {
-        border-bottom: 0;
-    }
-
-    .reading-room {
-        min-height: 580px;
-    }
-
-    .footer-row {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .footer-brand {
-        letter-spacing: -3px;
-    }
-
-    .footer-links {
-        flex-wrap: wrap;
-    }
-
-    .bean {
-        opacity: .45;
-    }
-
-    .checkout-options {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-
-        transition-duration: .01ms !important;
-    }
-}
-
-</style>
-</head>
-
-<body>
-
-
-<!-- =========================================================
-     LOADER
-========================================================= -->
-
-<div class="loader" id="loader">
-
-    <div class="loader-inner">
-
-        <div class="loader-cup">
-
-            <span class="loader-steam s1"></span>
-            <span class="loader-steam s2"></span>
-            <span class="loader-steam s3"></span>
-
-            <div class="loader-fill"></div>
-
-        </div>
-
-        <p>Opening Morrow…</p>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
-
-<nav id="navbar">
-
-    <a class="logo" href="#home">
-        Morrow
-    </a>
-
-
-    <ul class="navlinks">
-
-        <li>
-            <a href="#menu">
-                Menu
-            </a>
-        </li>
-
-        <li>
-            <a href="#coffee">
-                Our Coffee
-            </a>
-        </li>
-
-        <li>
-            <a href="#reading">
-                Reading Room
-            </a>
-        </li>
-
-        <li>
-            <a href="#people">
-                People Here
-            </a>
-        </li>
-
-        <li>
-            <a href="#visit">
-                Visit
-            </a>
-        </li>
-
-        <li>
-            <button
-                class="order-button"
-                onclick="scrollToMenu()">
-
-                Order
-
-            </button>
-        </li>
-
-        <li>
-            <button
-                class="order-button cart-nav"
-                onclick="openCart()">
-
-                Cart
-                <span class="cart-count" id="cartCount">
-                    0
-                </span>
-
-            </button>
-        </li>
-
-    </ul>
-
-</nav>
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
-
-<header class="hero" id="home">
-
-    <div class="bean bean-a"></div>
-    <div class="bean bean-b"></div>
-    <div class="bean bean-c"></div>
-
-
-    <div class="hero-content">
-
-        <div class="hero-label">
-            Morrow Café / Coffee & Reading Room
-        </div>
-
-        <h1>
-            Coffee for<br>
-            <em>slower</em> days.
-        </h1>
-
-
-        <div class="hero-bottom">
-
-            <p class="hero-copy">
-
-                Coffee, warm food and shelves worth
-                getting lost in. Made for mornings
-                without hurry and afternoons without
-                somewhere else to be.
-
-            </p>
-
-
-            <a href="#menu" class="primary-btn">
-
-                See the menu
-
-            </a>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- =========================================================
-     MARQUEE
-========================================================= -->
-
-<div class="marquee">
-
-    <div class="marquee-track">
-
-        <span>Espresso</span>
-        <i>●</i>
-
-        <span>Fresh Pastries</span>
-        <i>●</i>
-
-        <span>Books</span>
-        <i>●</i>
-
-        <span>Slow Mornings</span>
-        <i>●</i>
-
-        <span>All Day Breakfast</span>
-        <i>●</i>
-
-        <span>Reading Room</span>
-        <i>●</i>
-
-        <span>Espresso</span>
-        <i>●</i>
-
-        <span>Fresh Pastries</span>
-        <i>●</i>
-
-        <span>Books</span>
-        <i>●</i>
-
-        <span>Slow Mornings</span>
-        <i>●</i>
-
-        <span>All Day Breakfast</span>
-        <i>●</i>
-
-        <span>Reading Room</span>
-
-    </div>
-
-</div>
-
-
-<!-- =========================================================
-     INTRO
-========================================================= -->
-
-<section class="intro">
-
-    <div>
-
-        <div class="eyebrow">
-            Morrow / Since the first cup
-        </div>
-
-        <h2 class="section-title">
-            Come for coffee.<br>
-            Forget the time.
-        </h2>
-
-    </div>
-
-
-    <div class="intro-copy">
-
-        <p>
-
-            Morrow is a small neighbourhood café built
-            around a simple idea: not every hour needs
-            to be productive.
-
-        </p>
-
-        <p>
-
-            There is coffee when you need waking up,
-            breakfast when you've missed breakfast,
-            and enough books to justify staying longer
-            than you planned.
-
-        </p>
-
-        <p class="signature">
-            Take the corner table. We don't mind.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     MENU
-========================================================= -->
-
-<section class="menu-section" id="menu">
-
-    <div class="menu-head">
-
-        <div>
-
-            <div class="eyebrow">
-                Menu
-            </div>
-
-            <h2 class="section-title">
-                What are you having?
-            </h2>
-
-        </div>
-
-
-        <p>
-
-            Familiar things, made carefully.
-            Select anything to add it to your order.
-
-        </p>
-
-    </div>
-
-
-    <div class="tabs">
-
-        <button
-            class="tab active"
-            onclick="showMenu('coffee',this)">
-
-            Coffee
-
-        </button>
-
-
-        <button
-            class="tab"
-            onclick="showMenu('pastries',this)">
-
-            Pastries
-
-        </button>
-
-
-        <button
-            class="tab"
-            onclick="showMenu('breakfast',this)">
-
-            Breakfast
-
-        </button>
-
-
-        <button
-            class="tab"
-            onclick="showMenu('readers',this)">
-
-            Reader's Picks
-
-        </button>
-
-
-        <button
-            class="tab"
-            onclick="showMenu('bites',this)">
-
-            Bookside Bites
-
-        </button>
-
-    </div>
-
-
-    <p
-        class="menu-description"
-        id="menuDescription">
-    </p>
-
-
-    <div
-        class="menu-grid"
-        id="menuGrid">
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     COFFEE STORY
-========================================================= -->
-
-<section class="coffee-story" id="coffee">
-
-    <div class="coffee-image"></div>
-
-
-    <div class="coffee-copy">
-
-        <div class="eyebrow">
-            Our Coffee
-        </div>
-
-        <h2 class="section-title">
-            Every cup has a beginning.
-        </h2>
-
-
-        <p>
-
-            We like coffee that tastes unmistakably
-            like coffee — aromatic, balanced and
-            comfortable enough to become part of
-            your morning.
-
-        </p>
-
-
-        <p>
-
-            Our house style brings together softer
-            aromatic notes with a deeper roasted body,
-            whether you're drinking a small espresso
-            or sitting over a cappuccino for an hour.
-
-        </p>
-
-
-        <div class="bean-notes">
-
-            <div class="note">
-
-                <strong>
-                    Light side
-                </strong>
-
-                <span>
-                    Cocoa · caramel · toasted nuts
-                </span>
-
-            </div>
-
-
-            <div class="note">
-
-                <strong>
-                    Deep side
-                </strong>
-
-                <span>
-                    Dark chocolate · roast · body
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     READING ROOM
-========================================================= -->
-
-<section class="reading-room" id="reading">
-
-    <div class="reading-content">
-
-        <div class="eyebrow">
-            The Reading Room
-        </div>
-
-
-        <h2 class="section-title">
-            Stay for a page.<br>
-            Or fifty.
-        </h2>
-
-
-        <p>
-
-            Take a book from the shelf while you're here.
-            Bring one you've finished and leave it for
-            somebody else. There is no timer on the table.
-
-        </p>
-
-
-        <div class="reading-features">
-
-            <span>Book Swap</span>
-
-            <span>Quiet Tables</span>
-
-            <span>Window Seats</span>
-
-            <span>Open All Day</span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     PEOPLE HERE — KEPT
-========================================================= -->
-
-<section class="people" id="people">
-
-    <div class="people-heading">
-
-        <div class="eyebrow">
-            People Here
-        </div>
-
-        <h2 class="section-title">
-            Every table has a story.
-        </h2>
-
-    </div>
-
-
-    <div class="people-grid">
-
-
-        <article class="person">
-
-            <div class="avatar">
-                M
-            </div>
-
-            <h3>
-                Mira
-            </h3>
-
-            <span class="person-role">
-                The Window Reader
-            </span>
-
-            <p>
-
-                Orders the same cappuccino and somehow
-                leaves with a different book every Thursday.
-
-            </p>
-
-        </article>
-
-
-        <article class="person">
-
-            <div class="avatar">
-                T
-            </div>
-
-            <h3>
-                Theo
-            </h3>
-
-            <span class="person-role">
-                The Accidental Writer
-            </span>
-
-            <p>
-
-                Came in to answer one email.
-                He's currently on chapter seven.
-
-            </p>
-
-        </article>
-
-
-        <article class="person">
-
-            <div class="avatar">
-                J
-            </div>
-
-            <h3>
-                Juniper
-            </h3>
-
-            <span class="person-role">
-                The Morning Regular
-            </span>
-
-            <p>
-
-                Firmly believes every difficult decision
-                deserves coffee first.
-
-            </p>
-
-        </article>
-
-
-        <article class="person">
-
-            <div class="avatar">
-                A
-            </div>
-
-            <h3>
-                Arden Vale
-            </h3>
-
-            <span class="person-role">
-                The Laptop Loyalist
-            </span>
-
-            <p>
-
-                Built a fictional tech empire, but still
-                claims his best ideas happen at the corner
-                table. His espresso usually goes cold
-                between meetings.
-
-            </p>
-
-        </article>
-
-
-        <article class="person">
-
-            <div class="avatar">
-                R
-            </div>
-
-            <h3>
-                Ravi Mehra
-            </h3>
-
-            <span class="person-role">
-                The Afternoon Correspondent
-            </span>
-
-            <p>
-
-                Knows every neighbourhood story before
-                it becomes a story. Arrives for one coffee
-                and somehow stays until sunset.
-
-            </p>
-
-        </article>
-
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     QUIET CORNER
-========================================================= -->
-
-<section class="corner" id="corner">
-
-    <div class="corner-head">
-
-        <div class="eyebrow">
-            Your Corner
-        </div>
-
-        <h2 class="section-title">
-            What kind of day is it?
-        </h2>
-
-        <p>
-
-            Pick a mood. We'll choose something to drink,
-            something to eat, something to read and
-            somewhere to sit.
-
-        </p>
-
-    </div>
-
-
-    <div class="mood-grid" id="moodGrid">
-
-
-        <button
-            class="mood"
-            onclick="findCorner('peace')">
-
-            <span class="mood-icon">
-                ☁
-            </span>
-
-            <div>
-
-                <strong>
-                    I need some peace
-                </strong>
-
-                <small>
-                    Something gentle for a noisy day.
-                </small>
-
-            </div>
-
-        </button>
-
-
-        <button
-            class="mood"
-            onclick="findCorner('focus')">
-
-            <span class="mood-icon">
-                ✎
-            </span>
-
-            <div>
-
-                <strong>
-                    I need to focus
-                </strong>
-
-                <small>
-                    Coffee, concentration and a clear table.
-                </small>
-
-            </div>
-
-        </button>
-
-
-        <button
-            class="mood"
-            onclick="findCorner('dream')">
-
-            <span class="mood-icon">
-                ✦
-            </span>
-
-            <div>
-
-                <strong>
-                    I'm daydreaming
-                </strong>
-
-                <small>
-                    Nowhere particular for your thoughts to go.
-                </small>
-
-            </div>
-
-        </button>
-
-
-        <button
-            class="mood"
-            onclick="findCorner('comfort')">
-
-            <span class="mood-icon">
-                ♨
-            </span>
-
-            <div>
-
-                <strong>
-                    I need comfort
-                </strong>
-
-                <small>
-                    Something warm and reliably good.
-                </small>
-
-            </div>
-
-        </button>
-
-
-    </div>
-
-
-    <div class="corner-result" id="cornerResult">
-
-        <div class="eyebrow">
-            Your afternoon, sorted
-        </div>
-
-        <h2 id="cornerTitle"></h2>
-
-
-        <div class="result-grid">
-
-
-            <div class="result-card">
-
-                <span>
-                    Coffee
-                </span>
-
-                <h3 id="cornerDrink"></h3>
-
-                <p id="cornerDrinkText"></p>
-
-            </div>
-
-
-            <div class="result-card">
-
-                <span>
-                    Something with it
-                </span>
-
-                <h3 id="cornerFood"></h3>
-
-                <p id="cornerFoodText"></p>
-
-            </div>
-
-
-            <div class="result-card">
-
-                <span>
-                    Read
-                </span>
-
-                <h3 id="cornerBook"></h3>
-
-                <p id="cornerAuthor"></p>
-
-            </div>
-
-
-            <div class="result-card">
-
-                <span>
-                    Sit here
-                </span>
-
-                <h3 id="cornerSeat"></h3>
-
-                <p id="cornerSeatText"></p>
-
-            </div>
-
-
-        </div>
-
-
-        <div
-            class="result-quote"
-            id="cornerQuote">
-        </div>
-
-
-        <button
-            class="again"
-            onclick="chooseAgain()">
-
-            ← Choose again
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     VISIT
-========================================================= -->
-
-<section class="visit" id="visit">
-
-    <div class="visit-copy">
-
-        <div class="eyebrow">
-            Visit Morrow
-        </div>
-
-        <h2 class="section-title">
-            There's probably a table.
-        </h2>
-
-        <p>
-
-            Come early for the quietest hour,
-            stay through lunch, or arrive when
-            the afternoon needs rescuing.
-
-        </p>
-
-    </div>
-
-
-    <div class="visit-details">
-
-        <div class="visit-line">
-
-            <span>
-                Hours
-            </span>
-
-            <strong>
-                Daily · 8 AM — 10 PM
-            </strong>
-
-        </div>
-
-
-        <div class="visit-line">
-
-            <span>
-                Best for
-            </span>
-
-            <strong>
-                Coffee · Reading · Long conversations
-            </strong>
-
-        </div>
-
-
-        <div class="visit-line">
-
-            <span>
-                Reading Room
-            </span>
-
-            <strong>
-                Open all day
-            </strong>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
-<footer>
-
-    <div class="footer-brand">
-        Morrow
-    </div>
-
-
-    <div class="footer-row">
-
-        <span>
-            Coffee · Books · Better afternoons.
-        </span>
-
-
-        <div class="footer-links">
-
-            <a href="#menu">
-                Menu
-            </a>
-
-            <a href="#reading">
-                Reading Room
-            </a>
-
-            <a href="#people">
-                People Here
-            </a>
-
-            <a href="#visit">
-                Visit
-            </a>
-
-        </div>
-
-
-        <span>
-            You can stay a little longer.
-        </span>
-
-    </div>
-
-</footer>
-
-
-<!-- =========================================================
-     OVERLAY + CART
-========================================================= -->
-
-<div
-    class="overlay"
-    id="overlay"
-    onclick="closeCart()">
-</div>
-
-
-<aside class="cart" id="cart">
-
-    <div class="cart-top">
-
-        <div>
-
-            <div class="eyebrow">
-                Morrow
-            </div>
-
-            <h2>
-                Your order
-            </h2>
-
-        </div>
-
-
-        <button
-            class="close"
-            onclick="closeCart()">
-
-            ×
-
-        </button>
-
-    </div>
-
-
-    <div
-        class="cart-items"
-        id="cartItems">
-    </div>
-
-
-    <div class="cart-total">
-
-        <span>
-            Total
-        </span>
-
-        <span id="cartTotal">
-            ₹0
-        </span>
-
-    </div>
-
-
-    <button
-        class="checkout-btn"
-        onclick="openCheckout()">
-
-        Continue to checkout
-
-    </button>
-
-</aside>
-
-
-<!-- =========================================================
-     CHECKOUT
-========================================================= -->
-
-<div
-    class="checkout-modal"
-    id="checkoutModal">
-
-
-    <div class="checkout-box">
-
-
-        <div id="checkoutForm">
-
-
-            <div class="checkout-header">
-
-                <div>
-
-                    <div class="eyebrow">
-                        Morrow
-                    </div>
-
-                    <h2>
-                        Checkout
-                    </h2>
-
-                </div>
-
-
-                <button
-                    class="close"
-                    onclick="closeCheckout()">
-
-                    ×
-
-                </button>
-
-            </div>
-
-
-            <div class="checkout-options">
-
-                <button
-                    class="order-type active"
-                    onclick="selectOrderType(this,'Dine in')">
-
-                    <strong>
-                        Dine in
-                    </strong>
-
-                    <br>
-
-                    <small>
-                        Stay at Morrow
-                    </small>
-
-                </button>
-
-
-                <button
-                    class="order-type"
-                    onclick="selectOrderType(this,'Takeaway')">
-
-                    <strong>
-                        Takeaway
-                    </strong>
-
-                    <br>
-
-                    <small>
-                        Collect at the counter
-                    </small>
-
-                </button>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Your name
-                </label>
-
-                <input
-                    id="customerName"
-                    type="text"
-                    placeholder="Name">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Phone
-                </label>
-
-                <input
-                    type="tel"
-                    placeholder="+91 98765 43210">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Seating preference
-                </label>
-
-                <select>
-
-                    <option>
-                        No preference
-                    </option>
-
-                    <option>
-                        Window seat
-                    </option>
-
-                    <option>
-                        Reading room
-                    </option>
-
-                    <option>
-                        Quiet corner
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Payment
-                </label>
-
-                <select>
-
-                    <option>
-                        Pay at counter
-                    </option>
-
-                    <option>
-                        UPI — demo
-                    </option>
-
-                    <option>
-                        Card — demo
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <p class="checkout-note">
-
-                This website checkout is a front-end demonstration.
-                No real payment information is processed or stored.
-
-            </p>
-
-
-            <button
-                class="checkout-btn"
-                onclick="placeOrder()">
-
-                Place demo order
-
-            </button>
-
-        </div>
-
-
-        <div
-            class="success"
-            id="success">
-
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-
-            <h2>
-                Order confirmed.
-            </h2>
-
-
-            <p style="
-                margin-top:12px;
-                color:var(--muted);
-                line-height:1.7;
-            ">
-
-                We'll pretend the coffee machine
-                has already started.
-
-            </p>
-
-
-            <button
-                class="checkout-btn"
-                style="margin-top:30px"
-                onclick="finishOrder()">
-
-                Done
-
-            </button>
-
-        </div>
-
-
-    </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        setTimeout(
-            () => {
-
-                document
-                    .getElementById("loader")
-                    .classList
-                    .add("hide");
-
-            },
-            1800
-        );
-
-    }
-);
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-window.addEventListener(
-    "scroll",
-    () => {
-
-        document
-            .getElementById("navbar")
-            .classList
-            .toggle(
-                "scrolled",
-                window.scrollY > 60
-            );
-
-    }
-);
-
-
-function scrollToMenu() {
-
-    document
-        .getElementById("menu")
-        .scrollIntoView({
-            behavior: "smooth"
-        });
-
-}
-
-
-/* =========================================================
-   MENU DATA
-========================================================= */
-
-const menus = {
-
-    coffee: {
-
-        description:
-            "Espresso drinks, slow coffee and house favourites for mornings that deserve more than instant coffee.",
-
-        items: [
-
-            {
-                name: "Quiet Latte",
-                desc: "Espresso, steamed milk and vanilla bean.",
-                price: 240
-            },
-
-            {
-                name: "First Draft",
-                desc: "Double espresso with a little orange zest.",
-                price: 190
-            },
-
-            {
-                name: "Plot Twist",
-                desc: "Dark chocolate mocha finished with sea salt.",
-                price: 270
-            },
-
-            {
-                name: "Chapter One",
-                desc: "Cappuccino, cinnamon and caramelized brown sugar.",
-                price: 250
-            },
-
-            {
-                name: "Midnight Margins",
-                desc: "Cold brew with vanilla cream and cocoa.",
-                price: 260
-            },
-
-            {
-                name: "The Classic",
-                desc: "A clean, uncomplicated Americano.",
-                price: 180
-            }
-
-        ]
-
-    },
-
-
-    pastries: {
-
-        description:
-            "Buttery, warm and deliberately difficult to eat without ordering coffee.",
-
-        items: [
-
-            {
-                name: "Morning Bookmark",
-                desc: "Classic golden butter croissant.",
-                price: 170
-            },
-
-            {
-                name: "Cinnamon Chapter",
-                desc: "Warm cinnamon roll with vanilla glaze.",
-                price: 210
-            },
-
-            {
-                name: "Chocolate Footnote",
-                desc: "Dark chocolate-filled croissant.",
-                price: 220
-            },
-
-            {
-                name: "Berry Paperback",
-                desc: "Seasonal berry Danish.",
-                price: 230
-            },
-
-            {
-                name: "Almond Pages",
-                desc: "Croissant with toasted almond cream.",
-                price: 240
-            },
-
-            {
-                name: "Lemon Letters",
-                desc: "Soft lemon loaf with citrus glaze.",
-                price: 190
-            }
-
-        ]
-
-    },
-
-
-    breakfast: {
-
-        description:
-            "Breakfast for early mornings, late mornings and people who refuse to acknowledge lunchtime.",
-
-        items: [
-
-            {
-                name: "Early Chapter",
-                desc: "Sourdough, avocado, tomato and poached eggs.",
-                price: 340
-            },
-
-            {
-                name: "Slow Sunday",
-                desc: "Pancakes, berries, maple and whipped butter.",
-                price: 320
-            },
-
-            {
-                name: "Sunlit Toast",
-                desc: "French toast, banana, cinnamon and honey.",
-                price: 310
-            },
-
-            {
-                name: "Morning Margins",
-                desc: "Greek yogurt, granola, berries and honey.",
-                price: 280
-            },
-
-            {
-                name: "Writer's Breakfast",
-                desc: "Eggs, sourdough, mushrooms and roasted tomato.",
-                price: 360
-            },
-
-            {
-                name: "Little Things",
-                desc: "Sourdough, peanut butter, banana and honey.",
-                price: 240
-            }
-
-        ]
-
-    },
-
-
-    readers: {
-
-        description:
-            "Coffee-and-food pairings for people who intended to stay twenty minutes.",
-
-        items: [
-
-            {
-                name: "The Daydreamer",
-                desc: "Quiet Latte + Berry Paperback.",
-                price: 420
-            },
-
-            {
-                name: "The Plot Twist",
-                desc: "Plot Twist Mocha + Chocolate Footnote.",
-                price: 450
-            },
-
-            {
-                name: "Writer's Block",
-                desc: "First Draft + Cinnamon Chapter.",
-                price: 350
-            },
-
-            {
-                name: "One More Chapter",
-                desc: "Midnight Margins + Almond Pages.",
-                price: 440
-            },
-
-            {
-                name: "Rainy Afternoon",
-                desc: "Chapter One + Lemon Letters.",
-                price: 390
-            },
-
-            {
-                name: "Main Character",
-                desc: "Quiet Latte + Morning Bookmark + mystery book pick.",
-                price: 490
-            }
-
-        ]
-
-    },
-
-
-    bites: {
-
-        description:
-            "Savoury things for when coffee quietly turns into an entire afternoon.",
-
-        items: [
-
-            {
-                name: "Between the Lines",
-                desc: "Pesto, mozzarella and tomato sourdough.",
-                price: 310
-            },
-
-            {
-                name: "The Cliffhanger",
-                desc: "Spicy paneer, onion and mint mayo.",
-                price: 330
-            },
-
-            {
-                name: "Paperback Pesto",
-                desc: "Creamy pesto pasta and roasted tomatoes.",
-                price: 360
-            },
-
-            {
-                name: "Plot Thickens",
-                desc: "Potato wedges with garlic-herb dip.",
-                price: 220
-            },
-
-            {
-                name: "Green Chapter",
-                desc: "Avocado, cucumber, feta and toasted seeds.",
-                price: 320
-            },
-
-            {
-                name: "Final Paragraph",
-                desc: "Mushroom and cheese panini.",
-                price: 340
-            }
-
-        ]
-
-    }
-
-};
-
-
-let activeCategory = "coffee";
-
-
-function showMenu(
-    category,
-    button
-) {
-
-    activeCategory = category;
-
-    const data =
-        menus[category];
-
-
-    document
-        .getElementById("menuDescription")
-        .textContent =
-        data.description;
-
-
-    const grid =
-        document.getElementById("menuGrid");
-
-
-    grid.innerHTML = "";
-
-
-    data.items.forEach(
-        (item,index) => {
-
-            const card =
-                document.createElement("article");
-
-
-            card.className =
-                "menu-card";
-
-
-            card.innerHTML = `
-
-                <span class="menu-type">
-                    ${category}
-                </span>
-
-                <span class="price">
-                    ₹${item.price}
-                </span>
-
-                <h3>
-                    ${item.name}
-                </h3>
-
-                <p>
-                    ${item.desc}
-                </p>
-
-                <button
-                    class="add-btn"
-                    onclick="addToCart('${category}',${index})">
-
-                    + Add to order
-
-                </button>
-
-            `;
-
-
-            grid.appendChild(card);
-
-        }
-    );
-
-
-    if (button) {
-
-        document
-            .querySelectorAll(".tab")
-            .forEach(
-                tab =>
-                    tab.classList.remove("active")
-            );
-
-
-        button.classList.add("active");
-
-    }
-
-}
-
-
-showMenu("coffee");
-
-
-/* =========================================================
-   CART
-========================================================= */
-
-let cart = [];
-
-
-function addToCart(
-    category,
-    index
-) {
-
-    const product =
-        menus[category].items[index];
-
-
-    const existing =
-        cart.find(
-            item =>
-                item.name === product.name
-        );
-
-
-    if (existing) {
-
-        existing.quantity++;
-
-    }
-
-    else {
-
-        cart.push({
-
-            ...product,
-
-            quantity: 1
-
-        });
-
-    }
-
-
-    updateCart();
-    openCart();
-
-}
-
-
-function updateCart() {
-
-    const container =
-        document.getElementById(
-            "cartItems"
-        );
-
-
-    const count =
-        cart.reduce(
-            (sum,item) =>
-                sum + item.quantity,
-            0
-        );
-
-
-    document
-        .getElementById("cartCount")
-        .textContent =
-        count;
-
-
-    if (!cart.length) {
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                Your order is empty.<br><br>
-
-                Coffee would fix that.
-
-            </div>
-
-        `;
-
-    }
-
-    else {
-
-        container.innerHTML = "";
-
-
-        cart.forEach(
-            (item,index) => {
-
-                const row =
-                    document.createElement("div");
-
-
-                row.className =
-                    "cart-item";
-
-
-                row.innerHTML = `
-
-                    <div>
-
-                        <h4>
-                            ${item.name}
-                        </h4>
-
-                        <p>
-                            ₹${item.price} each
-                        </p>
-
-
-                        <div class="qty">
-
-                            <button
-                                onclick="changeQty(${index},-1)">
-
-                                −
-
-                            </button>
-
-                            <span>
-                                ${item.quantity}
-                            </span>
-
-                            <button
-                                onclick="changeQty(${index},1)">
-
-                                +
-
-                            </button>
-
-                        </div>
-
-
-                        <button
-                            class="remove"
-                            onclick="removeItem(${index})">
-
-                            Remove
-
-                        </button>
-
-                    </div>
-
-
-                    <strong>
-                        ₹${item.price * item.quantity}
-                    </strong>
-
-                `;
-
-
-                container.appendChild(row);
-
-            }
-        );
-
-    }
-
-
-    const total =
-        cart.reduce(
-            (sum,item) =>
-                sum +
-                item.price *
-                item.quantity,
-            0
-        );
-
-
-    document
-        .getElementById("cartTotal")
-        .textContent =
-        `₹${total}`;
-
-}
-
-
-function changeQty(
-    index,
-    amount
-) {
-
-    cart[index].quantity += amount;
-
-
-    if (
-        cart[index].quantity <= 0
-    ) {
-
-        cart.splice(index,1);
-
-    }
-
-
-    updateCart();
-
-}
-
-
-function removeItem(index) {
-
-    cart.splice(index,1);
-
-    updateCart();
-
-}
-
-
-function openCart() {
-
-    document
-        .getElementById("cart")
-        .classList.add("show");
-
-
-    document
-        .getElementById("overlay")
-        .classList.add("show");
-
-
-    document.body
-        .classList
-        .add("cart-open");
-
-}
-
-
-function closeCart() {
-
-    document
-        .getElementById("cart")
-        .classList.remove("show");
-
-
-    document
-        .getElementById("overlay")
-        .classList.remove("show");
-
-
-    document.body
-        .classList
-        .remove("cart-open");
-
-}
-
-
-updateCart();
-
-
-/* =========================================================
-   CHECKOUT
-========================================================= */
-
-let orderType =
-    "Dine in";
-
-
-function openCheckout() {
-
-    if (!cart.length) {
-
-        alert(
-            "Add something to your order first."
-        );
-
-        return;
-
-    }
-
-
-    closeCart();
-
-
-    document
-        .getElementById(
-            "checkoutModal"
-        )
-        .classList
-        .add("show");
-
-}
-
-
-function closeCheckout() {
-
-    document
-        .getElementById(
-            "checkoutModal"
-        )
-        .classList
-        .remove("show");
-
-}
-
-
-function selectOrderType(
-    button,
-    type
-) {
-
-    orderType = type;
-
-
-    document
-        .querySelectorAll(
-            ".order-type"
-        )
-        .forEach(
-            item =>
-                item.classList
-                    .remove("active")
-        );
-
-
-    button.classList.add(
-        "active"
-    );
-
-}
-
-
-function placeOrder() {
-
-    const name =
-        document
-            .getElementById(
-                "customerName"
-            )
-            .value
-            .trim();
-
-
-    if (!name) {
-
-        alert(
-            "Please enter your name."
-        );
-
-        return;
-
-    }
-
-
-    document
-        .getElementById(
-            "checkoutForm"
-        )
-        .style.display =
-        "none";
-
-
-    document
-        .getElementById(
-            "success"
-        )
-        .classList
-        .add("show");
-
-}
-
-
-function finishOrder() {
-
-    cart = [];
-
-    updateCart();
-
-
-    document
-        .getElementById(
-            "success"
-        )
-        .classList
-        .remove("show");
-
-
-    document
-        .getElementById(
-            "checkoutForm"
-        )
-        .style.display =
-        "block";
-
-
-    document
-        .getElementById(
-            "customerName"
-        )
-        .value =
-        "";
-
-
-    closeCheckout();
-
-}
-
-
-/* =========================================================
-   QUIET CORNER
-========================================================= */
-
-const recommendations = {
-
-    peace: {
-
-        title:
-            "A quieter kind of afternoon.",
-
-        drink:
-            "Quiet Latte",
-
-        drinkText:
-            "Espresso, warm milk and vanilla.",
-
-        food:
-            "Almond Pages",
-
-        foodText:
-            "A warm almond croissant.",
-
-        book:
-            "Where the Morning Waits",
-
-        author:
-            "Elia Wren · Fictional",
-
-        seat:
-            "Window Seat",
-
-        seatText:
-            "Morning light and no reason to hurry.",
-
-        quote:
-            "“Peace sometimes begins when you stop filling every silence.”"
-
-    },
-
-
-    focus: {
-
-        title:
-            "A table for getting things done.",
-
-        drink:
-            "First Draft",
-
-        drinkText:
-            "Double espresso and orange zest.",
-
-        food:
-            "Morning Bookmark",
-
-        foodText:
-            "A simple butter croissant.",
-
-        book:
-            "The Architecture of Thought",
-
-        author:
-            "Rowan Mercer · Fictional",
-
-        seat:
-            "Library Desk",
-
-        seatText:
-            "Wooden desk. Quiet shelf. Clear head.",
-
-        quote:
-            "“Attention is deciding what deserves the next few minutes.”"
-
-    },
-
-
-    dream: {
-
-        title:
-            "Nothing urgent. Good.",
-
-        drink:
-            "Chapter One",
-
-        drinkText:
-            "Cinnamon cappuccino and brown sugar.",
-
-        food:
-            "Berry Paperback",
-
-        foodText:
-            "A seasonal berry Danish.",
-
-        book:
-            "Clouds Over Bellweather",
-
-        author:
-            "Mara Ellison · Fictional",
-
-        seat:
-            "Garden Corner",
-
-        seatText:
-            "Plants, sunlight and a slightly hidden chair.",
-
-        quote:
-            "“Some thoughts need somewhere quiet to land.”"
-
-    },
-
-
-    comfort: {
-
-        title:
-            "Something warm for today.",
-
-        drink:
-            "Plot Twist",
-
-        drinkText:
-            "Dark chocolate mocha and sea salt.",
-
-        food:
-            "Cinnamon Chapter",
-
-        foodText:
-            "Warm cinnamon roll and vanilla glaze.",
-
-        book:
-            "The House With Yellow Curtains",
-
-        author:
-            "Nora Vale · Fictional",
-
-        seat:
-            "The Soft Sofa",
-
-        seatText:
-            "Comfortably far away from the clock.",
-
-        quote:
-            "“Not every difficult day needs an answer. Some need somewhere warm to end.”"
-
-    }
-
-};
-
-
-function findCorner(mood) {
-
-    const r =
-        recommendations[mood];
-
-
-    document
-        .getElementById("cornerTitle")
-        .textContent =
-        r.title;
-
-
-    document
-        .getElementById("cornerDrink")
-        .textContent =
-        r.drink;
-
-
-    document
-        .getElementById("cornerDrinkText")
-        .textContent =
-        r.drinkText;
-
-
-    document
-        .getElementById("cornerFood")
-        .textContent =
-        r.food;
-
-
-    document
-        .getElementById("cornerFoodText")
-        .textContent =
-        r.foodText;
-
-
-    document
-        .getElementById("cornerBook")
-        .textContent =
-        r.book;
-
-
-    document
-        .getElementById("cornerAuthor")
-        .textContent =
-        r.author;
-
-
-    document
-        .getElementById("cornerSeat")
-        .textContent =
-        r.seat;
-
-
-    document
-        .getElementById("cornerSeatText")
-        .textContent =
-        r.seatText;
-
-
-    document
-        .getElementById("cornerQuote")
-        .textContent =
-        r.quote;
-
-
-    document
-        .getElementById("moodGrid")
-        .style.display =
-        "none";
-
-
-    document
-        .getElementById("cornerResult")
-        .classList
-        .add("show");
-
-}
-
-
-function chooseAgain() {
-
-    document
-        .getElementById("cornerResult")
-        .classList
-        .remove("show");
-
-
-    document
-        .getElementById("moodGrid")
-        .style.display =
-        "grid";
-
-}
-
-
-/* =========================================================
-   BEAN PARALLAX
-========================================================= */
-
-document.addEventListener(
-    "mousemove",
-    event => {
-
-        if (
-            window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches
-        ) {
-            return;
-        }
-
-
-        const x =
-            (
-                event.clientX /
-                window.innerWidth
-                -
-                .5
-            ) * 12;
-
-
-        const y =
-            (
-                event.clientY /
-                window.innerHeight
-                -
-                .5
-            ) * 12;
-
-
-        document
-            .querySelectorAll(".bean")
-            .forEach(
-                (bean,index) => {
-
-                    const depth =
-                        (index + 1) * .35;
-
-
-                    bean.style.marginLeft =
-                        `${x * depth}px`;
-
-
-                    bean.style.marginTop =
-                        `${y * depth}px`;
-
-                }
-            );
-
-    }
-);
-
-
-/* Escape closes overlays */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeCart();
-            closeCheckout();
-
-        }
-
-    }
-);
-
-</script>
-
-</body>
-</html>
+   14. FOOTER
+===========================================
