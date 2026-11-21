@@ -357,7 +357,7 @@ $$(".tab").forEach(b=>b.addEventListener("click",()=>{$$(".tab").forEach(x=>x.cl
 $("#menuGrid").addEventListener("click",e=>{const a=e.target.closest("[data-add]"),c=e.target.closest("[data-custom]");if(a){const [cat,i]=a.dataset.add.split(":");quickAdd(cat,+i,a)}if(c){const [cat,i]=c.dataset.custom.split(":");openProduct(cat,+i)}});
 function quickAdd(cat,i,btn){const p=menu[cat].items[i];cart.push({name:p[0],cat,unit:p[2],qty:1,custom:menu[cat].custom,options:{temp:"",size:"",milk:"",extras:[]},notes:""});updateCart();btn.textContent="✓";btn.classList.add("added");setTimeout(()=>{btn.textContent="+";btn.classList.remove("added")},800);bump();toastMsg(`${p[0]} added`)}
 function radio(n){const x=document.querySelector(`input[name="${n}"]:checked`);return x?x.value:""}
-function openProduct(cat,i,ci=null){activeCat=cat;activeProductIndex=i;activeProduct=menu[cat].items[i];editIndex=ci;$("#modalName").textContent=activeProduct[0];$("#modalDesc").textContent=activeProduct[1];$("#milkWrap").style.display=activeProduct[3]?"block":"none";$("#hot").checked=$("#reg").checked=$("#dairy").checked=true;$("#shot").checked=$("#vanilla").checked=$("#caramel").checked=false;$("#notes").value="";if(ci!==null){const x=cart[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(activeProduct[3])setRadio("milk",x.options.milk||"Dairy");$("#shot").checked=x.options.extras.includes("Extra shot");$("#vanilla").checked=x.options.extras.includes("Vanilla");$("#caramel").checked=x.options.extras.includes("Caramel");$("#notes").value=x.notes;$("#saveProduct").textContent="Save changes"}else $("#saveProduct").textContent="Add to order";calcPrice();$("#productModal").classList.add("show");document.body.classList.add("lock")}
+function openProduct(cat,i,ci=null){activeCat=cat;activeProductIndex=i;activeProduct=menu[cat].items[i];editIndex=ci;$("#modalName").textContent=activeProduct[0];$("#modalDesc").textContent=activeProduct[1];$("#milkWrap").style.display=activeProduct[3]?"block":"none";$("#hot").checked=$("#reg").checked=$("#dairy").checked=true;$("#shot").checked=$("#vanilla").checked=$("#caramel").checked=false;$("#notes").value="";if(ci!==null){const x=cart[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(activeProduct[3])setRadio("milk",x.options.milk||"Dairy");$("#shot").checked=x.options.extras.includes("Extra shot");$("#vanilla").checked=x.options.extras.includes("Vanilla");$("#caramel").checked=x.options.extras.includes("Caramel");$("#notes").value=x.notes;$("#saveProduct").textContent="Save changes"}else $("#saveProduct").textContent="Add to order";calcPrice();updateCupVisual();$("#productModal").classList.add("show");document.body.classList.add("lock")}
 function setRadio(n,v){const x=document.querySelector(`input[name="${n}"][value="${v}"]`);if(x)x.checked=true}
 function calcPrice(){if(!activeProduct)return 0;let t=activeProduct[2];if(radio("temp")==="Iced")t+=20;if(radio("size")==="Large")t+=40;if(activeProduct[3]&&["Oat","Almond"].includes(radio("milk")))t+=40;if($("#shot").checked)t+=50;if($("#vanilla").checked)t+=25;if($("#caramel").checked)t+=25;$("#modalPrice").textContent=`₹${t}`;return t}
 $("#productModal").addEventListener("change",calcPrice);$("#productClose").addEventListener("click",closeProduct);
@@ -407,27 +407,20 @@ function updateCupVisual(){
   cup.classList.toggle("dark-shot",extras.includes("Extra shot"));
   cup.classList.toggle("sweet",extras.includes("Vanilla") || extras.includes("Caramel"));
 
-  document.getElementById("builderDrinkName").textContent=activeProduct[0];
-  document.getElementById("specTemp").textContent=temp;
-  document.getElementById("specSize").textContent=size;
-  document.getElementById("specMilk").textContent=milk;
-  document.getElementById("specExtras").textContent=extras.length ? extras.join(" + ") : "None";
-  document.getElementById("cupCaption").textContent=
+  const bn=document.getElementById("builderDrinkName"); if(bn) bn.textContent=activeProduct[0];
+  const st=document.getElementById("specTemp"); if(st) st.textContent=temp;
+  const ss=document.getElementById("specSize"); if(ss) ss.textContent=size;
+  const sm=document.getElementById("specMilk"); if(sm) sm.textContent=milk;
+  const se=document.getElementById("specExtras"); if(se) se.textContent=extras.length ? extras.join(" + ") : "None";
+  const cc=document.getElementById("cupCaption"); if(cc) cc.textContent=
     [temp,size,milk,extras.length ? extras.join(" + ") : "House recipe"].filter(Boolean).join(" · ");
 }
 
 /* Keep the visual preview synchronized with every customization change. */
 document.getElementById("productModal").addEventListener("change",updateCupVisual);
 
-/* Extend the existing product opener without changing its cart/edit behavior. */
-const originalOpenProduct=openProduct;
-openProduct=function(cat,i,ci=null){
-  originalOpenProduct(cat,i,ci);
-  requestAnimationFrame(updateCupVisual);
-};
-
 /* After Hours contrast helper: semantic values are inherited by every major overlay. */
-document.getElementById("modeBtn").addEventListener("click",()=>{
+const modeButtonV3=document.getElementById("modeBtn"); if(modeButtonV3) modeButtonV3.addEventListener("click",()=>{
   requestAnimationFrame(()=>{
     const dark=document.body.classList.contains("after");
     document.querySelector('meta[name="theme-color"]').setAttribute("content",dark?"#171210":"#efeade");
