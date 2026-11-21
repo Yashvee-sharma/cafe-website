@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#efeade">
-<title>Morrow — Coffee House & Reading Room</title>
+<title>Aster — Coffee House & Reading Room</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
 :root{--ink:#17120f;--espresso:#241915;--brown:#51372c;--rust:#9b5138;--ochre:#d4a13f;--ivory:#efeade;--paper:#f7f3e9;--muted:#756c63;--line:#17120f26;--blue:#073b55;--green:#71805f;--shadow:0 18px 55px #1d130e18;--serif:"DM Serif Display",serif;--sans:"DM Sans",sans-serif}
@@ -31,254 +31,65 @@ body.after{--ivory:#1a1512;--paper:#211a16;--ink:#f0e8dc;--muted:#b5a99e;--line:
 @media(max-width:850px){nav{grid-template-columns:1fr auto}.navside:first-child{display:none}.brand{justify-self:start}.navside.right{gap:10px}.navlink,.mode-label{display:none}.hero,.intro,.menu-head,.cathead,.origin,.visit,.billgrid{grid-template-columns:1fr}.hero{padding-top:105px}.hero h1{font-size:clamp(65px,19vw,100px)}.film img{height:440px}.menugrid,.lab,.reading{grid-template-columns:1fr}.lab-panel{min-height:500px}.reading{background:var(--ivory);padding-top:390px}.reading-art{position:absolute;top:0;left:0;right:0;height:390px;background:var(--blue)}.reading-copy{padding:65px 6%}.origin .film{margin:25px}.origin-copy{padding:65px 6%}.choices,.types{grid-template-columns:1fr}.footerrow{flex-direction:column}.progress{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-/* =========================================================
-   V3 — SEMANTIC THEME CONTRAST + BUILD YOUR CUP
-========================================================= */
-:root{
-  --surface:var(--ivory);
-  --surface-raised:var(--paper);
-  --text:var(--ink);
-  --text-muted:#756c63;
-  --ui-border:rgba(23,18,15,.18);
-  --accent:var(--rust);
-  --accent-soft:var(--ochre);
-  --field-bg:#f7f3e9;
+/* ASTER COFFEE CUP LOADER */
+.loadmark{
+  width:92px;height:66px;border:4px solid var(--ink);border-radius:7px 7px 30px 30px;
+  position:relative;display:block;animation:none;background:transparent
 }
-body.after{
-  --surface:#171210;
-  --surface-raised:#241c18;
-  --text:#f3eadf;
-  --text-muted:#b9aaa0;
-  --ui-border:rgba(243,234,223,.20);
-  --accent:#d9a16f;
-  --accent-soft:#e2b75f;
-  --field-bg:#2a211c;
+.loadmark:before{
+  content:"";position:absolute;right:-34px;top:12px;width:31px;height:32px;
+  border:4px solid var(--ink);border-left:0;border-radius:0 20px 20px 0;
+  background:transparent;transform:none;box-shadow:none
 }
-body.after,
-body.after .intro,
-body.after .origin,
-body.after .origin-copy,
-body.after .visit{color:var(--text)}
-body.after .copy,
-body.after .item p,
-body.after .cathead p,
-body.after .opts,
-body.after .sumrow,
-body.after .field label,
-body.after .receiptline{color:var(--text-muted)}
-body.after .panel,
-body.after .cart,
-body.after .billpanel,
-body.after .charm-card{background:var(--surface-raised);color:var(--text)}
-body.after textarea,
-body.after .field input,
-body.after .field select,
-body.after .choice label,
-body.after .type,
-body.after .receipt{background:var(--field-bg);color:var(--text);border-color:var(--ui-border)}
-body.after .choice input:checked+label,
-body.after .type.active{background:var(--text);color:var(--surface)}
-body.after .carthead,
-body.after .option,
-body.after .cartitem,
-body.after .summary,
-body.after .total,
-body.after .receiptline{border-color:var(--ui-border)}
-body.after .close,
-body.after .qty button{color:var(--text);border-color:var(--ui-border)}
-body.after .link{color:var(--accent)}
-body.after .eyebrow{color:var(--accent)}
-body.after .reading-copy{color:var(--text)}
-body.after .reading-copy .copy{color:var(--text-muted)}
-body.after .features span{color:var(--text);border-color:var(--ui-border)}
-body.after .philosophy{color:var(--text)!important}
-body.after .charm-core{border-color:#17120f}
-body.after .charm-core:after{background:var(--ochre)}
+.loadmark:after{
+  content:"";position:absolute;left:5px;right:5px;bottom:5px;width:auto;height:0;
+  background:var(--brown);transform:none;border-radius:3px 3px 22px 22px;
+  animation:asterFill 1.35s ease forwards
+}
+@keyframes asterFill{to{height:48px}}
+.loader-steam{position:absolute;top:-42px;width:3px;height:31px;border-radius:50%;
+ background:linear-gradient(transparent,var(--rust),transparent);opacity:0;animation:asterSteam 1.5s ease-in-out infinite}
+.loader-steam.s1{left:24px}.loader-steam.s2{left:46px;animation-delay:.35s}.loader-steam.s3{left:67px;animation-delay:.7s}
+@keyframes asterSteam{0%{opacity:0;transform:translateY(10px)}50%{opacity:.65}100%{opacity:0;transform:translateY(-13px)}}
 
-.cup-builder{
-  display:grid;
-  grid-template-columns:.88fr 1.12fr;
-  gap:28px;
-  align-items:stretch;
-  margin-bottom:26px;
-  padding:22px;
-  background:linear-gradient(135deg,rgba(212,161,63,.12),transparent 55%);
-  border:1px solid var(--ui-border);
-}
-.cup-visual{
-  position:relative;
-  min-height:285px;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-  background:var(--field-bg);
-  border:1px solid var(--ui-border);
-}
-.cup-visual:before{
-  content:"BUILD / SIP / STAY";
-  position:absolute;
-  top:14px;
-  left:14px;
-  color:var(--text-muted);
-  font-size:7px;
-  font-weight:700;
-  letter-spacing:1.8px;
-}
-.cup-scene{
-  position:relative;
-  width:190px;
-  height:220px;
-}
-.visual-cup{
-  position:absolute;
-  left:28px;
-  bottom:22px;
-  width:132px;
-  height:142px;
-  overflow:hidden;
-  border:5px solid var(--text);
-  border-top:0;
-  border-radius:0 0 34px 34px;
-  transition:.35s;
-}
-.visual-cup:after{
-  content:"";
-  position:absolute;
-  right:-47px;
-  top:34px;
-  width:45px;
-  height:48px;
-  border:5px solid var(--text);
-  border-left:0;
-  border-radius:0 28px 28px 0;
-}
-.drink-layer{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  transition:height .55s cubic-bezier(.2,.8,.2,1),background .45s,opacity .35s;
-}
-.layer-coffee{height:48%;background:#6b3d29}
-.layer-milk{height:0;background:#d9c6aa;bottom:48%}
-.layer-foam{height:0;background:#eee3d1;bottom:83%}
-.layer-syrup{height:0;background:linear-gradient(90deg,#b66b34,#8c4827);bottom:0;opacity:.72}
-.ice-zone{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  transition:.35s;
-}
-.ice{
-  position:absolute;
-  width:28px;
-  height:25px;
-  border:2px solid rgba(255,255,255,.75);
-  background:rgba(225,239,240,.35);
-  transform:rotate(17deg);
-}
-.ice:nth-child(1){left:14px;top:24px}
-.ice:nth-child(2){left:54px;top:40px;transform:rotate(-12deg)}
-.ice:nth-child(3){left:88px;top:18px;transform:rotate(28deg)}
-.cup-steam{
-  position:absolute;
-  top:4px;
-  left:68px;
-  width:3px;
-  height:44px;
-  border-radius:50%;
-  background:linear-gradient(transparent,var(--text-muted),transparent);
-  opacity:.55;
-  animation:cupSteam 2.2s ease-in-out infinite;
-}
-.cup-steam.s2{left:96px;animation-delay:.55s}
-@keyframes cupSteam{0%,100%{transform:translateY(10px) scaleY(.6);opacity:0}45%{opacity:.55}80%{transform:translateY(-5px) scaleY(1.1);opacity:0}}
-.cup-caption{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  text-align:center;
-  color:var(--text-muted);
-  font-size:8px;
-  letter-spacing:1.2px;
-  text-transform:uppercase;
-}
-.builder-copy{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.builder-copy h3{font-size:31px}
-.builder-copy p{margin-top:9px;color:var(--text-muted);font-size:11px;line-height:1.7}
-.builder-specs{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-top:17px;
-}
-.builder-spec{
-  padding:10px 11px;
-  border-top:1px solid var(--ui-border);
-}
-.builder-spec small{
-  display:block;
-  color:var(--accent);
-  font-size:7px;
-  font-weight:700;
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
-.builder-spec strong{
-  display:block;
-  margin-top:4px;
-  color:var(--text);
-  font:17px var(--serif);
-}
-.visual-cup.large{transform:scale(1.08);transform-origin:bottom center}
-.visual-cup.iced .ice-zone{opacity:1}
-.visual-cup.iced + .cup-steam,
-.visual-cup.iced ~ .cup-steam{display:none}
-.visual-cup.milky .layer-coffee{height:48%}
-.visual-cup.milky .layer-milk{height:35%}
-.visual-cup.milky .layer-foam{height:17%}
-.visual-cup.dark-shot .layer-coffee{background:#42251c}
-.visual-cup.sweet .layer-syrup{height:15%}
-body.after .cup-visual{background:#1d1714}
-body.after .layer-milk{background:#bba98f}
-body.after .layer-foam{background:#d8c9b4}
-@media(max-width:700px){
-  .cup-builder{grid-template-columns:1fr}
-  .cup-visual{min-height:260px}
-  .builder-specs{grid-template-columns:1fr 1fr}
-}
+
+/* AFTER HOURS CONTRAST FIX */
+body.after{--ivory:#171210;--paper:#241c18;--ink:#f3eadf;--muted:#b9aaa0;--line:#ffffff22}
+body.after .copy,body.after .item p,body.after .cathead p,body.after .opts,body.after .sumrow{color:#b9aaa0}
+body.after .panel,body.after .cart,body.after .billpanel{background:#241c18;color:#f3eadf}
+body.after textarea,body.after .field input,body.after .field select,body.after .choice label,body.after .type,body.after .receipt{background:#2a211c;color:#f3eadf;border-color:#ffffff22}
+body.after .choice input:checked+label,body.after .type.active{background:#f3eadf;color:#171210}
+body.after .close,body.after .qty button{color:#f3eadf;border-color:#ffffff28}
+body.after .reading-copy,body.after .reading-copy h2{color:#f3eadf}
+body.after .reading-copy .copy{color:#b9aaa0}
+body.after .features span{color:#f3eadf;border-color:#ffffff30}
+body.after .philosophy{color:#f3eadf!important}
 
 </style>
 </head>
 <body>
-<div id="loader"><div><div class="loadmark"></div><div class="loadertext">Opening Morrow…</div></div></div>
-<nav><div class="navside"><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#origin">Our Coffee</a><a class="navlink" href="#reading">Reading Room</a></div><a class="brand" href="#">Morrow</a><div class="navside right"><a class="navlink" href="#visit">Visit</a><button class="mode" id="modeBtn"><span class="mode-label">Morning</span><span class="switch"><span class="knob"></span></span></button><button class="cartbtn" id="cartOpen">Cart <span class="badge" id="badge">0</span></button></div></nav>
+<div id="loader"><div><div class="loadmark"><i class="loader-steam s1"></i><i class="loader-steam s2"></i><i class="loader-steam s3"></i></div><div class="loadertext">Opening Aster…</div></div></div>
+<nav><div class="navside"><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#origin">Our Coffee</a><a class="navlink" href="#reading">Reading Room</a></div><a class="brand" href="#">Aster</a><div class="navside right"><a class="navlink" href="#visit">Visit</a><button class="mode" id="modeBtn"><span class="mode-label">Morning</span><span class="switch"><span class="knob"></span></span></button><button class="cartbtn" id="cartOpen">Cart <span class="badge" id="badge">0</span></button></div></nav>
 <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
 
 <header class="hero">
-<div class="reveal"><div class="eyebrow">Morrow / Indian Coffee House</div><h1>Good coffee.<em>Grown closer.</em></h1><p class="copy hero-copy">A modern coffee house inspired by shaded coffee gardens, slow mornings and books worth losing an afternoon to.</p><div class="hero-actions"><a class="btn dark" href="#menu">View menu</a><a class="btn" href="#origin">Our coffee</a></div></div>
+<div class="reveal"><div class="eyebrow">Aster / Indian Coffee House</div><h1>Good coffee.<em>Grown closer.</em></h1><p class="copy hero-copy">A modern coffee house inspired by shaded coffee gardens, slow mornings and books worth losing an afternoon to.</p><div class="hero-actions"><a class="btn dark" href="#menu">View menu</a><a class="btn" href="#origin">Our coffee</a></div></div>
 <div class="film reveal"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1300&q=88" alt="Coffee plants in warm morning light"><div class="floating-bean fb1"></div><div class="floating-bean fb2"></div><div class="film-caption"><small>Western Ghats</small><strong>From garden to cup.</strong></div></div>
 </header>
 
 <div class="ticker"><div class="ticker-track"><span>Chikmagalur</span><b>●</b><span>Arabica</span><b>●</b><span>Robusta</span><b>●</b><span>Roasted Weekly</span><b>●</b><span>Reading Room</span><b>●</b><span>Chikmagalur</span><b>●</b><span>Arabica</span><b>●</b><span>Robusta</span><b>●</b><span>Roasted Weekly</span><b>●</b><span>Reading Room</span><b>●</b></div></div>
 
-<section class="intro"><div class="reveal"><div class="eyebrow">The House</div><h2 class="display">Coffee for<br>unhurried people.</h2></div><div class="copy reveal"><p>Morrow is built around a small idea: a café can be useful without asking you to hurry. Come for a quick espresso or accidentally spend the afternoon.</p><p>Our menu is compact, our coffee is roasted with balance in mind, and the reading room has no timer.</p><p class="philosophy">“The best part of a day is sometimes the part you didn't schedule.”</p></div></section>
+<section class="intro"><div class="reveal"><div class="eyebrow">The House</div><h2 class="display">Coffee for<br>unhurried people.</h2></div><div class="copy reveal"><p>Aster is built around a small idea: a café can be useful without asking you to hurry. Come for a quick espresso or accidentally spend the afternoon.</p><p>Our menu is compact, our coffee is roasted with balance in mind, and the reading room has no timer.</p><p class="philosophy">“The best part of a day is sometimes the part you didn't schedule.”</p></div></section>
 
 <section class="menu" id="menu">
-<div class="menu-head reveal"><div><div class="eyebrow">Menu</div><h2 class="display">What are you having?</h2></div><p class="copy">Real café classics, a few Morrow signatures, and all-day food. Drinks can be customized before they reach your order.</p></div>
+<div class="menu-head reveal"><div><div class="eyebrow">Menu</div><h2 class="display">What are you having?</h2></div><p class="copy">Real café classics, a few Aster signatures, and all-day food. Drinks can be customized before they reach your order.</p></div>
 <div class="tabs"><button class="tab active" data-cat="coffee"><small>01</small>Coffee</button><button class="tab" data-cat="bakery"><small>02</small>Bakery</button><button class="tab" data-cat="breakfast"><small>03</small>Breakfast</button><button class="tab" data-cat="pairings"><small>04</small>Pairings</button><button class="tab" data-cat="allday"><small>05</small>All Day</button></div>
 <div class="cathead"><div><div class="eyebrow" id="catNo">01</div><h3 id="catTitle">Coffee</h3></div><p id="catDesc"></p></div>
 <div class="menugrid" id="menuGrid"></div>
 </section>
 
 <section class="lab">
-<div class="lab-panel"><div class="eyebrow">Slow Brew</div><h2>Morrow, in motion.</h2><div class="brew-stage"><div class="pour-kettle"></div><div class="water"></div><div class="dripper"></div><div class="cupshape"><div class="coffeelevel"></div></div></div></div>
+<div class="lab-panel"><div class="eyebrow">Slow Brew</div><h2>Aster, in motion.</h2><div class="brew-stage"><div class="pour-kettle"></div><div class="water"></div><div class="dripper"></div><div class="cupshape"><div class="coffeelevel"></div></div></div></div>
 <div class="lab-panel"><div class="eyebrow">Espresso Bar</div><h2>Shot by shot.</h2><div class="brew-stage"><div class="machine"></div><div class="group"></div><div class="shot"></div><div class="espresso-cup"></div></div></div>
 </section>
 
@@ -289,43 +100,16 @@ body.after .layer-foam{background:#d8c9b4}
 
 <section class="reading reveal" id="reading"><div class="reading-art"><div class="sun"></div><div class="books"><div class="book"></div><div class="book"></div><div class="book"></div></div></div><div class="reading-copy"><div class="eyebrow">The Reading Room</div><h2 class="display">Stay for a page.</h2><p class="copy">A quiet corner for books, coffee and unhurried afternoons. Borrow from the shelf while you're here, or leave a finished book for someone else.</p><div class="features"><span>Book Swap</span><span>Quiet Tables</span><span>Open All Day</span></div></div></section>
 
-<section class="visit" id="visit"><div class="reveal"><div class="eyebrow">Visit Morrow</div><h2 class="display">There is probably<br>a table.</h2><p class="copy">Come early for the quietest hour, stay through lunch, or arrive when the afternoon needs rescuing.</p></div><div class="reveal"><div class="detail"><small>Hours</small><strong>Daily · 8 AM — 10 PM</strong></div><div class="detail"><small>Reading Room</small><strong>Open all day</strong></div><div class="detail"><small>Orders</small><strong>Dine in · Takeaway</strong></div></div></section>
+<section class="visit" id="visit"><div class="reveal"><div class="eyebrow">Visit Aster</div><h2 class="display">There is probably<br>a table.</h2><p class="copy">Come early for the quietest hour, stay through lunch, or arrive when the afternoon needs rescuing.</p></div><div class="reveal"><div class="detail"><small>Hours</small><strong>Daily · 8 AM — 10 PM</strong></div><div class="detail"><small>Reading Room</small><strong>Open all day</strong></div><div class="detail"><small>Orders</small><strong>Dine in · Takeaway</strong></div></div></section>
 
-<footer><div class="wordmark">Morrow</div><div class="footerrow"><span>Coffee · Books · Better afternoons.</span><span>Roasted weekly · Served slowly.</span><span>You can stay a little longer.</span></div></footer>
+<footer><div class="wordmark">Aster</div><div class="footerrow"><span>Coffee · Books · Better afternoons.</span><span>Roasted weekly · Served slowly.</span><span>You can stay a little longer.</span></div></footer>
 
-<button class="charm-fab" id="charmBtn" aria-label="Open Morrow charm"><span class="charm-core"></span></button>
-<aside class="charm-card" id="charmCard"><div class="eyebrow">Morrow Charm</div><h3 id="charmTitle">A small pause.</h3><p class="copy" id="charmText">Order the thing you usually talk yourself out of.</p><button id="newCharm">Another thought →</button></aside>
+
 
 <div class="backdrop" id="backdrop"></div>
-<aside class="cart" id="cart"><div class="carthead"><div><div class="eyebrow">Your Table</div><h2>Your order</h2></div><button class="close" id="cartClose">×</button></div><div class="cartitems" id="cartItems"></div><div class="summary"><div class="sumrow"><span>Subtotal</span><span id="subtotal">₹0</span></div><div class="sumrow"><span>GST (5%)</span><span id="tax">₹0</span></div><div class="sumrow"><span>Morrow charm</span><span>Complimentary</span></div><div class="total"><span>Total</span><span id="total">₹0</span></div><button class="checkout" id="checkoutBtn">Continue to billing</button></div></aside>
+<aside class="cart" id="cart"><div class="carthead"><div><div class="eyebrow">Your Table</div><h2>Your order</h2></div><button class="close" id="cartClose">×</button></div><div class="cartitems" id="cartItems"></div><div class="summary"><div class="sumrow"><span>Subtotal</span><span id="subtotal">₹0</span></div><div class="sumrow"><span>GST (5%)</span><span id="tax">₹0</span></div><div class="sumrow"><span>Aster charm</span><span>Complimentary</span></div><div class="total"><span>Total</span><span id="total">₹0</span></div><button class="checkout" id="checkoutBtn">Continue to billing</button></div></aside>
 
 <div class="modal" id="productModal"><div class="panel"><div class="panelhead"><div><div class="eyebrow">Make it yours</div><h2 id="modalName"></h2><p class="copy" id="modalDesc"></p></div><button class="close" id="productClose">×</button></div><div class="panelbody">
-<div class="cup-builder" id="cupBuilder">
-  <div class="cup-visual">
-    <div class="cup-scene">
-      <div class="visual-cup" id="visualCup">
-        <div class="drink-layer layer-coffee"></div>
-        <div class="drink-layer layer-milk"></div>
-        <div class="drink-layer layer-foam"></div>
-        <div class="drink-layer layer-syrup"></div>
-        <div class="ice-zone"><i class="ice"></i><i class="ice"></i><i class="ice"></i></div>
-      </div>
-      <i class="cup-steam"></i><i class="cup-steam s2"></i>
-      <div class="cup-caption" id="cupCaption">Hot · Regular · House recipe</div>
-    </div>
-  </div>
-  <div class="builder-copy">
-    <div class="eyebrow">Build Your Cup</div>
-    <h3 id="builderDrinkName">Your drink, as you like it.</h3>
-    <p>The cup changes as you choose temperature, size, milk and extras. This is a visual preview of your Morrow order.</p>
-    <div class="builder-specs">
-      <div class="builder-spec"><small>Temperature</small><strong id="specTemp">Hot</strong></div>
-      <div class="builder-spec"><small>Size</small><strong id="specSize">Regular</strong></div>
-      <div class="builder-spec"><small>Milk</small><strong id="specMilk">House recipe</strong></div>
-      <div class="builder-spec"><small>Extras</small><strong id="specExtras">None</strong></div>
-    </div>
-  </div>
-</div>
 <div class="option"><strong>Temperature</strong><div class="choices"><div class="choice"><input type="radio" name="temp" id="hot" value="Hot" checked><label for="hot">Hot</label></div><div class="choice"><input type="radio" name="temp" id="iced" value="Iced"><label for="iced">Iced + ₹20</label></div></div></div>
 <div class="option"><strong>Size</strong><div class="choices"><div class="choice"><input type="radio" name="size" id="reg" value="Regular" checked><label for="reg">Regular</label></div><div class="choice"><input type="radio" name="size" id="large" value="Large"><label for="large">Large + ₹40</label></div></div></div>
 <div class="option" id="milkWrap"><strong>Milk</strong><div class="choices"><div class="choice"><input type="radio" name="milk" id="dairy" value="Dairy" checked><label for="dairy">Dairy</label></div><div class="choice"><input type="radio" name="milk" id="oat" value="Oat"><label for="oat">Oat + ₹40</label></div><div class="choice"><input type="radio" name="milk" id="almond" value="Almond"><label for="almond">Almond + ₹40</label></div></div></div>
@@ -334,22 +118,22 @@ body.after .layer-foam{background:#d8c9b4}
 <div class="modalfoot"><div class="modalprice" id="modalPrice">₹0</div><button class="checkout" style="width:auto;margin:0;padding-inline:24px" id="saveProduct">Add to order</button></div>
 </div></div></div>
 
-<div class="billmodal" id="billModal"><div class="billpanel"><div id="billContent"><div class="carthead"><div><div class="eyebrow">Demo Billing</div><h2>Almost yours.</h2></div><button class="close" id="billClose">×</button></div><div class="types"><button class="type active" data-type="Dine in"><strong>Dine in</strong><br><small>Stay at Morrow</small></button><button class="type" data-type="Takeaway"><strong>Takeaway</strong><br><small>Collect at counter</small></button></div><div class="billgrid"><div><div class="field"><label>Name</label><input id="customerName" placeholder="Your name"></div><div class="field"><label>Phone</label><input id="customerPhone" placeholder="+91 98765 43210"></div><div class="field"><label>Payment</label><select id="payment"><option>Pay at counter</option><option>UPI — demo</option><option>Card — demo</option></select></div><p class="copy" style="font-size:9px">Demonstration only. No payment details are transmitted or stored.</p><button class="checkout" id="placeOrder">Generate demo bill</button></div><div class="receipt"><h3>MORROW</h3><div style="text-align:center;font-size:8px;margin-bottom:12px">COFFEE HOUSE / DEMO RECEIPT</div><div id="receiptItems"></div><div class="receiptline"><span>Subtotal</span><strong id="receiptSubtotal"></strong></div><div class="receiptline"><span>GST 5%</span><strong id="receiptTax"></strong></div><div class="total"><span>Total</span><span id="receiptTotal"></span></div></div></div></div><div class="success" id="success"><div style="font-size:42px;color:var(--rust)">✦</div><h2>See you at the counter.</h2><p class="copy">Your demo order has been placed.</p><div class="philosophy" id="orderNumber"></div><button class="checkout" style="max-width:220px;margin:22px auto" id="finish">Done</button></div></div></div>
+<div class="billmodal" id="billModal"><div class="billpanel"><div id="billContent"><div class="carthead"><div><div class="eyebrow">Demo Billing</div><h2>Almost yours.</h2></div><button class="close" id="billClose">×</button></div><div class="types"><button class="type active" data-type="Dine in"><strong>Dine in</strong><br><small>Stay at Aster</small></button><button class="type" data-type="Takeaway"><strong>Takeaway</strong><br><small>Collect at counter</small></button></div><div class="billgrid"><div><div class="field"><label>Name</label><input id="customerName" placeholder="Your name"></div><div class="field"><label>Phone</label><input id="customerPhone" placeholder="+91 98765 43210"></div><div class="field"><label>Payment</label><select id="payment"><option>Pay at counter</option><option>UPI — demo</option><option>Card — demo</option></select></div><p class="copy" style="font-size:9px">Demonstration only. No payment details are transmitted or stored.</p><button class="checkout" id="placeOrder">Generate demo bill</button></div><div class="receipt"><h3>ASTER</h3><div style="text-align:center;font-size:8px;margin-bottom:12px">COFFEE HOUSE / DEMO RECEIPT</div><div id="receiptItems"></div><div class="receiptline"><span>Subtotal</span><strong id="receiptSubtotal"></strong></div><div class="receiptline"><span>GST 5%</span><strong id="receiptTax"></strong></div><div class="total"><span>Total</span><span id="receiptTotal"></span></div></div></div></div><div class="success" id="success"><div style="font-size:42px;color:var(--rust)">✦</div><h2>See you at the counter.</h2><p class="copy">Your demo order has been placed.</p><div class="philosophy" id="orderNumber"></div><button class="checkout" style="max-width:220px;margin:22px auto" id="finish">Done</button></div></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
 const menu={
-coffee:{no:"01",title:"Coffee",desc:"House espresso, café classics and a few Morrow signatures. Available hot or iced.",custom:true,items:[
-["Espresso","Single espresso shot.",90,false,""],["Americano","Espresso with hot water.",120,false,""],["Cappuccino","Espresso, steamed milk and foam.",160,true,""],["Flat White","Double espresso with textured milk.",180,true,"House Favourite"],["Morrow Latte","Espresso, vanilla bean, brown sugar and milk.",190,true,"Morrow"],["Sea Salt Mocha","Dark chocolate, espresso, milk and sea salt.",210,true,"Best Seller"],["Cold Brew","Slow-steeped overnight; cocoa and caramel.",190,false,""],["Vanilla Cream Cold Brew","Cold brew with light vanilla cream.",220,true,"New"]]},
+coffee:{no:"01",title:"Coffee",desc:"House espresso, café classics and a few Aster signatures. Available hot or iced.",custom:true,items:[
+["Espresso","Single espresso shot.",90,false,""],["Americano","Espresso with hot water.",120,false,""],["Cappuccino","Espresso, steamed milk and foam.",160,true,""],["Flat White","Double espresso with textured milk.",180,true,"House Favourite"],["Aster Latte","Espresso, vanilla bean, brown sugar and milk.",190,true,"Aster"],["Sea Salt Mocha","Dark chocolate, espresso, milk and sea salt.",210,true,"Best Seller"],["Cold Brew","Slow-steeped overnight; cocoa and caramel.",190,false,""],["Vanilla Cream Cold Brew","Cold brew with light vanilla cream.",220,true,"New"]]},
 bakery:{no:"02",title:"Desserts & Bakery",desc:"Baked for the morning. Still excellent at four in the afternoon.",custom:false,items:[
 ["Butter Croissant","Classic laminated pastry.",140,false,""],["Almond Croissant","Almond cream and toasted almonds.",190,false,"Best Seller"],["Dark Chocolate Croissant","Flaky pastry with dark chocolate.",180,false,""],["Cinnamon Roll","Brown sugar, cinnamon and vanilla glaze.",170,false,"House Favourite"],["Berry Danish","Vanilla cream and seasonal berries.",190,false,"Seasonal"],["Lemon Loaf","Soft lemon cake with citrus glaze.",150,false,""]]},
 breakfast:{no:"03",title:"Breakfast",desc:"Served all day because eleven o'clock is an arbitrary deadline.",custom:false,items:[
-["Avocado & Eggs","Sourdough, avocado, tomato, poached eggs and chilli oil.",320,false,"Popular"],["Slow Sunday Pancakes","Buttermilk pancakes, berries, maple and butter.",290,false,""],["French Toast","Brioche, banana, cinnamon and honey.",280,false,"House Favourite"],["Morrow Granola","Greek yogurt, granola, fruit and honey.",240,false,""],["Mushroom Scramble","Soft eggs, mushrooms, tomatoes and sourdough.",310,false,""],["Peanut Butter Toast","Sourdough, peanut butter, banana and honey.",220,false,""]]},
-pairings:{no:"04",title:"Morrow Pairings",desc:"One drink, one bite, and a reasonable excuse to stay another hour.",custom:false,items:[
-["The Window Seat","Flat White + Almond Croissant.",340,false,"Most Ordered"],["The Plot Twist","Sea Salt Mocha + Chocolate Croissant.",370,false,""],["Writer's Block","Americano + Cinnamon Roll.",270,false,""],["One More Chapter","Vanilla Cream Cold Brew + Almond Croissant.",390,false,"House Favourite"],["Slow Morning","Cappuccino + Lemon Loaf.",280,false,""],["Main Character","Morrow Latte + Butter Croissant + mystery book pick.",360,false,"Morrow"]]},
+["Avocado & Eggs","Sourdough, avocado, tomato, poached eggs and chilli oil.",320,false,"Popular"],["Slow Sunday Pancakes","Buttermilk pancakes, berries, maple and butter.",290,false,""],["French Toast","Brioche, banana, cinnamon and honey.",280,false,"House Favourite"],["Aster Granola","Greek yogurt, granola, fruit and honey.",240,false,""],["Mushroom Scramble","Soft eggs, mushrooms, tomatoes and sourdough.",310,false,""],["Peanut Butter Toast","Sourdough, peanut butter, banana and honey.",220,false,""]]},
+pairings:{no:"04",title:"Aster Pairings",desc:"One drink, one bite, and a reasonable excuse to stay another hour.",custom:false,items:[
+["The Window Seat","Flat White + Almond Croissant.",340,false,"Most Ordered"],["The Plot Twist","Sea Salt Mocha + Chocolate Croissant.",370,false,""],["Writer's Block","Americano + Cinnamon Roll.",270,false,""],["One More Chapter","Vanilla Cream Cold Brew + Almond Croissant.",390,false,"House Favourite"],["Slow Morning","Cappuccino + Lemon Loaf.",280,false,""],["Main Character","Aster Latte + Butter Croissant + mystery book pick.",360,false,"Aster"]]},
 allday:{no:"05",title:"All Day Eats",desc:"For when coffee quietly becomes lunch.",custom:false,items:[
-["Pesto Mozzarella Toastie","Pesto, mozzarella, tomato and rocket.",280,false,""],["Spiced Paneer Melt","Paneer, onion, cheddar and mint mayo.",300,false,"Best Seller"],["Pesto Pasta","Basil pesto, parmesan and roasted tomatoes.",330,false,""],["Herb Potato Wedges","Rosemary salt and roasted garlic dip.",190,false,""],["Morrow Green Bowl","Avocado, cucumber, feta, greens and seeds.",290,false,"Fresh"],["Mushroom Cheese Panini","Mushrooms, cheddar, mozzarella and herb butter.",300,false,""]]}
+["Pesto Mozzarella Toastie","Pesto, mozzarella, tomato and rocket.",280,false,""],["Spiced Paneer Melt","Paneer, onion, cheddar and mint mayo.",300,false,"Best Seller"],["Pesto Pasta","Basil pesto, parmesan and roasted tomatoes.",330,false,""],["Herb Potato Wedges","Rosemary salt and roasted garlic dip.",190,false,""],["Aster Green Bowl","Avocado, cucumber, feta, greens and seeds.",290,false,"Fresh"],["Mushroom Cheese Panini","Mushrooms, cheddar, mozzarella and herb butter.",300,false,""]]}
 };
 let cart=[], activeCat="coffee", activeProduct=null, activeProductIndex=null, editIndex=null, orderType="Dine in";
 function renderMenu(cat){activeCat=cat;const d=menu[cat];$("#catNo").textContent=d.no;$("#catTitle").textContent=d.title;$("#catDesc").textContent=d.desc;const g=$("#menuGrid");g.innerHTML="";d.items.forEach((p,i)=>{const el=document.createElement("article");el.className="item";el.style.animationDelay=`${i*60}ms`;el.innerHTML=`<div><div class="topline"><h4>${p[0]}</h4>${p[4]?`<span class="tag">${p[4]}</span>`:""}<span class="veg">● Veg</span></div><p>${p[1]}</p>${d.custom?`<button class="custom" data-custom="${cat}:${i}">Customize</button>`:""}</div><div class="ordercol"><span class="price">₹${p[2]}</span><button class="plus" data-add="${cat}:${i}" aria-label="Add ${p[0]}">+</button></div>`;g.appendChild(el)})}
@@ -357,7 +141,7 @@ $$(".tab").forEach(b=>b.addEventListener("click",()=>{$$(".tab").forEach(x=>x.cl
 $("#menuGrid").addEventListener("click",e=>{const a=e.target.closest("[data-add]"),c=e.target.closest("[data-custom]");if(a){const [cat,i]=a.dataset.add.split(":");quickAdd(cat,+i,a)}if(c){const [cat,i]=c.dataset.custom.split(":");openProduct(cat,+i)}});
 function quickAdd(cat,i,btn){const p=menu[cat].items[i];cart.push({name:p[0],cat,unit:p[2],qty:1,custom:menu[cat].custom,options:{temp:"",size:"",milk:"",extras:[]},notes:""});updateCart();btn.textContent="✓";btn.classList.add("added");setTimeout(()=>{btn.textContent="+";btn.classList.remove("added")},800);bump();toastMsg(`${p[0]} added`)}
 function radio(n){const x=document.querySelector(`input[name="${n}"]:checked`);return x?x.value:""}
-function openProduct(cat,i,ci=null){activeCat=cat;activeProductIndex=i;activeProduct=menu[cat].items[i];editIndex=ci;$("#modalName").textContent=activeProduct[0];$("#modalDesc").textContent=activeProduct[1];$("#milkWrap").style.display=activeProduct[3]?"block":"none";$("#hot").checked=$("#reg").checked=$("#dairy").checked=true;$("#shot").checked=$("#vanilla").checked=$("#caramel").checked=false;$("#notes").value="";if(ci!==null){const x=cart[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(activeProduct[3])setRadio("milk",x.options.milk||"Dairy");$("#shot").checked=x.options.extras.includes("Extra shot");$("#vanilla").checked=x.options.extras.includes("Vanilla");$("#caramel").checked=x.options.extras.includes("Caramel");$("#notes").value=x.notes;$("#saveProduct").textContent="Save changes"}else $("#saveProduct").textContent="Add to order";calcPrice();updateCupVisual();$("#productModal").classList.add("show");document.body.classList.add("lock")}
+function openProduct(cat,i,ci=null){activeCat=cat;activeProductIndex=i;activeProduct=menu[cat].items[i];editIndex=ci;$("#modalName").textContent=activeProduct[0];$("#modalDesc").textContent=activeProduct[1];$("#milkWrap").style.display=activeProduct[3]?"block":"none";$("#hot").checked=$("#reg").checked=$("#dairy").checked=true;$("#shot").checked=$("#vanilla").checked=$("#caramel").checked=false;$("#notes").value="";if(ci!==null){const x=cart[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(activeProduct[3])setRadio("milk",x.options.milk||"Dairy");$("#shot").checked=x.options.extras.includes("Extra shot");$("#vanilla").checked=x.options.extras.includes("Vanilla");$("#caramel").checked=x.options.extras.includes("Caramel");$("#notes").value=x.notes;$("#saveProduct").textContent="Save changes"}else $("#saveProduct").textContent="Add to order";calcPrice();$("#productModal").classList.add("show");document.body.classList.add("lock")}
 function setRadio(n,v){const x=document.querySelector(`input[name="${n}"][value="${v}"]`);if(x)x.checked=true}
 function calcPrice(){if(!activeProduct)return 0;let t=activeProduct[2];if(radio("temp")==="Iced")t+=20;if(radio("size")==="Large")t+=40;if(activeProduct[3]&&["Oat","Almond"].includes(radio("milk")))t+=40;if($("#shot").checked)t+=50;if($("#vanilla").checked)t+=25;if($("#caramel").checked)t+=25;$("#modalPrice").textContent=`₹${t}`;return t}
 $("#productModal").addEventListener("change",calcPrice);$("#productClose").addEventListener("click",closeProduct);
@@ -373,60 +157,13 @@ $("#checkoutBtn").addEventListener("click",()=>{if(!cart.length){toastMsg("Add s
 $("#billClose").addEventListener("click",closeBill);function closeBill(){$("#billModal").classList.remove("show");document.body.classList.remove("lock")}
 $$(".type").forEach(b=>b.addEventListener("click",()=>{$$(".type").forEach(x=>x.classList.remove("active"));b.classList.add("active");orderType=b.dataset.type}));
 function renderReceipt(){const box=$("#receiptItems");box.innerHTML="";cart.forEach(x=>{const r=document.createElement("div");r.className="receiptline";r.innerHTML=`<span>${x.qty} × ${x.name}</span><strong>₹${x.unit*x.qty}</strong>`;box.appendChild(r)});const sub=subtotal(),tx=Math.round(sub*.05);$("#receiptSubtotal").textContent=`₹${sub}`;$("#receiptTax").textContent=`₹${tx}`;$("#receiptTotal").textContent=`₹${sub+tx}`}
-$("#placeOrder").addEventListener("click",()=>{if(!$("#customerName").value.trim()||!$("#customerPhone").value.trim()){toastMsg("Enter name and phone");return}const n="MRW-"+Math.floor(1000+Math.random()*9000);$("#orderNumber").textContent=`${orderType} · ${n} · ₹${subtotal()+Math.round(subtotal()*.05)}`;$("#billContent").style.display="none";$("#success").classList.add("show")});
+$("#placeOrder").addEventListener("click",()=>{if(!$("#customerName").value.trim()||!$("#customerPhone").value.trim()){toastMsg("Enter name and phone");return}const n="AST-"+Math.floor(1000+Math.random()*9000);$("#orderNumber").textContent=`${orderType} · ${n} · ₹${subtotal()+Math.round(subtotal()*.05)}`;$("#billContent").style.display="none";$("#success").classList.add("show")});
 $("#finish").addEventListener("click",()=>{cart=[];updateCart();$("#success").classList.remove("show");$("#billContent").style.display="block";$("#customerName").value=$("#customerPhone").value="";closeBill()});
 function escapeHTML(t){const d=document.createElement("div");d.textContent=t;return d.innerHTML}
 let toastTimer;function toastMsg(t){$("#toast").textContent=t;$("#toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("#toast").classList.remove("show"),1800)}
 const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");observer.unobserve(e.target)}}),{threshold:.14});$$(".reveal").forEach(e=>observer.observe(e));
 window.addEventListener("scroll",()=>{const max=document.documentElement.scrollHeight-innerHeight;$("#progressFill").style.height=`${max?scrollY/max*100:0}%`});
-const thoughts=[["A small pause.","Order the thing you usually talk yourself out of."],["Today's pairing.","A flat white, something flaky, and twenty minutes without your phone."],["Morrow rule #04.","If the book is good, the coffee is allowed to go cold."],["For later.","Not every empty hour needs filling."],["Try this.","Take the window seat before someone sensible does."]];
-let thought=0;function setThought(){const x=thoughts[thought%thoughts.length];$("#charmTitle").textContent=x[0];$("#charmText").textContent=x[1]}$("#charmBtn").addEventListener("click",()=>$("#charmCard").classList.toggle("show"));$("#newCharm").addEventListener("click",()=>{thought++;setThought()});
-$("#modeBtn").addEventListener("click",()=>{document.body.classList.toggle("after");const dark=document.body.classList.contains("after");$(".mode-label").textContent=dark?"After Hours":"Morning";$("#modeBtn").classList.toggle("after",dark)});
-document.addEventListener("mousemove",e=>{if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;$$(".floating-bean").forEach((b,i)=>{const k=(i+1)*3;b.style.marginLeft=`${(e.clientX/innerWidth-.5)*k}px`;b.style.marginTop=`${(e.clientY/innerHeight-.5)*k}px`})});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeProduct();closeCart();closeBill();$("#charmCard").classList.remove("show")}});
-renderMenu("coffee");updateCart();setThought();setTimeout(()=>$("#loader").classList.add("hide"),1000);setTimeout(()=>$("#loader").classList.add("hide"),3000);
-
-/* =========================================================
-   BUILD YOUR CUP — visual customization
-========================================================= */
-function updateCupVisual(){
-  const cup=document.getElementById("visualCup");
-  if(!cup || !activeProduct) return;
-
-  const temp=radio("temp") || "Hot";
-  const size=radio("size") || "Regular";
-  const milk=activeProduct[3] ? (radio("milk") || "Dairy") : "No milk";
-  const extras=[];
-  if(document.getElementById("shot").checked) extras.push("Extra shot");
-  if(document.getElementById("vanilla").checked) extras.push("Vanilla");
-  if(document.getElementById("caramel").checked) extras.push("Caramel");
-
-  cup.classList.toggle("iced",temp==="Iced");
-  cup.classList.toggle("large",size==="Large");
-  cup.classList.toggle("milky",activeProduct[3]);
-  cup.classList.toggle("dark-shot",extras.includes("Extra shot"));
-  cup.classList.toggle("sweet",extras.includes("Vanilla") || extras.includes("Caramel"));
-
-  const bn=document.getElementById("builderDrinkName"); if(bn) bn.textContent=activeProduct[0];
-  const st=document.getElementById("specTemp"); if(st) st.textContent=temp;
-  const ss=document.getElementById("specSize"); if(ss) ss.textContent=size;
-  const sm=document.getElementById("specMilk"); if(sm) sm.textContent=milk;
-  const se=document.getElementById("specExtras"); if(se) se.textContent=extras.length ? extras.join(" + ") : "None";
-  const cc=document.getElementById("cupCaption"); if(cc) cc.textContent=
-    [temp,size,milk,extras.length ? extras.join(" + ") : "House recipe"].filter(Boolean).join(" · ");
-}
-
-/* Keep the visual preview synchronized with every customization change. */
-document.getElementById("productModal").addEventListener("change",updateCupVisual);
-
-/* After Hours contrast helper: semantic values are inherited by every major overlay. */
-const modeButtonV3=document.getElementById("modeBtn"); if(modeButtonV3) modeButtonV3.addEventListener("click",()=>{
-  requestAnimationFrame(()=>{
-    const dark=document.body.classList.contains("after");
-    document.querySelector('meta[name="theme-color"]').setAttribute("content",dark?"#171210":"#efeade");
-  });
-});
-
+const hideLoader=()=>{const l=document.getElementById("loader");if(l)l.classList.add("hide")};setTimeout(hideLoader,900);setTimeout(hideLoader,2500);
 </script>
 </body>
 </html>
