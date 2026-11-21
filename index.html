@@ -30,6 +30,230 @@ footer{background:#100d0b;color:var(--ivory);padding:75px 6.5% 28px}.wordmark{fo
 body.after{--ivory:#1a1512;--paper:#211a16;--ink:#f0e8dc;--muted:#b5a99e;--line:#ffffff20;background:#1a1512;color:#f0e8dc}body.after nav{background:#17110feb;border-color:#ffffff18}body.after .hero,body.after .intro,body.after .origin{background:#1a1512}body.after .film{background:#0e0b09}body.after .visit{background:#211915}body.after .reading{background:linear-gradient(90deg,#052f44 0 50%,#211915 50%)}body.after .btn.dark,body.after .checkout{background:#f0e8dc;color:#17120f}body.after .charm-card,body.after .cart,body.after .panel,body.after .billpanel{background:#211a16}
 @media(max-width:850px){nav{grid-template-columns:1fr auto}.navside:first-child{display:none}.brand{justify-self:start}.navside.right{gap:10px}.navlink,.mode-label{display:none}.hero,.intro,.menu-head,.cathead,.origin,.visit,.billgrid{grid-template-columns:1fr}.hero{padding-top:105px}.hero h1{font-size:clamp(65px,19vw,100px)}.film img{height:440px}.menugrid,.lab,.reading{grid-template-columns:1fr}.lab-panel{min-height:500px}.reading{background:var(--ivory);padding-top:390px}.reading-art{position:absolute;top:0;left:0;right:0;height:390px;background:var(--blue)}.reading-copy{padding:65px 6%}.origin .film{margin:25px}.origin-copy{padding:65px 6%}.choices,.types{grid-template-columns:1fr}.footerrow{flex-direction:column}.progress{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* =========================================================
+   V3 — SEMANTIC THEME CONTRAST + BUILD YOUR CUP
+========================================================= */
+:root{
+  --surface:var(--ivory);
+  --surface-raised:var(--paper);
+  --text:var(--ink);
+  --text-muted:#756c63;
+  --ui-border:rgba(23,18,15,.18);
+  --accent:var(--rust);
+  --accent-soft:var(--ochre);
+  --field-bg:#f7f3e9;
+}
+body.after{
+  --surface:#171210;
+  --surface-raised:#241c18;
+  --text:#f3eadf;
+  --text-muted:#b9aaa0;
+  --ui-border:rgba(243,234,223,.20);
+  --accent:#d9a16f;
+  --accent-soft:#e2b75f;
+  --field-bg:#2a211c;
+}
+body.after,
+body.after .intro,
+body.after .origin,
+body.after .origin-copy,
+body.after .visit{color:var(--text)}
+body.after .copy,
+body.after .item p,
+body.after .cathead p,
+body.after .opts,
+body.after .sumrow,
+body.after .field label,
+body.after .receiptline{color:var(--text-muted)}
+body.after .panel,
+body.after .cart,
+body.after .billpanel,
+body.after .charm-card{background:var(--surface-raised);color:var(--text)}
+body.after textarea,
+body.after .field input,
+body.after .field select,
+body.after .choice label,
+body.after .type,
+body.after .receipt{background:var(--field-bg);color:var(--text);border-color:var(--ui-border)}
+body.after .choice input:checked+label,
+body.after .type.active{background:var(--text);color:var(--surface)}
+body.after .carthead,
+body.after .option,
+body.after .cartitem,
+body.after .summary,
+body.after .total,
+body.after .receiptline{border-color:var(--ui-border)}
+body.after .close,
+body.after .qty button{color:var(--text);border-color:var(--ui-border)}
+body.after .link{color:var(--accent)}
+body.after .eyebrow{color:var(--accent)}
+body.after .reading-copy{color:var(--text)}
+body.after .reading-copy .copy{color:var(--text-muted)}
+body.after .features span{color:var(--text);border-color:var(--ui-border)}
+body.after .philosophy{color:var(--text)!important}
+body.after .charm-core{border-color:#17120f}
+body.after .charm-core:after{background:var(--ochre)}
+
+.cup-builder{
+  display:grid;
+  grid-template-columns:.88fr 1.12fr;
+  gap:28px;
+  align-items:stretch;
+  margin-bottom:26px;
+  padding:22px;
+  background:linear-gradient(135deg,rgba(212,161,63,.12),transparent 55%);
+  border:1px solid var(--ui-border);
+}
+.cup-visual{
+  position:relative;
+  min-height:285px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:var(--field-bg);
+  border:1px solid var(--ui-border);
+}
+.cup-visual:before{
+  content:"BUILD / SIP / STAY";
+  position:absolute;
+  top:14px;
+  left:14px;
+  color:var(--text-muted);
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:1.8px;
+}
+.cup-scene{
+  position:relative;
+  width:190px;
+  height:220px;
+}
+.visual-cup{
+  position:absolute;
+  left:28px;
+  bottom:22px;
+  width:132px;
+  height:142px;
+  overflow:hidden;
+  border:5px solid var(--text);
+  border-top:0;
+  border-radius:0 0 34px 34px;
+  transition:.35s;
+}
+.visual-cup:after{
+  content:"";
+  position:absolute;
+  right:-47px;
+  top:34px;
+  width:45px;
+  height:48px;
+  border:5px solid var(--text);
+  border-left:0;
+  border-radius:0 28px 28px 0;
+}
+.drink-layer{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  transition:height .55s cubic-bezier(.2,.8,.2,1),background .45s,opacity .35s;
+}
+.layer-coffee{height:48%;background:#6b3d29}
+.layer-milk{height:0;background:#d9c6aa;bottom:48%}
+.layer-foam{height:0;background:#eee3d1;bottom:83%}
+.layer-syrup{height:0;background:linear-gradient(90deg,#b66b34,#8c4827);bottom:0;opacity:.72}
+.ice-zone{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  transition:.35s;
+}
+.ice{
+  position:absolute;
+  width:28px;
+  height:25px;
+  border:2px solid rgba(255,255,255,.75);
+  background:rgba(225,239,240,.35);
+  transform:rotate(17deg);
+}
+.ice:nth-child(1){left:14px;top:24px}
+.ice:nth-child(2){left:54px;top:40px;transform:rotate(-12deg)}
+.ice:nth-child(3){left:88px;top:18px;transform:rotate(28deg)}
+.cup-steam{
+  position:absolute;
+  top:4px;
+  left:68px;
+  width:3px;
+  height:44px;
+  border-radius:50%;
+  background:linear-gradient(transparent,var(--text-muted),transparent);
+  opacity:.55;
+  animation:cupSteam 2.2s ease-in-out infinite;
+}
+.cup-steam.s2{left:96px;animation-delay:.55s}
+@keyframes cupSteam{0%,100%{transform:translateY(10px) scaleY(.6);opacity:0}45%{opacity:.55}80%{transform:translateY(-5px) scaleY(1.1);opacity:0}}
+.cup-caption{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:8px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+}
+.builder-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.builder-copy h3{font-size:31px}
+.builder-copy p{margin-top:9px;color:var(--text-muted);font-size:11px;line-height:1.7}
+.builder-specs{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:17px;
+}
+.builder-spec{
+  padding:10px 11px;
+  border-top:1px solid var(--ui-border);
+}
+.builder-spec small{
+  display:block;
+  color:var(--accent);
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.builder-spec strong{
+  display:block;
+  margin-top:4px;
+  color:var(--text);
+  font:17px var(--serif);
+}
+.visual-cup.large{transform:scale(1.08);transform-origin:bottom center}
+.visual-cup.iced .ice-zone{opacity:1}
+.visual-cup.iced + .cup-steam,
+.visual-cup.iced ~ .cup-steam{display:none}
+.visual-cup.milky .layer-coffee{height:48%}
+.visual-cup.milky .layer-milk{height:35%}
+.visual-cup.milky .layer-foam{height:17%}
+.visual-cup.dark-shot .layer-coffee{background:#42251c}
+.visual-cup.sweet .layer-syrup{height:15%}
+body.after .cup-visual{background:#1d1714}
+body.after .layer-milk{background:#bba98f}
+body.after .layer-foam{background:#d8c9b4}
+@media(max-width:700px){
+  .cup-builder{grid-template-columns:1fr}
+  .cup-visual{min-height:260px}
+  .builder-specs{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -76,6 +300,32 @@ body.after{--ivory:#1a1512;--paper:#211a16;--ink:#f0e8dc;--muted:#b5a99e;--line:
 <aside class="cart" id="cart"><div class="carthead"><div><div class="eyebrow">Your Table</div><h2>Your order</h2></div><button class="close" id="cartClose">×</button></div><div class="cartitems" id="cartItems"></div><div class="summary"><div class="sumrow"><span>Subtotal</span><span id="subtotal">₹0</span></div><div class="sumrow"><span>GST (5%)</span><span id="tax">₹0</span></div><div class="sumrow"><span>Morrow charm</span><span>Complimentary</span></div><div class="total"><span>Total</span><span id="total">₹0</span></div><button class="checkout" id="checkoutBtn">Continue to billing</button></div></aside>
 
 <div class="modal" id="productModal"><div class="panel"><div class="panelhead"><div><div class="eyebrow">Make it yours</div><h2 id="modalName"></h2><p class="copy" id="modalDesc"></p></div><button class="close" id="productClose">×</button></div><div class="panelbody">
+<div class="cup-builder" id="cupBuilder">
+  <div class="cup-visual">
+    <div class="cup-scene">
+      <div class="visual-cup" id="visualCup">
+        <div class="drink-layer layer-coffee"></div>
+        <div class="drink-layer layer-milk"></div>
+        <div class="drink-layer layer-foam"></div>
+        <div class="drink-layer layer-syrup"></div>
+        <div class="ice-zone"><i class="ice"></i><i class="ice"></i><i class="ice"></i></div>
+      </div>
+      <i class="cup-steam"></i><i class="cup-steam s2"></i>
+      <div class="cup-caption" id="cupCaption">Hot · Regular · House recipe</div>
+    </div>
+  </div>
+  <div class="builder-copy">
+    <div class="eyebrow">Build Your Cup</div>
+    <h3 id="builderDrinkName">Your drink, as you like it.</h3>
+    <p>The cup changes as you choose temperature, size, milk and extras. This is a visual preview of your Morrow order.</p>
+    <div class="builder-specs">
+      <div class="builder-spec"><small>Temperature</small><strong id="specTemp">Hot</strong></div>
+      <div class="builder-spec"><small>Size</small><strong id="specSize">Regular</strong></div>
+      <div class="builder-spec"><small>Milk</small><strong id="specMilk">House recipe</strong></div>
+      <div class="builder-spec"><small>Extras</small><strong id="specExtras">None</strong></div>
+    </div>
+  </div>
+</div>
 <div class="option"><strong>Temperature</strong><div class="choices"><div class="choice"><input type="radio" name="temp" id="hot" value="Hot" checked><label for="hot">Hot</label></div><div class="choice"><input type="radio" name="temp" id="iced" value="Iced"><label for="iced">Iced + ₹20</label></div></div></div>
 <div class="option"><strong>Size</strong><div class="choices"><div class="choice"><input type="radio" name="size" id="reg" value="Regular" checked><label for="reg">Regular</label></div><div class="choice"><input type="radio" name="size" id="large" value="Large"><label for="large">Large + ₹40</label></div></div></div>
 <div class="option" id="milkWrap"><strong>Milk</strong><div class="choices"><div class="choice"><input type="radio" name="milk" id="dairy" value="Dairy" checked><label for="dairy">Dairy</label></div><div class="choice"><input type="radio" name="milk" id="oat" value="Oat"><label for="oat">Oat + ₹40</label></div><div class="choice"><input type="radio" name="milk" id="almond" value="Almond"><label for="almond">Almond + ₹40</label></div></div></div>
@@ -135,6 +385,55 @@ $("#modeBtn").addEventListener("click",()=>{document.body.classList.toggle("afte
 document.addEventListener("mousemove",e=>{if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;$$(".floating-bean").forEach((b,i)=>{const k=(i+1)*3;b.style.marginLeft=`${(e.clientX/innerWidth-.5)*k}px`;b.style.marginTop=`${(e.clientY/innerHeight-.5)*k}px`})});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeProduct();closeCart();closeBill();$("#charmCard").classList.remove("show")}});
 renderMenu("coffee");updateCart();setThought();setTimeout(()=>$("#loader").classList.add("hide"),1000);setTimeout(()=>$("#loader").classList.add("hide"),3000);
+
+/* =========================================================
+   BUILD YOUR CUP — visual customization
+========================================================= */
+function updateCupVisual(){
+  const cup=document.getElementById("visualCup");
+  if(!cup || !activeProduct) return;
+
+  const temp=radio("temp") || "Hot";
+  const size=radio("size") || "Regular";
+  const milk=activeProduct[3] ? (radio("milk") || "Dairy") : "No milk";
+  const extras=[];
+  if(document.getElementById("shot").checked) extras.push("Extra shot");
+  if(document.getElementById("vanilla").checked) extras.push("Vanilla");
+  if(document.getElementById("caramel").checked) extras.push("Caramel");
+
+  cup.classList.toggle("iced",temp==="Iced");
+  cup.classList.toggle("large",size==="Large");
+  cup.classList.toggle("milky",activeProduct[3]);
+  cup.classList.toggle("dark-shot",extras.includes("Extra shot"));
+  cup.classList.toggle("sweet",extras.includes("Vanilla") || extras.includes("Caramel"));
+
+  document.getElementById("builderDrinkName").textContent=activeProduct[0];
+  document.getElementById("specTemp").textContent=temp;
+  document.getElementById("specSize").textContent=size;
+  document.getElementById("specMilk").textContent=milk;
+  document.getElementById("specExtras").textContent=extras.length ? extras.join(" + ") : "None";
+  document.getElementById("cupCaption").textContent=
+    [temp,size,milk,extras.length ? extras.join(" + ") : "House recipe"].filter(Boolean).join(" · ");
+}
+
+/* Keep the visual preview synchronized with every customization change. */
+document.getElementById("productModal").addEventListener("change",updateCupVisual);
+
+/* Extend the existing product opener without changing its cart/edit behavior. */
+const originalOpenProduct=openProduct;
+openProduct=function(cat,i,ci=null){
+  originalOpenProduct(cat,i,ci);
+  requestAnimationFrame(updateCupVisual);
+};
+
+/* After Hours contrast helper: semantic values are inherited by every major overlay. */
+document.getElementById("modeBtn").addEventListener("click",()=>{
+  requestAnimationFrame(()=>{
+    const dark=document.body.classList.contains("after");
+    document.querySelector('meta[name="theme-color"]').setAttribute("content",dark?"#171210":"#efeade");
+  });
+});
+
 </script>
 </body>
 </html>
