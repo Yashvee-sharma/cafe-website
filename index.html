@@ -65,20 +65,208 @@ nav{position:fixed;z-index:900;top:0;width:100%;height:70px;padding:0 5.5%;displ
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
 
+
+/* UX UPGRADE */
+.filterbar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 24px}.filterbtn{border:1px solid #ffffff35;background:transparent;color:#cfc3ba;padding:9px 12px;font-size:8px;text-transform:uppercase}.filterbtn.active{background:#efeade;color:#17120f}.mobile-menu-btn{display:none;border:1px solid var(--border);background:none;color:var(--text);padding:9px 11px;font-size:9px;text-transform:uppercase}.mobile-drawer{display:none;position:fixed;z-index:880;top:70px;left:0;right:0;padding:16px 5.5%;background:var(--panel);border-bottom:1px solid var(--border)}.mobile-drawer.show{display:grid;gap:6px}.mobile-drawer a{padding:10px 0;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;text-transform:uppercase}.navlink.active{color:var(--accent);text-decoration:underline;text-underline-offset:5px}.table-cup,.table-book,.table-bite{cursor:pointer;outline:none}.table-cup:focus-visible,.table-book:focus-visible,.table-bite:focus-visible,.book:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.table-cup:hover,.table-book:hover,.table-bite:hover{filter:brightness(1.08);transform:translateY(-4px)}.book{cursor:pointer;position:relative}.shelf-card{position:absolute;z-index:10;left:18%;right:18%;bottom:12%;padding:14px;background:var(--panel);color:var(--text);border:1px solid var(--border);box-shadow:0 12px 30px #0002;opacity:0;visibility:hidden;transform:translateY(8px);transition:.25s}.shelf-card.show{opacity:1;visibility:visible;transform:none}.shelf-card h4{font-size:20px}.shelf-card p{margin-top:5px;font-size:9px;line-height:1.55;color:var(--muted)}
+@media(max-width:850px){.mobile-menu-btn{display:inline-block}.mobile-drawer .navlink{display:block}.navside.right .navlink{display:none}.theme-label{display:none}}
+
+
+/* ===== ASTER COLOR REBALANCE: TABLE + READING ROOM ===== */
+.table-lab{
+  background:var(--bg);
+  color:var(--text);
+}
+.table-experience{
+  background:var(--panel);
+  border-color:var(--border);
+}
+.table-controls{
+  background:color-mix(in srgb,var(--panel) 94%,var(--accent) 6%);
+}
+.table-result{
+  background:var(--panel);
+}
+.tabletop{
+  background:var(--coffee);
+  border-top:1px solid color-mix(in srgb,var(--text) 25%,transparent);
+  box-shadow:0 7px 0 color-mix(in srgb,var(--coffee) 82%,var(--text) 18%);
+}
+.tableleg{background:var(--coffee)}
+.table-book{
+  background:color-mix(in srgb,var(--accent) 82%,var(--coffee) 18%);
+  border:1px solid color-mix(in srgb,var(--text) 16%,transparent);
+}
+.table-bite{
+  background:color-mix(in srgb,var(--gold) 74%,#b87949 26%);
+  border:1px solid color-mix(in srgb,var(--text) 14%,transparent);
+}
+.table-cup{
+  border-color:var(--text);
+  filter:drop-shadow(0 8px 8px color-mix(in srgb,var(--text) 10%,transparent));
+}
+.table-cup:after{border-color:var(--text)}
+.table-cup-fill{background:var(--coffee)}
+.chip{
+  background:transparent;
+  color:var(--text);
+  border-color:var(--border);
+}
+.chip.active{
+  background:var(--text);
+  color:var(--bg);
+}
+
+/* Reading Room now feels like Aster, not a separate blue panel. */
+.reading{
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb,var(--coffee) 88%,var(--dark) 12%) 0 50%,
+      var(--bg) 50%
+    );
+}
+.reading-art{
+  background:
+    radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 48%);
+}
+.sun{
+  border-color:color-mix(in srgb,var(--gold) 64%,var(--accent) 36%);
+}
+.book:nth-child(1){background:var(--accent)}
+.book:nth-child(2){background:color-mix(in srgb,var(--bg) 88%,#d4b894 12%)}
+.book:nth-child(3){background:color-mix(in srgb,var(--coffee) 68%,var(--gold) 32%)}
+.reading-copy{
+  background:var(--bg);
+  color:var(--text);
+}
+.reading-copy .copy{color:var(--muted)}
+.features span{
+  border-color:var(--border);
+  color:var(--text);
+}
+
+/* Night keeps the same visual hierarchy instead of introducing new hues. */
+body[data-theme="night"] .table-controls{
+  background:color-mix(in srgb,var(--panel) 94%,var(--accent) 6%);
+}
+body[data-theme="night"] .tabletop{
+  border-top-color:rgba(243,234,223,.28);
+  box-shadow:0 7px 0 rgba(243,234,223,.08);
+}
+body[data-theme="night"] .reading{
+  background:linear-gradient(90deg,#211713 0 50%,var(--bg) 50%);
+}
+body[data-theme="night"] .reading-art{
+  background:radial-gradient(circle at 50% 42%,rgba(224,154,112,.10),transparent 48%);
+}
+
+@media(max-width:850px){
+  .reading{background:var(--bg)}
+  .reading-art{
+    background:
+      radial-gradient(circle at 50% 42%,rgba(155,81,56,.14),transparent 48%),
+      color-mix(in srgb,var(--coffee) 88%,var(--dark) 12%);
+  }
+  body[data-theme="night"] .reading-art{
+    background:
+      radial-gradient(circle at 50% 42%,rgba(224,154,112,.10),transparent 48%),
+      #211713;
+  }
+}
+
+
+/* ===== ASTER PALETTE RESET + DAILY POUR ===== */
+:root{
+ --bg:#f0ece2;
+ --panel:#f7f3ea;
+ --text:#211711;
+ --muted:#70645b;
+ --border:rgba(33,23,17,.17);
+ --accent:#9a4e37;
+ --gold:#b9874d;
+ --coffee:#5a3a2d;
+ --blue:#5a3a2d;
+ --green:#756e58;
+ --dark:#1b1410;
+}
+body[data-theme="night"]{
+ --bg:#191310;
+ --panel:#231a16;
+ --text:#f1e8dc;
+ --muted:#b7a99e;
+ --border:rgba(241,232,220,.17);
+ --accent:#d38a65;
+ --gold:#c79a61;
+ --coffee:#8a5c47;
+ --blue:#2a1d18;
+ --green:#91866e;
+ --dark:#100c0a;
+}
+.reading{background:linear-gradient(90deg,var(--dark) 0 50%,var(--bg) 50%)}
+.reading-art{background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 50%)}
+.sun{border-color:color-mix(in srgb,var(--gold) 72%,var(--accent) 28%)}
+.book:nth-child(1){background:var(--accent)}
+.book:nth-child(2){background:#d9c9b4}
+.book:nth-child(3){background:var(--coffee)}
+
+.daily-pour{display:grid;grid-template-columns:.82fr 1.18fr;gap:7%;align-items:center;background:var(--bg);overflow:hidden}
+.daily-copy{max-width:580px}
+.daily-copy>p{margin-top:20px}
+.moment-tabs{display:flex;gap:0;margin-top:30px;border-block:1px solid var(--border)}
+.moment-tab{padding:13px 15px;border:0;border-right:1px solid var(--border);background:transparent;color:var(--muted);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px}
+.moment-tab.active{background:var(--text);color:var(--bg)}
+.moment-detail{padding-top:30px}
+.moment-number{font:italic 18px var(--serif);color:var(--accent);margin-bottom:7px}
+.moment-detail h3{font-size:34px}
+.moment-detail>p{max-width:470px;margin-top:9px}
+.moment-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0}
+.moment-meta span,.moment-meta strong{padding:7px 9px;border:1px solid var(--border);font-size:8px;text-transform:uppercase}
+.daily-visual{position:relative}
+.daily-frame{position:relative;padding:17px 17px 44px;background:var(--dark);box-shadow:0 22px 60px rgba(31,20,14,.14)}
+.daily-frame:before,.daily-frame:after{content:"";position:absolute;left:0;right:0;height:9px;background:repeating-linear-gradient(90deg,var(--bg) 0 14px,transparent 14px 26px)}
+.daily-frame:before{top:4px}.daily-frame:after{bottom:4px}
+.daily-frame img{display:block;width:100%;height:600px;object-fit:cover;transition:opacity .28s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.daily-frame.switching img{opacity:.18;transform:scale(1.025)}
+.daily-frame figcaption{position:absolute;left:25px;right:25px;bottom:17px;display:flex;justify-content:space-between;color:#d7c9bd;font-size:8px;letter-spacing:1px;text-transform:uppercase}
+.daily-stamp{position:absolute;right:-25px;top:50px;width:84px;height:84px;border:1px solid var(--accent);border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--bg);color:var(--accent);font-size:8px;font-weight:700;letter-spacing:1px;rotate:9deg}
+.photo-journal{background:color-mix(in srgb,var(--bg) 95%,var(--coffee) 5%)}
+.journal-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:40px}
+.journal-grid{display:grid;grid-template-columns:1.35fr .8fr .8fr;gap:12px}
+.journal-card{position:relative;overflow:hidden;background:var(--dark)}
+.journal-card img{display:block;width:100%;height:430px;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .4s}
+.journal-card.wide img{height:520px}
+.journal-card:hover img{transform:scale(1.035)}
+.journal-card figcaption{position:absolute;left:14px;bottom:14px;padding:7px 9px;background:color-mix(in srgb,var(--dark) 82%,transparent);color:#f0e8dc;font-size:8px;text-transform:uppercase;letter-spacing:.8px}
+body[data-theme="night"] .daily-frame{box-shadow:none}
+body[data-theme="night"] .daily-stamp{background:var(--panel)}
+@media(max-width:850px){
+ .daily-pour{grid-template-columns:1fr}
+ .daily-visual{margin-top:15px}
+ .daily-frame img{height:440px}
+ .daily-stamp{right:8px;top:35px}
+ .journal-head{display:block}
+ .journal-grid{grid-template-columns:1fr}
+ .journal-card img,.journal-card.wide img{height:360px}
+ .reading{background:var(--bg)}
+ .reading-art{background:var(--dark)}
+}
+
 </style>
 </head>
 <body data-theme="day">
 
 <div class="loader" id="loader"><div><div class="loader-cup"><i class="steam s1"></i><i class="steam s2"></i><i class="steam s3"></i><div class="loader-fill"></div></div><div class="loader-label">Opening Aster…</div></div></div>
+<script>window.setTimeout(function(){var l=document.getElementById("loader");if(l)l.classList.add("done")},1800);</script>
 
 <nav>
-  <div class="navside"><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#aster-table">Aster Table</a><a class="navlink" href="#origin">Our Coffee</a></div>
+  <div class="navside"><button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-expanded="false">Menu ☰</button><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#origin">Our Coffee</a></div>
   <a class="brand" href="#">Aster</a>
   <div class="navside right"><a class="navlink" href="#reading">Reading Room</a><button class="theme-toggle" id="themeToggle" type="button"><span class="theme-label">Morning</span><span class="toggle-track"><span class="toggle-knob"></span></span></button><button class="cart-open" id="cartOpen">Cart <span class="badge" id="badge">0</span></button></div>
 </nav>
+<div class="mobile-drawer" id="mobileDrawer"><a class="navlink" href="#menu">Menu</a><a class="navlink" href="#origin">Our Coffee</a><a class="navlink" href="#reading">Reading Room</a></div>
 
 <header class="hero"><i class="hero-bean hb1"></i><i class="hero-bean hb2"></i><i class="hero-bean hb3"></i>
-  <div class="reveal"><div class="eyebrow">Aster / Coffee House & Reading Room</div><h1>Good coffee.<em>Stay curious.</em></h1><p class="copy hero-copy">An editorial coffee house for Indian coffee, warm food, books and afternoons that don't need to become anything else.</p><div class="hero-actions"><a class="btn primary" href="#menu">View menu</a><a class="btn" href="#aster-table">Build your table</a></div></div>
+  <div class="reveal"><div class="eyebrow">Aster / Coffee House & Reading Room</div><h1>Good coffee.<em>Stay curious.</em></h1><p class="copy hero-copy">An editorial coffee house for Indian coffee, warm food, books and afternoons that don't need to become anything else.</p><div class="hero-actions"><a class="btn primary" href="#menu">View menu</a></div></div>
   <div class="film reveal"><img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=1300&q=88" alt="Coffee plants in morning light"><div class="caption"><small>Western Ghats</small><strong>Closer to the source.</strong></div></div>
 </header>
 
@@ -90,23 +278,11 @@ nav{position:fixed;z-index:900;top:0;width:100%;height:70px;padding:0 5.5%;displ
   <div class="menu-head reveal"><div><div class="eyebrow">Menu</div><h2 class="display">What are you having?</h2></div><p class="copy">Real café classics, Aster signatures and all-day food. Coffee can be customized before it reaches your order.</p></div>
   <div class="tabs"><button class="tab active" data-cat="coffee"><small>01</small>Coffee</button><button class="tab" data-cat="bakery"><small>02</small>Bakery</button><button class="tab" data-cat="breakfast"><small>03</small>Breakfast</button><button class="tab" data-cat="pairings"><small>04</small>Pairings</button><button class="tab" data-cat="allday"><small>05</small>All Day</button></div>
   <div class="category"><div><div class="eyebrow" id="catNo">01</div><h3 id="catTitle">Coffee</h3></div><p id="catDesc"></p></div>
+  <div class="filterbar" id="filterBar"><button class="filterbtn active" data-filter="all">All</button><button class="filterbtn" data-filter="favourite">House Favourites</button><button class="filterbtn" data-filter="under200">Under ₹200</button><button class="filterbtn" data-filter="iced">Iced-Friendly</button></div>
   <div class="menu-grid" id="menuGrid"></div>
 </section>
 
-<section class="table-lab" id="aster-table">
-  <div class="table-head reveal"><div><div class="eyebrow">Signature Experience</div><h2 class="display">Build your Aster table.</h2></div><p class="copy">Choose a drink, a reading mood and something to eat. Aster turns the combination into a named café moment you can add directly to your demo order.</p></div>
-  <div class="table-experience reveal">
-    <div class="table-controls">
-      <div class="choice-group"><small>01 / Drink</small><div class="chips" id="drinkChoices"><button class="chip active" data-value="Flat White">Flat White</button><button class="chip" data-value="Sea Salt Mocha">Sea Salt Mocha</button><button class="chip" data-value="Cold Brew">Cold Brew</button></div></div>
-      <div class="choice-group"><small>02 / Reading mood</small><div class="chips" id="moodChoices"><button class="chip active" data-value="Mystery">Mystery</button><button class="chip" data-value="Essays">Essays</button><button class="chip" data-value="Daydream">Daydream</button></div></div>
-      <div class="choice-group"><small>03 / Something with it</small><div class="chips" id="biteChoices"><button class="chip active" data-value="Almond Croissant">Almond Croissant</button><button class="chip" data-value="Cinnamon Roll">Cinnamon Roll</button><button class="chip" data-value="Lemon Loaf">Lemon Loaf</button></div></div>
-    </div>
-    <div class="table-result">
-      <div class="table-art"><div class="tabletop"></div><div class="tableleg"></div><div class="table-cup"><div class="table-cup-fill"></div></div><div class="table-book"></div><div class="table-bite"></div></div>
-      <div class="eyebrow">Your table</div><h3 id="tableName">The Window Chapter</h3><p class="copy" id="tableDescription">Flat White, a mystery, and an Almond Croissant. For people who said they'd only stay twenty minutes.</p><div class="table-meta"><span id="tableDrink">Flat White</span><span id="tableMood">Mystery</span><span id="tableBite">Almond Croissant</span><span id="tablePrice">₹360</span></div><button class="btn primary add-table" id="addTable">Add this table to order</button>
-    </div>
-  </div>
-</section>
+
 
 
 <section class="lab" id="coffee-lab">
@@ -122,9 +298,46 @@ nav{position:fixed;z-index:900;top:0;width:100%;height:70px;padding:0 5.5%;displ
   </div>
 </section>
 
+
+<section class="daily-pour" id="daily-pour">
+  <div class="daily-copy reveal">
+    <div class="eyebrow">The Daily Pour</div>
+    <h2 class="display">A different Aster<br>for every hour.</h2>
+    <p class="copy">Three small rituals for the shape of your day. Choose a moment and Aster changes the recommendation, photograph and pairing around it.</p>
+    <div class="moment-tabs" role="tablist" aria-label="Choose an Aster moment">
+      <button class="moment-tab active" type="button" data-moment="morning">Morning</button>
+      <button class="moment-tab" type="button" data-moment="afternoon">Slow Afternoon</button>
+      <button class="moment-tab" type="button" data-moment="evening">After Hours</button>
+    </div>
+    <div class="moment-detail" aria-live="polite">
+      <div class="moment-number" id="momentNumber">08:15</div>
+      <h3 id="momentTitle">First light, first cup.</h3>
+      <p class="copy" id="momentText">A flat white, a warm almond croissant and the quietest table near the window.</p>
+      <div class="moment-meta"><span id="momentDrink">Flat White</span><span id="momentFood">Almond Croissant</span><strong id="momentPrice">₹370</strong></div>
+      <button class="btn primary" type="button" id="addMoment">Add this pairing</button>
+    </div>
+  </div>
+  <div class="daily-visual reveal">
+    <figure class="daily-frame">
+      <img id="momentImage" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=88" alt="Warm coffee in natural morning light">
+      <figcaption><span id="momentCaption">Morning / Window table</span><b>ASTER</b></figcaption>
+    </figure>
+    <div class="daily-stamp">ROASTED<br>WEEKLY</div>
+  </div>
+</section>
+
+<section class="photo-journal">
+  <div class="journal-head reveal"><div class="eyebrow">Around the House</div><h2 class="display">Coffee looks better<br>in morning light.</h2></div>
+  <div class="journal-grid">
+    <figure class="journal-card wide reveal"><img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=88" alt="Warm café interior"><figcaption>01 / The room before the rush</figcaption></figure>
+    <figure class="journal-card reveal"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=88" alt="Coffee in natural light"><figcaption>02 / House coffee</figcaption></figure>
+    <figure class="journal-card reveal"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=88" alt="Bookshelves in a reading room"><figcaption>03 / Stay for a chapter</figcaption></figure>
+  </div>
+</section>
+
 <section class="origin" id="origin"><div class="film reveal"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1300&q=88" alt="Coffee in natural morning light"><div class="caption"><small>Origin</small><strong>Chikmagalur / Coorg</strong></div></div><div class="origin-copy reveal"><div class="eyebrow">Indian Coffee</div><h2 class="display">Arabica for aroma.<br>Robusta for body.</h2><p class="copy">Our house profile takes cues from Karnataka's coffee estates: shade-grown character, cocoa sweetness and enough body to hold up beautifully in milk.</p><div class="notes"><div class="note"><small>Arabica</small><strong>Aroma · caramel</strong></div><div class="note"><small>Robusta</small><strong>Body · dark cocoa</strong></div></div></div></section>
 
-<section class="reading reveal" id="reading"><div class="reading-art"><div class="sun"></div><div class="books"><div class="book"></div><div class="book"></div><div class="book"></div></div></div><div class="reading-copy"><div class="eyebrow">The Reading Room</div><h2 class="display">Stay for a page.</h2><p class="copy">A quiet corner for books, coffee and unhurried afternoons. Borrow from the shelf while you're here, or leave a finished book for someone else.</p><div class="features"><span>Book Swap</span><span>Quiet Tables</span><span>Open All Day</span></div></div></section>
+<section class="reading reveal" id="reading"><div class="reading-art"><div class="sun"></div><div class="books"><div class="book" tabindex="0" role="button" data-book="0" aria-label="Open first shelf recommendation"></div><div class="book" tabindex="0" role="button" data-book="1" aria-label="Open second shelf recommendation"></div><div class="book" tabindex="0" role="button" data-book="2" aria-label="Open third shelf recommendation"></div></div><div class="shelf-card" id="shelfCard"><h4 id="shelfTitle"></h4><p id="shelfText"></p></div></div><div class="reading-copy"><div class="eyebrow">The Reading Room</div><h2 class="display">Stay for a page.</h2><p class="copy">A quiet corner for books, coffee and unhurried afternoons. Borrow from the shelf while you're here, or leave a finished book for someone else.</p><div class="features"><span>Book Swap</span><span>Quiet Tables</span><span>Open All Day</span></div></div></section>
 
 <section class="visit"><div class="reveal"><div class="eyebrow">Visit Aster</div><h2 class="display">There is probably<br>a table.</h2><p class="copy">Come early for the quietest hour, stay through lunch, or arrive when the afternoon needs rescuing.</p></div><div class="reveal"><div class="detail"><small>Hours</small><strong>Daily · 8 AM — 10 PM</strong></div><div class="detail"><small>Reading Room</small><strong>Open all day</strong></div><div class="detail"><small>Orders</small><strong>Dine in · Takeaway</strong></div></div></section>
 
@@ -161,34 +374,45 @@ const menu={
  allday:{no:"05",title:"All Day Eats",desc:"For when coffee quietly becomes lunch.",custom:false,items:[
   {name:"Pesto Mozzarella Toastie",desc:"Pesto, mozzarella, tomato and rocket.",price:280},{name:"Spiced Paneer Melt",desc:"Paneer, onion, cheddar and mint mayo.",price:300,tag:"Best Seller"},{name:"Pesto Pasta",desc:"Basil pesto, parmesan and roasted tomatoes.",price:330},{name:"Herb Potato Wedges",desc:"Rosemary salt and roasted garlic dip.",price:190},{name:"Aster Green Bowl",desc:"Avocado, cucumber, feta, greens and seeds.",price:290,tag:"Fresh"},{name:"Mushroom Cheese Panini",desc:"Mushrooms, cheddar, mozzarella and herb butter.",price:300}]}
 };
-let cart=[],activeCategory="coffee",activeProduct=null,activeProductIndex=-1,editIndex=null,orderType="Dine in";
-const prices={drinks:{"Flat White":180,"Sea Salt Mocha":210,"Cold Brew":190},bites:{"Almond Croissant":190,"Cinnamon Roll":170,"Lemon Loaf":150}};
-const tableState={drink:"Flat White",mood:"Mystery",bite:"Almond Croissant"};
-const tableNames={Mystery:"The Window Chapter",Essays:"The Marginalia Table",Daydream:"The Afternoon Elsewhere"};
-function renderMenu(cat){activeCategory=cat;const d=menu[cat];$("#catNo").textContent=d.no;$("#catTitle").textContent=d.title;$("#catDesc").textContent=d.desc;const grid=$("#menuGrid");grid.innerHTML="";d.items.forEach((p,i)=>{const el=document.createElement("article");el.className="menu-item";el.style.animationDelay=`${i*55}ms`;el.innerHTML=`<div><div class="topline"><h4>${p.name}</h4>${p.tag?`<span class="tag">${p.tag}</span>`:""}<span class="veg">● Veg</span></div><p>${p.desc}</p>${d.custom?`<button class="custom" type="button" data-custom="${cat}:${i}">Customize</button>`:""}</div><div class="ordercol"><span class="price">₹${p.price}</span><button class="plus" type="button" data-add="${cat}:${i}" aria-label="Add ${p.name}">+</button></div>`;grid.appendChild(el)})}
-$$(".tab").forEach(b=>b.addEventListener("click",()=>{$$(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderMenu(b.dataset.cat)}));
-$("#menuGrid").addEventListener("click",e=>{const add=e.target.closest("[data-add]"),custom=e.target.closest("[data-custom]");if(add){const [cat,i]=add.dataset.add.split(":");quickAdd(cat,+i,add)}else if(custom){const [cat,i]=custom.dataset.custom.split(":");openProduct(cat,+i)}});
-function quickAdd(cat,i,button){const p=menu[cat].items[i];cart.push({name:p.name,cat,unit:p.price,qty:1,custom:menu[cat].custom,options:{temp:"",size:"",milk:"",extras:[]},notes:""});updateCart();button.textContent="✓";button.classList.add("added");setTimeout(()=>{button.textContent="+";button.classList.remove("added")},700);bumpBadge();toast(`${p.name} added`)}
-function selected(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?el.value:""}
+let cart=[],activeCategory="coffee",activeProduct=null,activeProductIndex=-1,editIndex=null,orderType="Dine in",activeFilter="all";
+try{cart=JSON.parse(localStorage.getItem("asterCart")||"[]");const savedTheme=localStorage.getItem("asterTheme");if(savedTheme)document.body.dataset.theme=savedTheme;}catch(e){cart=[];}
+function persist(){try{localStorage.setItem("asterCart",JSON.stringify(cart));localStorage.setItem("asterTheme",document.body.dataset.theme||"day")}catch(e){}}
+function sameItem(a,b){return a.name===b.name&&a.cat===b.cat&&a.unit===b.unit&&JSON.stringify(a.options)===JSON.stringify(b.options)&&String(a.notes||"")===String(b.notes||"")}
+function addGrouped(item){const found=cart.find(x=>sameItem(x,item));if(found)found.qty+=item.qty||1;else cart.push(item);persist();updateCart();}
+function renderMenu(cat){activeCategory=cat;const d=menu[cat];if(!d)return;$("#catNo").textContent=d.no;$("#catTitle").textContent=d.title;$("#catDesc").textContent=d.desc;const grid=$("#menuGrid");grid.innerHTML="";let items=d.items.map((p,i)=>({p,i}));if(activeFilter==="favourite")items=items.filter(x=>/favourite|best seller|most ordered|aster/i.test(x.p.tag||""));if(activeFilter==="under200")items=items.filter(x=>x.p.price<200);if(activeFilter==="iced")items=items.filter(x=>cat==="coffee");if(!items.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1;color:#c8bbb2">Nothing in this category matches that filter.</div>';return;}items.forEach(({p,i},n)=>{const el=document.createElement("article");el.className="menu-item";el.style.animationDelay=`${n*55}ms`;el.innerHTML=`<div><div class="topline"><h4>${p.name}</h4>${p.tag?`<span class="tag">${p.tag}</span>`:""}<span class="veg">● Veg</span></div><p>${p.desc}</p>${d.custom?`<button class="custom" type="button" data-custom="${cat}:${i}">Customize</button>`:""}</div><div class="ordercol"><span class="price">₹${p.price}</span><button class="plus" type="button" data-add="${cat}:${i}" aria-label="Add ${p.name}">+</button></div>`;grid.appendChild(el)});}
+$$('.tab').forEach(b=>b.addEventListener('click',()=>{$$('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderMenu(b.dataset.cat)}));
+$('#menuGrid').addEventListener('click',e=>{const add=e.target.closest('[data-add]'),custom=e.target.closest('[data-custom]');if(add){const [cat,i]=add.dataset.add.split(':');quickAdd(cat,+i,add)}else if(custom){const [cat,i]=custom.dataset.custom.split(':');openProduct(cat,+i)}});
+function quickAdd(cat,i,button){const p=menu[cat].items[i];addGrouped({name:p.name,cat,unit:p.price,qty:1,custom:menu[cat].custom,options:{temp:'',size:'',milk:'',extras:[]},notes:''});button.textContent='✓';button.classList.add('added');setTimeout(()=>{button.textContent='+';button.classList.remove('added')},700);bumpBadge();toast(`${p.name} added`)}
+function selected(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?el.value:''}
 function setRadio(name,value){const el=document.querySelector(`input[name="${name}"][value="${value}"]`);if(el)el.checked=true}
-function openProduct(cat,i,ci=null){const p=menu[cat].items[i];activeCategory=cat;activeProduct=p;activeProductIndex=i;editIndex=ci;$("#modalName").textContent=p.name;$("#modalDesc").textContent=p.desc;$("#milkWrap").style.display=p.milk?"block":"none";$("#hot").checked=$("#regular").checked=$("#dairy").checked=true;$("#shot").checked=$("#vanilla").checked=$("#caramel").checked=false;$("#notes").value="";if(ci!==null){const x=cart[ci];setRadio("temp",x.options.temp||"Hot");setRadio("size",x.options.size||"Regular");if(p.milk)setRadio("milk",x.options.milk||"Dairy");$("#shot").checked=x.options.extras.includes("Extra shot");$("#vanilla").checked=x.options.extras.includes("Vanilla");$("#caramel").checked=x.options.extras.includes("Caramel");$("#notes").value=x.notes||"";$("#saveProduct").textContent="Save changes"}else $("#saveProduct").textContent="Add to order";updateModalPrice();$("#productModal").classList.add("show");document.body.classList.add("lock")}
-function closeProduct(){$("#productModal").classList.remove("show");document.body.classList.remove("lock");editIndex=null}
-function updateModalPrice(){if(!activeProduct)return 0;let total=activeProduct.price;if(selected("temp")==="Iced")total+=20;if(selected("size")==="Large")total+=40;if(activeProduct.milk&&["Oat","Almond"].includes(selected("milk")))total+=40;if($("#shot").checked)total+=50;if($("#vanilla").checked)total+=25;if($("#caramel").checked)total+=25;$("#modalPrice").textContent=`₹${total}`;return total}
-$("#productModal").addEventListener("change",updateModalPrice);$("#productClose").addEventListener("click",closeProduct);$("#saveProduct").addEventListener("click",()=>{const extras=[];if($("#shot").checked)extras.push("Extra shot");if($("#vanilla").checked)extras.push("Vanilla");if($("#caramel").checked)extras.push("Caramel");const item={name:activeProduct.name,cat:activeCategory,unit:updateModalPrice(),qty:editIndex!==null?cart[editIndex].qty:1,custom:true,options:{temp:selected("temp"),size:selected("size"),milk:activeProduct.milk?selected("milk"):"",extras},notes:$("#notes").value.trim()};if(editIndex!==null)cart[editIndex]=item;else cart.push(item);updateCart();closeProduct();bumpBadge();toast(editIndex!==null?"Item updated":`${item.name} added`)});
+function openProduct(cat,i,ci=null){const p=menu[cat].items[i];activeCategory=cat;activeProduct=p;activeProductIndex=i;editIndex=ci;$('#modalName').textContent=p.name;$('#modalDesc').textContent=p.desc;$('#milkWrap').style.display=p.milk?'block':'none';$('#hot').checked=$('#regular').checked=$('#dairy').checked=true;$('#shot').checked=$('#vanilla').checked=$('#caramel').checked=false;$('#notes').value='';if(ci!==null){const x=cart[ci];setRadio('temp',x.options.temp||'Hot');setRadio('size',x.options.size||'Regular');if(p.milk)setRadio('milk',x.options.milk||'Dairy');$('#shot').checked=x.options.extras.includes('Extra shot');$('#vanilla').checked=x.options.extras.includes('Vanilla');$('#caramel').checked=x.options.extras.includes('Caramel');$('#notes').value=x.notes||'';$('#saveProduct').textContent='Save changes'}else $('#saveProduct').textContent='Add to order';updateModalPrice();$('#productModal').classList.add('show');document.body.classList.add('lock')}
+function closeProduct(){$('#productModal').classList.remove('show');document.body.classList.remove('lock');editIndex=null}
+function updateModalPrice(){if(!activeProduct)return 0;let t=activeProduct.price;if(selected('temp')==='Iced')t+=20;if(selected('size')==='Large')t+=40;if(activeProduct.milk&&['Oat','Almond'].includes(selected('milk')))t+=40;if($('#shot').checked)t+=50;if($('#vanilla').checked)t+=25;if($('#caramel').checked)t+=25;$('#modalPrice').textContent=`₹${t}`;return t}
+$('#productModal').addEventListener('change',updateModalPrice);$('#productClose').addEventListener('click',closeProduct);$('#saveProduct').addEventListener('click',()=>{const extras=[];if($('#shot').checked)extras.push('Extra shot');if($('#vanilla').checked)extras.push('Vanilla');if($('#caramel').checked)extras.push('Caramel');const item={name:activeProduct.name,cat:activeCategory,unit:updateModalPrice(),qty:editIndex!==null?cart[editIndex].qty:1,custom:true,options:{temp:selected('temp'),size:selected('size'),milk:activeProduct.milk?selected('milk'):'',extras},notes:$('#notes').value.trim()};if(editIndex!==null){cart[editIndex]=item;persist();updateCart()}else addGrouped(item);closeProduct();bumpBadge();toast(editIndex!==null?'Item updated':`${item.name} added`)});
 function subtotal(){return cart.reduce((s,x)=>s+x.unit*x.qty,0)}function tax(){return Math.round(subtotal()*.05)}
-function updateCart(){const count=cart.reduce((s,x)=>s+x.qty,0);$("#badge").textContent=count;const box=$("#cartItems");box.innerHTML=cart.length?"":'<div class="empty">Your table is empty.<br><br>Start with coffee.</div>';cart.forEach((x,i)=>{const opts=[x.options.temp,x.options.size,x.options.milk,...x.options.extras].filter(Boolean).join(" · ")||"As it comes";const d=document.createElement("div");d.className="cart-item";d.innerHTML=`<div class="cart-top"><div><h4>${x.name}</h4><div class="opts">${opts}</div>${x.notes?`<div class="opts">“${escapeHTML(x.notes)}”</div>`:""}</div><strong>₹${x.unit*x.qty}</strong></div><div class="cart-controls"><div class="qty"><button type="button" data-minus="${i}">−</button><span>${x.qty}</span><button type="button" data-plus="${i}">+</button></div><div>${x.custom?`<button class="link" type="button" data-edit="${i}">Edit</button>`:""}<button class="link" type="button" data-remove="${i}">Remove</button></div></div>`;box.appendChild(d)});$("#subtotal").textContent=`₹${subtotal()}`;$("#tax").textContent=`₹${tax()}`;$("#total").textContent=`₹${subtotal()+tax()}`}
-$("#cartItems").addEventListener("click",e=>{if(e.target.dataset.plus!==undefined){cart[+e.target.dataset.plus].qty++;updateCart()}else if(e.target.dataset.minus!==undefined){const i=+e.target.dataset.minus;cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1);updateCart()}else if(e.target.dataset.remove!==undefined){cart.splice(+e.target.dataset.remove,1);updateCart()}else if(e.target.dataset.edit!==undefined){const i=+e.target.dataset.edit,x=cart[i],pi=menu[x.cat].items.findIndex(p=>p.name===x.name);closeCart();openProduct(x.cat,pi,i)}})
-function openCart(){$("#cart").classList.add("show");$("#backdrop").classList.add("show");document.body.classList.add("lock")}function closeCart(){$("#cart").classList.remove("show");$("#backdrop").classList.remove("show");document.body.classList.remove("lock")}$("#cartOpen").addEventListener("click",openCart);$("#cartClose").addEventListener("click",closeCart);$("#backdrop").addEventListener("click",closeCart);
-function bumpBadge(){const b=$("#badge");b.classList.remove("bump");void b.offsetWidth;b.classList.add("bump")}
-function updateTable(){const price=prices.drinks[tableState.drink]+prices.bites[tableState.bite];$("#tableName").textContent=tableNames[tableState.mood];$("#tableDescription").textContent=`${tableState.drink}, a ${tableState.mood.toLowerCase()} mood, and ${tableState.bite}. ${tableState.mood==="Mystery"?"For people who said they'd only stay twenty minutes.":tableState.mood==="Essays"?"For underlining sentences and ordering a second cup.":"For afternoons with nowhere particular to go."}`;$("#tableDrink").textContent=tableState.drink;$("#tableMood").textContent=tableState.mood;$("#tableBite").textContent=tableState.bite;$("#tablePrice").textContent=`₹${price}`;const cup=$(".table-cup-fill"),book=$(".table-book"),bite=$(".table-bite");cup.style.background=tableState.drink==="Sea Salt Mocha"?"#3e241d":tableState.drink==="Cold Brew"?"#4a2d22":"#7a523f";book.style.background=tableState.mood==="Mystery"?"var(--accent)":tableState.mood==="Essays"?"var(--blue)":"var(--green)";bite.style.background=tableState.bite==="Cinnamon Roll"?"#b66f42":tableState.bite==="Lemon Loaf"?"#d7b35b":"var(--gold)"}
-[["#drinkChoices","drink"],["#moodChoices","mood"],["#biteChoices","bite"]].forEach(([sel,key])=>{$(sel).addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;$(sel).querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));b.classList.add("active");tableState[key]=b.dataset.value;updateTable()})});
-$("#addTable").addEventListener("click",()=>{const price=prices.drinks[tableState.drink]+prices.bites[tableState.bite];cart.push({name:tableNames[tableState.mood],cat:"table",unit:price,qty:1,custom:false,options:{temp:"",size:"",milk:"",extras:[tableState.drink,tableState.bite,tableState.mood]},notes:"Aster Table"});updateCart();bumpBadge();toast("Your Aster table was added")});
+function updateCart(){const count=cart.reduce((s,x)=>s+x.qty,0);$('#badge').textContent=count;const box=$('#cartItems');box.innerHTML=cart.length?'':'<div class="empty">Your order is empty.<br><br>Start with coffee.</div>';cart.forEach((x,i)=>{const opts=[x.options?.temp,x.options?.size,x.options?.milk,...(x.options?.extras||[])].filter(Boolean).join(' · ')||'As it comes';const d=document.createElement('div');d.className='cart-item';d.innerHTML=`<div class="cart-top"><div><h4>${x.name}</h4><div class="opts">${opts}</div>${x.notes?`<div class="opts">“${escapeHTML(x.notes)}”</div>`:''}</div><strong>₹${x.unit*x.qty}</strong></div><div class="cart-controls"><div class="qty"><button type="button" data-minus="${i}">−</button><span>${x.qty}</span><button type="button" data-plus="${i}">+</button></div><div>${x.custom?`<button class="link" type="button" data-edit="${i}">Edit</button>`:''}<button class="link" type="button" data-remove="${i}">Remove</button></div></div>`;box.appendChild(d)});$('#subtotal').textContent=`₹${subtotal()}`;$('#tax').textContent=`₹${tax()}`;$('#total').textContent=`₹${subtotal()+tax()}`;persist()}
+$('#cartItems').addEventListener('click',e=>{if(e.target.dataset.plus!==undefined){cart[+e.target.dataset.plus].qty++;updateCart()}else if(e.target.dataset.minus!==undefined){const i=+e.target.dataset.minus;cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1);updateCart()}else if(e.target.dataset.remove!==undefined){cart.splice(+e.target.dataset.remove,1);updateCart()}else if(e.target.dataset.edit!==undefined){const i=+e.target.dataset.edit,x=cart[i],pi=menu[x.cat]?.items.findIndex(p=>p.name===x.name)??-1;if(pi>=0){closeCart();openProduct(x.cat,pi,i)}}});
+function openCart(){$('#cart').classList.add('show');$('#backdrop').classList.add('show');document.body.classList.add('lock')}function closeCart(){$('#cart').classList.remove('show');$('#backdrop').classList.remove('show');document.body.classList.remove('lock')}$('#cartOpen').addEventListener('click',openCart);$('#cartClose').addEventListener('click',closeCart);$('#backdrop').addEventListener('click',closeCart);
+function bumpBadge(){const b=$('#badge');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}
 $("#checkoutBtn").addEventListener("click",()=>{if(!cart.length){toast("Add something first");return}closeCart();renderReceipt();$("#billModal").classList.add("show");document.body.classList.add("lock")});$("#billClose").addEventListener("click",closeBill);function closeBill(){$("#billModal").classList.remove("show");document.body.classList.remove("lock")}
 $$(".type").forEach(b=>b.addEventListener("click",()=>{$$(".type").forEach(x=>x.classList.remove("active"));b.classList.add("active");orderType=b.dataset.type}));
 function renderReceipt(){const box=$("#receiptItems");box.innerHTML="";cart.forEach(x=>{const r=document.createElement("div");r.className="receipt-line";r.innerHTML=`<span>${x.qty} × ${x.name}</span><strong>₹${x.unit*x.qty}</strong>`;box.appendChild(r)});$("#receiptSubtotal").textContent=`₹${subtotal()}`;$("#receiptTax").textContent=`₹${tax()}`;$("#receiptTotal").textContent=`₹${subtotal()+tax()}`}
-$("#placeOrder").addEventListener("click",()=>{if(!$("#customerName").value.trim()||!$("#customerPhone").value.trim()){toast("Enter name and phone");return}$("#orderNumber").textContent=`${orderType} · AST-${Math.floor(1000+Math.random()*9000)} · ₹${subtotal()+tax()}`;$("#billContent").style.display="none";$("#success").classList.add("show")});$("#finish").addEventListener("click",()=>{cart=[];updateCart();$("#success").classList.remove("show");$("#billContent").style.display="block";$("#customerName").value="";$("#customerPhone").value="";closeBill()});
-$("#themeToggle").addEventListener("click",()=>{const next=document.body.dataset.theme==="day"?"night":"day";document.body.dataset.theme=next;$(".theme-label").textContent=next==="day"?"Morning":"After Hours";document.querySelector('meta[name="theme-color"]').content=next==="day"?"#efeade":"#171210"});
+$("#placeOrder").addEventListener("click",()=>{if(!$("#customerName").value.trim()||!$("#customerPhone").value.trim()){toast("Enter name and phone");return}$("#orderNumber").textContent=`${orderType} · AST-${Math.floor(1000+Math.random()*9000)} · ₹${subtotal()+tax()}`;$("#billContent").style.display="none";$("#success").classList.add("show")});$("#finish").addEventListener("click",()=>{cart=[];persist();updateCart();$("#success").classList.remove("show");$("#billContent").style.display="block";$("#customerName").value="";$("#customerPhone").value="";closeBill()});
+$("#themeToggle").addEventListener("click",()=>{const next=document.body.dataset.theme==="day"?"night":"day";document.body.dataset.theme=next;$(".theme-label").textContent=next==="day"?"Morning":"After Hours";document.querySelector('meta[name="theme-color"]').content=next==="day"?"#efeade":"#171210";persist()});
 function escapeHTML(t){const d=document.createElement("div");d.textContent=t;return d.innerHTML}let toastTimer;function toast(t){$("#toast").textContent=t;$("#toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("#toast").classList.remove("show"),1700)}
+
+// Menu filters
+$("#filterBar").addEventListener("click",e=>{const b=e.target.closest(".filterbtn");if(!b)return;activeFilter=b.dataset.filter;$$('.filterbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderMenu(activeCategory)});
+// Mobile editorial drawer
+const mobileBtn=$("#mobileMenuBtn"),mobileDrawer=$("#mobileDrawer");mobileBtn.addEventListener('click',()=>{const open=mobileDrawer.classList.toggle('show');mobileBtn.setAttribute('aria-expanded',String(open))});mobileDrawer.addEventListener('click',e=>{if(e.target.matches('a')){mobileDrawer.classList.remove('show');mobileBtn.setAttribute('aria-expanded','false')}});
+// Modal backdrop click-to-close
+$("#productModal").addEventListener('click',e=>{if(e.target===$("#productModal"))closeProduct()});$("#billModal").addEventListener('click',e=>{if(e.target===$("#billModal"))closeBill()});
+// Scroll spy
+const spyLinks=$$('nav .navlink');const spySections=['menu','daily-pour','origin','reading'].map(id=>document.getElementById(id));const spy=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){spyLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id))}})},{rootMargin:'-35% 0px -55% 0px'});spySections.forEach(s=>s&&spy.observe(s));
+// Interactive Aster shelf
+const shelf=[{title:'The House at Rainfall',text:'Fictional · quiet mystery. Pair it with a Flat White and the window seat.'},{title:'Small Notes on Ordinary Days',text:'Fictional essays · observant and warm. Best with an Americano and Lemon Loaf.'},{title:'Clouds Over Bellweather',text:'Fictional literary fiction · dreamy and slow. Pair with Cold Brew and a Cinnamon Roll.'}];
+$$('.book[data-book]').forEach(book=>{const open=()=>{const x=shelf[+book.dataset.book];$('#shelfTitle').textContent=x.title;$('#shelfText').textContent=x.text;$('#shelfCard').classList.add('show')};book.addEventListener('click',open);book.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})});$('#reading').addEventListener('mouseleave',()=>$('#shelfCard').classList.remove('show'));
+
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});$$(".reveal").forEach(e=>observer.observe(e));const reading=$("#reading");const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)reading.classList.add("visible")}),{threshold:.2});ro.observe(reading);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeProduct();closeCart();closeBill()}});
 
@@ -203,7 +427,30 @@ if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
  });
 }
 
-renderMenu("coffee");updateTable();updateCart();setTimeout(()=>$("#loader").classList.add("done"),900);
+$(".theme-label").textContent=document.body.dataset.theme==="night"?"After Hours":"Morning";
+const dailyMoments={
+ morning:{time:"08:15",title:"First light, first cup.",text:"A flat white, a warm almond croissant and the quietest table near the window.",drink:"Flat White",food:"Almond Croissant",price:370,image:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1400&q=88",caption:"Morning / Window table"},
+ afternoon:{time:"15:40",title:"The long middle of the day.",text:"Cold brew, lemon loaf and a book you did not plan to finish today.",drink:"Cold Brew",food:"Lemon Loaf",price:340,image:"https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1400&q=88",caption:"Afternoon / Reading room"},
+ evening:{time:"19:20",title:"One last chapter.",text:"Sea salt mocha, cinnamon roll and the corner table after the room gets quieter.",drink:"Sea Salt Mocha",food:"Cinnamon Roll",price:380,image:"https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=88",caption:"After Hours / Corner table"}
+};
+let currentMoment="morning";
+function renderMoment(key){
+ const m=dailyMoments[key]; currentMoment=key;
+ $$(".moment-tab").forEach(b=>b.classList.toggle("active",b.dataset.moment===key));
+ $("#momentNumber").textContent=m.time; $("#momentTitle").textContent=m.title; $("#momentText").textContent=m.text;
+ $("#momentDrink").textContent=m.drink; $("#momentFood").textContent=m.food; $("#momentPrice").textContent=`₹${m.price}`; $("#momentCaption").textContent=m.caption;
+ const frame=$(".daily-frame"),img=$("#momentImage"); frame.classList.add("switching");
+ setTimeout(()=>{img.src=m.image;img.alt=m.caption;frame.classList.remove("switching")},180);
+}
+$$(".moment-tab").forEach(b=>b.addEventListener("click",()=>renderMoment(b.dataset.moment)));
+$("#addMoment").addEventListener("click",()=>{
+ const m=dailyMoments[currentMoment];
+ const item={name:`Daily Pour — ${m.title}`,cat:"daily",unit:m.price,qty:1,custom:false,options:{temp:"",size:"",milk:"",extras:[m.drink,m.food]},notes:m.caption};
+ addGrouped(item);
+ updateCart(); bumpBadge(); toast("Daily Pour pairing added");
+});
+
+renderMenu("coffee");updateCart();setTimeout(()=>$("#loader").classList.add("done"),900);
 })();
 </script>
 </body>
